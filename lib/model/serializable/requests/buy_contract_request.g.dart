@@ -9,7 +9,7 @@ part of buy_contract_request;
 BuyContractRequest _$BuyContractRequestFromJson(Map<String, dynamic> json) {
   return BuyContractRequest(
     buy: json['buy'] as String,
-    price: json['price'] as int,
+    price: (json['price'] as num)?.toDouble(),
     subscribe: json['subscribe'] as int,
   )..reqId = json['req_id'] as int;
 }

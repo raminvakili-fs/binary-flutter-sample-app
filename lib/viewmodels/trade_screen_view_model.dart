@@ -2,10 +2,12 @@ import 'package:binary_mobile_app/api_info.dart';
 import 'package:binary_mobile_app/model/api/binary_api2.dart';
 import 'package:binary_mobile_app/model/serializable/requests/active_symbols_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/authorize_request.dart';
+import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/tick_stream_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
+import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
@@ -19,10 +21,22 @@ class TradeScreenViewModel  extends ChangeNotifier{
   BehaviorSubject<TickStreamResponse> _tickStream = BehaviorSubject<TickStreamResponse>();
   BehaviorSubject<TickStreamResponse> get tickStream => _tickStream;
 
+
+
+  BehaviorSubject<BuyContractResponse> buyContractResponse = BehaviorSubject<BuyContractResponse>();
+
   TradeScreenViewModel(){
     binaryApi2 = BinaryApi2.getInstance;
 
     binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
+
+  }
+
+  buyContract(BuyContractRequest buyContractRequest){
+    buyContractRequest.reqId = this.hashCode+4;
+    binaryApi2.sendRequest(buyContractRequest).listen((response){
+      buyContractResponse.add(response);
+    });
   }
 
   getTickStream({String ticks, int subscribe}){

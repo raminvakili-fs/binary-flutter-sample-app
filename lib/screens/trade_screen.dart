@@ -57,13 +57,6 @@ class _TradeViewState extends State<TradeView> {
 
         Expanded(flex: 1 ,child: PriceProposalWidget()),
 
-        FlatButton(
-          color: Colors.green,
-          highlightColor: Colors.blueGrey,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-          onPressed: () => {},
-          child: Text('Purchase', style: TextStyle(color: Colors.white),),
-        )
       ],
     );
   }

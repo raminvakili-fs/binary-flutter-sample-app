@@ -1,5 +1,7 @@
 import 'package:binary_mobile_app/app_constants.dart';
+import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
+import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
 import 'package:flutter/material.dart';
@@ -150,7 +152,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0)),
                   onPressed: (){
-                   _loadProposal(tradeViewModel);
+                    _getProposal(tradeViewModel);
                   },
                   child: Text(
                     'get price',
@@ -166,7 +168,38 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                             "Stake: \$${snapshot.data.proposal.askPrice}  Payout: \$${snapshot.data.proposal.payout}  Spot: ${snapshot.data.proposal.spot}");
                       }
                       return Container();
-                    })
+                    }),
+
+                StreamBuilder(
+                  stream: tradeViewModel.priceProposal,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<PriceProposalResponse> snapshot) {
+                    if (snapshot != null && snapshot.hasData) {
+                      return FlatButton(
+                        color: Colors.green,
+                        highlightColor: Colors.blueGrey,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                        onPressed: (){
+                          tradeViewModel.buyContract(BuyContractRequest(buy: snapshot.data.proposal.id, price: snapshot.data.proposal.askPrice));
+                        },
+                        child: Text('Purchase', style: TextStyle(color: Colors
+                            .white),),
+                      );
+                    }
+                    return Container();
+                  }
+                ),
+
+                StreamBuilder(
+                  stream: tradeViewModel.buyContractResponse,
+                  builder: (BuildContext context, AsyncSnapshot<BuyContractResponse> snapshot) {
+                    if (snapshot != null && snapshot.hasData) {
+                      return Text("${snapshot.data.buy.payout} ${snapshot.data.buy.balanceAfter} ${snapshot.data.buy.buyPrice} ${snapshot.data.buy.purchaseTime}");
+                    }
+                    return Container();
+                  },
+                )
               ],
             ),
           ),
@@ -176,7 +209,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
 
   }
 
-  _loadProposal(TradeScreenViewModel viewModel) async{
+  _getProposal(TradeScreenViewModel viewModel) async{
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       viewModel.getPriceForContract(

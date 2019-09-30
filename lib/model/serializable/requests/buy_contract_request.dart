@@ -11,7 +11,7 @@ class BuyContractRequest extends RequestBase {
   @JsonKey(name: 'buy')
   String buy;
   @JsonKey(name: 'price', includeIfNull: false)
-  int price;
+  double price;
   @JsonKey(name: 'subscribe', nullable: true, includeIfNull: false)
   int subscribe;
 

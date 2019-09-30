@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:binary_mobile_app/app_constants.dart';
 import 'package:binary_mobile_app/model/serializable/requests/request_base.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
+import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
@@ -77,6 +78,11 @@ class BinaryApi2 {
           case 'proposal':
             PriceProposalResponse priceProposalResponse = PriceProposalResponse.fromJson(jsonDecode(responseString));
             rs.streamController.add(priceProposalResponse);
+            break;
+
+          case 'buy':
+            BuyContractResponse buyContractResponse = BuyContractResponse.fromJson(jsonDecode(responseString));
+            rs.streamController.add(buyContractResponse);
             break;
         }
 
