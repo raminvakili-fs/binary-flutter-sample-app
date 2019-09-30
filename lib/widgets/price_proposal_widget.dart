@@ -1,5 +1,5 @@
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
-import 'package:binary_mobile_app/views/forms/higher_lower_form.dart';
+import 'package:binary_mobile_app/widgets/forms/higher_lower_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

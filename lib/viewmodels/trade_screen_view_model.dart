@@ -1,3 +1,4 @@
+import 'package:binary_mobile_app/model/api/binary_api2.dart';
 import 'package:binary_mobile_app/model/serializable/requests/active_symbols_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
@@ -6,7 +7,6 @@ import 'package:binary_mobile_app/model/serializable/responses/active_symbols_re
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
-import 'package:binary_mobile_app/repository/api_repo/binary_api2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
