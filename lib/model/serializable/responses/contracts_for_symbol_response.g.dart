@@ -9,7 +9,7 @@ part of contracts_for_symbol_response;
 ContractsForSymbolResponse _$ContractsForSymbolResponseFromJson(
     Map<String, dynamic> json) {
   return ContractsForSymbolResponse(
-    json['error'],
+    json['error'] == null ? null : Error.fromJson(json['error']),
     json['msg_type'] as String,
     json['req_id'] as int,
   )..contractsFor = json['contracts_for'] == null

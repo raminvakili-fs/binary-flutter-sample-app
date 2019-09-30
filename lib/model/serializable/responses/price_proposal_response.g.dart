@@ -9,7 +9,7 @@ part of price_proposal_response;
 PriceProposalResponse _$PriceProposalResponseFromJson(
     Map<String, dynamic> json) {
   return PriceProposalResponse(
-    error: json['error'],
+    error: json['error'] == null ? null : Error.fromJson(json['error']),
     msgType: json['msg_type'] as String,
     reqId: json['req_id'] as int,
     proposal: json['proposal'] == null

@@ -2,6 +2,7 @@ library price_proposal_response;
 
 import 'dart:convert';
 
+import 'package:binary_mobile_app/model/serializable/responses/response_base.dart' as prefix0;
 import 'package:json_annotation/json_annotation.dart';
 
 import 'response_base.dart';
@@ -12,12 +13,12 @@ part 'price_proposal_response.g.dart';
 @JsonSerializable(explicitToJson: true)
 class PriceProposalResponse extends ResponseBase{
 
-  @JsonKey(name: 'proposal')
+  @JsonKey(name: 'proposal', nullable: true)
   final Proposal proposal;
-  @JsonKey(name: 'subscription')
+  @JsonKey(name: 'subscription', nullable: true)
   final Subscription subscription;
 
-  PriceProposalResponse({Error error, String msgType, int reqId, this.proposal, this.subscription}) : super(error, msgType, reqId);
+  PriceProposalResponse({Error error, String msgType, int reqId, this.proposal, this.subscription}) : super(error: error, msgType: msgType, reqId: reqId);
 
   factory PriceProposalResponse.fromJson(Map<String, dynamic> json) => _$PriceProposalResponseFromJson(json);
   Map<String, dynamic> toJson() => _$PriceProposalResponseToJson(this);

@@ -11,7 +11,7 @@ class ContractsForSymbolResponse extends ResponseBase{
   @JsonKey(nullable: true, name: 'contracts_for')
   ContractsFor contractsFor;
 
-  ContractsForSymbolResponse(Error error, String msgType, int reqId) : super(error, msgType, reqId);
+  ContractsForSymbolResponse(Error error, String msgType, int reqId) : super(error: error, msgType: msgType, reqId: reqId);
 
   factory ContractsForSymbolResponse.fromJson(Map<String, dynamic> json) => _$ContractsForSymbolResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ContractsForSymbolResponseToJson(this);

@@ -1,6 +1,7 @@
 library buy_contract_response;
 
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
+import 'package:binary_mobile_app/model/serializable/responses/response_base.dart' as prefix0;
 import 'package:json_annotation/json_annotation.dart';
 
 part 'buy_contract_response.g.dart';
@@ -14,7 +15,7 @@ class BuyContractResponse extends ResponseBase{
   Subscription subscription;
 
 
-  BuyContractResponse(Error error, String msgType, int reqId, this.buy, this.subscription) : super(error, msgType, reqId);
+  BuyContractResponse(Error error, String msgType, int reqId, this.buy, this.subscription) : super(error: error, msgType: msgType, reqId: reqId);
 
   factory BuyContractResponse.fromJson(Map<String, dynamic> json) => _$BuyContractResponseFromJson(json);
   Map<String, dynamic> toJson() => _$BuyContractResponseToJson(this);

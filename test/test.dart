@@ -8,6 +8,7 @@ import 'package:binary_mobile_app/model/serializable/responses/buy_contract_resp
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
+import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -89,9 +90,18 @@ void main() {
 
     BuyContractResponse buyContractResponse = BuyContractResponse.fromJson(jsonDecode(res));
 
-    prints(buyContractResponse.toJson());
+    prints(buyContractResponse.toJson().toString());
 
     expect(buyContractResponse.buy.payout, 100);
+
+  });
+
+  test("buy contract response", (){
+    var json = "{\"error\": {\"code\": \"ContractBuyValidationError\", \"message\": \"The contract must expire on a trading day.\"}, \"msg_type\": \"proposal\", \"req_id\": 777186511}";
+
+    BuyContractResponse priceProposalResponse = BuyContractResponse.fromJson(jsonDecode(json));
+
+    expect(priceProposalResponse.error.code, "ContractBuyValidationError");
 
   });
 }

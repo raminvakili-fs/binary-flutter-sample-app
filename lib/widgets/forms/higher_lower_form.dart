@@ -163,9 +163,14 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                     stream: tradeViewModel.priceProposal,
                     builder: (BuildContext context,
                         AsyncSnapshot<PriceProposalResponse> snapshot) {
+
                       if (snapshot.hasData) {
-                        return Text(
-                            "Stake: \$${snapshot.data.proposal.askPrice}  Payout: \$${snapshot.data.proposal.payout}  Spot: ${snapshot.data.proposal.spot}");
+                        if (snapshot.data.error == null){
+                          return Text(
+                              "Stake: \$${snapshot.data.proposal.askPrice}  Payout: \$${snapshot.data.proposal.payout}  Spot: ${snapshot.data.proposal.spot}");
+                        } else {
+                          return (Text(snapshot.data.error.message, style: TextStyle(color: Colors.pinkAccent),));
+                        }
                       }
                       return Container();
                     }),
@@ -195,7 +200,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                   stream: tradeViewModel.buyContractResponse,
                   builder: (BuildContext context, AsyncSnapshot<BuyContractResponse> snapshot) {
                     if (snapshot != null && snapshot.hasData) {
-                      return Text("${snapshot.data.buy.payout} ${snapshot.data.buy.balanceAfter} ${snapshot.data.buy.buyPrice} ${snapshot.data.buy.purchaseTime}");
+                      return Text("payout: ${snapshot.data.buy.payout} balanceAfter: ${snapshot.data.buy.balanceAfter} buyPrice: ${snapshot.data.buy.buyPrice}");
                     }
                     return Container();
                   },

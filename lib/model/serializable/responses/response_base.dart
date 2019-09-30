@@ -14,20 +14,20 @@ class ResponseBase {
   final int reqId;
 
 
-  ResponseBase(this.error, this.msgType, this.reqId);
+  ResponseBase({this.error, this.msgType, this.reqId});
 
   factory ResponseBase.fromJson(Map<String, dynamic> json) => _$ResponseBaseFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResponseBaseToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Error{
 
   final String code;
   final String message;
 
-  Error(this.code, this.message);
+  Error({this.code, this.message});
 
   factory Error.fromJson(Map<String, dynamic> json) => _$ErrorFromJson(json);
 

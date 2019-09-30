@@ -9,7 +9,7 @@ part of 'active_symbols_response.dart';
 ActiveSymbolsResponse _$ActiveSymbolsResponseFromJson(
     Map<String, dynamic> json) {
   return ActiveSymbolsResponse(
-    json['error'],
+    json['error'] == null ? null : Error.fromJson(json['error']),
     json['msg_type'] as String,
     json['req_id'] as int,
     (json['active_symbols'] as List)

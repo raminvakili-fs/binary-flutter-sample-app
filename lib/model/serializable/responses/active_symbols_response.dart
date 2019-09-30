@@ -9,7 +9,7 @@ class ActiveSymbolsResponse extends ResponseBase{
   @JsonKey(name: 'active_symbols')
   final List<ActiveSymbols> activeSymbols;
 
-  ActiveSymbolsResponse(Error error, String msgType, int reqId, this.activeSymbols) : super(error, msgType, reqId);
+  ActiveSymbolsResponse(Error error, String msgType, int reqId, this.activeSymbols) : super(error: error, msgType: msgType, reqId: reqId);
 
   factory ActiveSymbolsResponse.fromJson(Map<String, dynamic> json) => _$ActiveSymbolsResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ActiveSymbolsResponseToJson(this);

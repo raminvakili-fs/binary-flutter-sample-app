@@ -8,7 +8,7 @@ part of buy_contract_response;
 
 BuyContractResponse _$BuyContractResponseFromJson(Map<String, dynamic> json) {
   return BuyContractResponse(
-    json['error'],
+    json['error'] == null ? null : Error.fromJson(json['error']),
     json['msg_type'] as String,
     json['req_id'] as int,
     json['buy'] == null
