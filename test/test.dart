@@ -74,7 +74,7 @@ void main() {
         contractsFor: 'R_50',
         currency: 'USD',
         productType: 'basic',
-        landingCompany: 'svg'), 2).listen((response){
+        landingCompany: 'svg')).listen((response){
 
           var res = response as ContractsForSymbolResponse;
 

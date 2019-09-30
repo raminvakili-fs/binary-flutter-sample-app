@@ -23,7 +23,7 @@ class TradeScreenViewModel  extends ChangeNotifier{
 
   getTickStream({String ticks, int subscribe}){
     _setLoading(true);
-    binaryApi2.sendRequest(TickStreamRequest(this.hashCode, ticks, subscribe), this.hashCode).listen((snapshot){
+    binaryApi2.sendRequest(TickStreamRequest(this.hashCode, ticks, subscribe)).listen((snapshot){
       if(snapshot != null)
         _tickStream.add(snapshot);
       _setLoading(false);
@@ -31,12 +31,13 @@ class TradeScreenViewModel  extends ChangeNotifier{
   }
 
 
-  BehaviorSubject<PriceProposalResponse> _priceProposalResponse;
+  BehaviorSubject<PriceProposalResponse> _priceProposalResponse = BehaviorSubject<PriceProposalResponse>();
 
   BehaviorSubject<PriceProposalResponse> get priceProposal => _priceProposalResponse;
 
   getPriceForContract(PriceProposalRequest priceProposalRequest){
-    binaryApi2.sendRequest(priceProposalRequest, this.hashCode+1).listen((response){
+    priceProposalRequest.reqId = this.hashCode+1;
+    binaryApi2.sendRequest(priceProposalRequest).listen((response){
       if (response != null) {
         _priceProposalResponse.add(response);
       }
@@ -48,7 +49,7 @@ class TradeScreenViewModel  extends ChangeNotifier{
 
   getActiveSymbols(ActiveSymbolsRequest activeSymbolsRequest){
     activeSymbolsRequest.reqId = this.hashCode+2;
-    binaryApi2.sendRequest(activeSymbolsRequest, this.hashCode+2).listen((response){
+    binaryApi2.sendRequest(activeSymbolsRequest).listen((response){
       if (response != null) {
         _activeSymbolsResponse.add(response);
       }
@@ -60,7 +61,7 @@ class TradeScreenViewModel  extends ChangeNotifier{
 
   getContractsForSymbol(ContractsForSymbolRequest contractsForSymbolRequest){
     contractsForSymbolRequest.reqId = this.hashCode+3;
-    binaryApi2.sendRequest(contractsForSymbolRequest, this.hashCode+3).listen((response){
+    binaryApi2.sendRequest(contractsForSymbolRequest).listen((response){
       if (response != null) {
         _contractsForSymbolResponse.add(response);
       }
@@ -92,6 +93,7 @@ class TradeScreenViewModel  extends ChangeNotifier{
     _selectedSymbol.close();
     _contractsForSymbolResponse.close();
     _selectedContractCategory.close();
+    print("Trade view model streams disposed");
   }
 
 }

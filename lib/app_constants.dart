@@ -7,5 +7,4 @@ class ContractType{
   static const PUT = 'PUT';
   static const CALLE = 'CALLE';
   static const PUTE = 'PUTE';
-
 }

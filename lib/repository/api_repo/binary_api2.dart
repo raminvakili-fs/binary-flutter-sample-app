@@ -31,13 +31,13 @@ class BinaryApi2 {
     _channel.stream.listen(_onStreamData);
   }
 
-  Stream<ResponseBase> sendRequest(RequestBase requestBase, int reqID) {
+  Stream<ResponseBase> sendRequest(RequestBase requestBase) {
     StreamController<ResponseBase> streamController;
-    var streamReqID = _containsReqId(_responseStreams, reqID);
+    var streamReqID = _containsReqId(_responseStreams, requestBase.reqId);
 
     if (streamReqID == null){
       streamController = StreamController.broadcast();
-      var responseStream = ResponseStream(streamController, reqID);
+      var responseStream = ResponseStream(streamController, requestBase.reqId);
       _responseStreams.add(responseStream);
     } else {
       streamController = streamReqID.streamController;

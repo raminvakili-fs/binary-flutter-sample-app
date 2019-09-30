@@ -20,7 +20,7 @@ class MainScreenViewModel extends ChangeNotifier {
 
   getTickStream({String ticks, int subscribe}){
     _setLoading(true);
-    binaryApi2.sendRequest(TickStreamRequest(this.hashCode, ticks, subscribe), this.hashCode).listen((snapshot){
+    binaryApi2.sendRequest(TickStreamRequest(this.hashCode, ticks, subscribe)).listen((snapshot){
       if(snapshot != null)
         _tickStream.add(snapshot);
       _setLoading(false);
@@ -33,7 +33,7 @@ class MainScreenViewModel extends ChangeNotifier {
   PriceProposalResponse get priceProposal => _priceProposalResponse;
 
   getPriceForContract(PriceProposalRequest priceProposalRequest){
-    binaryApi2.sendRequest(priceProposalRequest, this.hashCode+1).listen((response){
+    binaryApi2.sendRequest(priceProposalRequest).listen((response){
       if (response != null) {
         _priceProposalResponse = response;
       }
@@ -46,7 +46,7 @@ class MainScreenViewModel extends ChangeNotifier {
 
   getActiveSymbols(ActiveSymbolsRequest activeSymbolsRequest){
     activeSymbolsRequest.reqId = this.hashCode+2;
-    binaryApi2.sendRequest(activeSymbolsRequest, this.hashCode+2).listen((response){
+    binaryApi2.sendRequest(activeSymbolsRequest).listen((response){
       if (response != null) {
         _activeSymbolsResponse = response;
         notifyListeners();
