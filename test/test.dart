@@ -1,12 +1,12 @@
 import 'dart:convert';
 
+import 'package:binary_mobile_app/model/api/binary_api2.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/tick_stream_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
-import 'package:binary_mobile_app/repository/api_repo/binary_api2.dart';
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 

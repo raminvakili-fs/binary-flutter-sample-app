@@ -1,9 +1,9 @@
 
 
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
-import 'package:binary_mobile_app/views/contracts_type_widget.dart';
-import 'package:binary_mobile_app/views/price_proposal_widget.dart';
-import 'package:binary_mobile_app/views/symbols_widget.dart';
+import 'package:binary_mobile_app/widgets/contracts_type_widget.dart';
+import 'package:binary_mobile_app/widgets/price_proposal_widget.dart';
+import 'package:binary_mobile_app/widgets/symbols_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

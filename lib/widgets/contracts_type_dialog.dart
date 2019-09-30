@@ -1,6 +1,6 @@
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
-import 'package:binary_mobile_app/views/funky_overlay.dart';
+import 'package:binary_mobile_app/widgets/funky_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

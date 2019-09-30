@@ -1,7 +1,7 @@
 import 'package:binary_mobile_app/model/serializable/requests/active_symbols_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
-import 'package:binary_mobile_app/views/symbols_list_dialog.dart';
+import 'package:binary_mobile_app/widgets/symbols_list_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

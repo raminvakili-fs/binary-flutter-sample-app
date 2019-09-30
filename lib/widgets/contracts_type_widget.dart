@@ -1,6 +1,6 @@
 
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
-import 'package:binary_mobile_app/views/contracts_type_dialog.dart';
+import 'package:binary_mobile_app/widgets/contracts_type_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
