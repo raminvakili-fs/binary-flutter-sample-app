@@ -163,7 +163,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                         AsyncSnapshot<PriceProposalResponse> snapshot) {
                       if (snapshot.hasData) {
                         return Text(
-                            "${snapshot.data.proposal.askPrice}  ${snapshot.data.proposal.payout}");
+                            "Stake: \$${snapshot.data.proposal.askPrice}  Payout: \$${snapshot.data.proposal.payout}  Spot: ${snapshot.data.proposal.spot}");
                       }
                       return Container();
                     })

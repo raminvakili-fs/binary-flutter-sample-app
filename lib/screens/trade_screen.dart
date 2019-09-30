@@ -41,18 +41,21 @@ class _TradeViewState extends State<TradeView> {
 
     _context = context;
 
-    return ListView(
+    return Column(
       children: <Widget>[
-        Row(
-         crossAxisAlignment: CrossAxisAlignment.center,
-         mainAxisAlignment: MainAxisAlignment.center,
-         children: <Widget>[
-           Expanded(child: SymbolsWidget()),
-           Expanded(child: ContractsTypeWidget()),
-         ],
+        Container(
+          height: 150,
+          child: Row(
+           crossAxisAlignment: CrossAxisAlignment.center,
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: <Widget>[
+             Expanded(child: SymbolsWidget()),
+             Expanded(child: ContractsTypeWidget()),
+           ],
+          ),
         ),
 
-        PriceProposalWidget(),
+        Expanded(flex: 1 ,child: PriceProposalWidget()),
 
         FlatButton(
           color: Colors.green,
