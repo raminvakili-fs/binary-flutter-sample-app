@@ -17,6 +17,8 @@ class BinaryApi2 {
 
   int reqID = 1;
 
+  //Is for keeping track of the requests that has been sent to map the their response once it received from the server
+  //Needs optimization in case of removing requests that are not stream base. and need only one time call.
   List<ResponseStream> _responseStreams = List<ResponseStream>();
 
   static BinaryApi2 get getInstance {
@@ -32,6 +34,8 @@ class BinaryApi2 {
     _channel.stream.listen(_onStreamData);
   }
 
+  //Send the request that are received from the different parts of the app and returns a stream to the
+  //caller for the upcoming responses
   Stream<ResponseBase> sendRequest(RequestBase requestBase) {
     StreamController<ResponseBase> streamController;
     var streamReqID = _containsReqId(_responseStreams, requestBase.reqId);
@@ -50,6 +54,7 @@ class BinaryApi2 {
     return streamController.stream;
   }
 
+  //this callback method is responsible for mapping the response to the proper request source, (it uses req_id to do so)
   _onStreamData(dynamic responseString) {
     ResponseBase responseBase =
         ResponseBase.fromJson(jsonDecode(responseString));
@@ -84,6 +89,7 @@ class BinaryApi2 {
       }
     }
   }
+
 
   ResponseStream _containsReqId(List<ResponseStream> responseStreams, int reqID) {
     for (var rs in responseStreams){

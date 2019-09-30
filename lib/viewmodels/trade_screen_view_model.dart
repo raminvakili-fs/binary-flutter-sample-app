@@ -27,9 +27,7 @@ class TradeScreenViewModel  extends ChangeNotifier{
 
   TradeScreenViewModel(){
     binaryApi2 = BinaryApi2.getInstance;
-
     binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
-
   }
 
   buyContract(BuyContractRequest buyContractRequest){
@@ -49,7 +47,6 @@ class TradeScreenViewModel  extends ChangeNotifier{
   }
 
   BehaviorSubject<PriceProposalResponse> _priceProposalResponse = BehaviorSubject<PriceProposalResponse>();
-
   BehaviorSubject<PriceProposalResponse> get priceProposal => _priceProposalResponse;
 
   getPriceForContract(PriceProposalRequest priceProposalRequest){
