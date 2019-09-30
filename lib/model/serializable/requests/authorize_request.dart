@@ -11,10 +11,10 @@ class AuthorizeRequest extends RequestBase {
 
   @JsonKey(name: 'authorize')
   final String authorize;
-  @JsonKey(name: 'add_to_login_history')
+  @JsonKey(name: 'add_to_login_history', includeIfNull: false)
   final int addToLoginHistory;
 
-  AuthorizeRequest(int reqId, this.authorize, this.addToLoginHistory) : super(reqId);
+  AuthorizeRequest(int reqId, {this.authorize, this.addToLoginHistory}) : super(reqId);
 
   factory AuthorizeRequest.fromJson(Map<String, dynamic> json) => _$AuthorizeRequestFromJson(json);
 

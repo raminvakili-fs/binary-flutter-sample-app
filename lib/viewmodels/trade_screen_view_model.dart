@@ -1,5 +1,7 @@
+import 'package:binary_mobile_app/api_info.dart';
 import 'package:binary_mobile_app/model/api/binary_api2.dart';
 import 'package:binary_mobile_app/model/serializable/requests/active_symbols_request.dart';
+import 'package:binary_mobile_app/model/serializable/requests/authorize_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/tick_stream_request.dart';
@@ -19,6 +21,8 @@ class TradeScreenViewModel  extends ChangeNotifier{
 
   TradeScreenViewModel(){
     binaryApi2 = BinaryApi2.getInstance;
+
+    binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
   }
 
   getTickStream({String ticks, int subscribe}){
@@ -29,7 +33,6 @@ class TradeScreenViewModel  extends ChangeNotifier{
       _setLoading(false);
     });
   }
-
 
   BehaviorSubject<PriceProposalResponse> _priceProposalResponse = BehaviorSubject<PriceProposalResponse>();
 

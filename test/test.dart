@@ -4,6 +4,7 @@ import 'package:binary_mobile_app/model/api/binary_api2.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/tick_stream_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
+import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
@@ -81,6 +82,17 @@ void main() {
           print(response.toJson());
 
     });
+  });
+
+  test('Buy contract json test', () async {
+    var res = "{\"buy\": {\"balance_after\": 9779.14,\"buy_price\": 49.92,\"contract_id\": 58774758868,\"longcode\": \"Win payout if Volatility 100 Index is strictly higher than entry spot plus 0.10 at 1 minute after contract start time.\",\"payout\": 100,\"purchase_time\": 1569841840,\"shortcode\": \"CALL_R_100_100_1569841840_1569841900_S10P_0\",\"start_time\": 1569841840,\"transaction_id\": 117501213948},\"subscription\": {\"id\": \"f8dbf71a-a5ba-55f6-f82e-0bf8ee32d55a\"}}";
+
+    BuyContractResponse buyContractResponse = BuyContractResponse.fromJson(jsonDecode(res));
+
+    prints(buyContractResponse.toJson());
+
+    expect(buyContractResponse.buy.payout, 100);
+
   });
 }
 
