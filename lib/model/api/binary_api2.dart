@@ -58,35 +58,29 @@ class BinaryApi2 {
 
     for (ResponseStream rs in _responseStreams) {
       if (rs.reqID == responseBase.reqId) {
+        Map jsonMap = jsonDecode(responseString);
         switch (responseBase.msgType) {
           case 'tick':
-            TickStreamResponse tickStreamResponse =
-                TickStreamResponse.fromJson(jsonDecode(responseString));
-            rs.streamController.add(tickStreamResponse);
+            responseBase = TickStreamResponse.fromJson(jsonMap);
             break;
 
           case 'active_symbols':
-            ActiveSymbolsResponse activeSymbolsResponse = ActiveSymbolsResponse.fromJson(jsonDecode(responseString));
-            rs.streamController.add(activeSymbolsResponse);
+            responseBase = ActiveSymbolsResponse.fromJson(jsonMap);
             break;
 
           case 'contracts_for':
-            ContractsForSymbolResponse contractsForSymbolResponse = ContractsForSymbolResponse.fromJson(jsonDecode(responseString));
-            rs.streamController.add(contractsForSymbolResponse);
+            responseBase = ContractsForSymbolResponse.fromJson(jsonMap);
             break;
 
           case 'proposal':
-            PriceProposalResponse priceProposalResponse = PriceProposalResponse.fromJson(jsonDecode(responseString));
-            rs.streamController.add(priceProposalResponse);
+            responseBase = PriceProposalResponse.fromJson(jsonMap);
             break;
 
           case 'buy':
-            BuyContractResponse buyContractResponse = BuyContractResponse.fromJson(jsonDecode(responseString));
-            rs.streamController.add(buyContractResponse);
+            responseBase = BuyContractResponse.fromJson(jsonMap);
             break;
         }
-
-//        break;
+        rs.streamController.add(responseBase);
       }
     }
   }
