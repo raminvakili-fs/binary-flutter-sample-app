@@ -180,17 +180,23 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                   builder: (BuildContext context,
                       AsyncSnapshot<PriceProposalResponse> snapshot) {
                     if (snapshot != null && snapshot.hasData) {
-                      return FlatButton(
-                        color: Colors.green,
-                        highlightColor: Colors.blueGrey,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0)),
-                        onPressed: (){
-                          tradeViewModel.buyContract(BuyContractRequest(buy: snapshot.data.proposal.id, price: snapshot.data.proposal.askPrice));
-                        },
-                        child: Text('Purchase', style: TextStyle(color: Colors
-                            .white),),
-                      );
+                      if (snapshot.data.error == null) {
+                        return FlatButton(
+                          color: Colors.green,
+                          highlightColor: Colors.blueGrey,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          onPressed: () {
+                            tradeViewModel.buyContract(BuyContractRequest(
+                                buy: snapshot.data.proposal.id,
+                                price: snapshot.data.proposal.askPrice));
+                          },
+                          child: Text('Purchase', style: TextStyle(color: Colors
+                              .white),),
+                        );
+                      } else {
+                        return Text(snapshot.data.error.message);
+                      }
                     }
                     return Container();
                   }
@@ -200,7 +206,14 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                   stream: tradeViewModel.buyContractResponse,
                   builder: (BuildContext context, AsyncSnapshot<BuyContractResponse> snapshot) {
                     if (snapshot != null && snapshot.hasData) {
-                      return Text("payout: ${snapshot.data.buy.payout} balanceAfter: ${snapshot.data.buy.balanceAfter} buyPrice: ${snapshot.data.buy.buyPrice}");
+                      if (snapshot.data.error == null) {
+                        return Text("payout: ${snapshot.data.buy
+                            .payout} balanceAfter: ${snapshot.data.buy
+                            .balanceAfter} buyPrice: ${snapshot.data.buy
+                            .buyPrice}");
+                      } else {
+                        return Text(snapshot.data.error.message);
+                      }
                     }
                     return Container();
                   },
