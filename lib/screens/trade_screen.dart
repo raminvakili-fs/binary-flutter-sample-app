@@ -71,6 +71,7 @@ class _TradeViewState extends State<TradeView> {
   @override
   void dispose() {
     super.dispose();
+    print('trade screen disposed');
     Provider.of<TradeScreenViewModel>(_context)?.dispose();
   }
 }

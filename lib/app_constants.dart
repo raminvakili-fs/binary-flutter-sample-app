@@ -1,5 +1,4 @@
 
-const API_TOKEN = "";
 const APP_ID = 19078;
 
 class ContractType{
