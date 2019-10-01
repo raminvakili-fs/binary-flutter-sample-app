@@ -9,6 +9,7 @@ import 'package:binary_mobile_app/model/serializable/responses/contracts_for_sym
 import 'package:binary_mobile_app/model/serializable/responses/forget_all_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
+import 'package:binary_mobile_app/model/serializable/responses/statement_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -113,6 +114,16 @@ void main() {
 
     expect(forgetAllResponse.msgType, 'forget_all');
     expect(forgetAllResponse.forgetAll[0], '8140f3e9-b337-0adf-5cf8-27f0cadf5069');
+
+  });
+
+  test('statement json test', (){
+    var json = '{\"statement"\: {\"count\": 49,\"transactions\": [{\"action_type\": \"buy\",\"amount\": -1.59,\"app_id\": 19078,\"balance_after\": 9820.88,\"contract_id\": 58861194748,\"longcode\": \"Win payout if AUD/JPY is strictly higher than 74.000 at close on 2019-10-10.\",\"payout\": 10,\"reference_id\": 86864564740,\"shortcode\": \"CALL_FRXAUDJPY_10_1569914531_1570751999_74000000_0\",\"transaction_id\": 117674158448,\"transaction_time\": 1569914531}]}}';
+
+    StatementResponse response = StatementResponse.fromJson(jsonDecode(json));
+
+    expect(response.statement.transactions.length, 1);
+    expect(response.statement.transactions[0].actionType, 'buy');
 
   });
 }
