@@ -12,7 +12,15 @@ RequestBase _$RequestBaseFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$RequestBaseToJson(RequestBase instance) =>
-    <String, dynamic>{
-      'req_id': instance.reqId,
-    };
+Map<String, dynamic> _$RequestBaseToJson(RequestBase instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('req_id', instance.reqId);
+  return val;
+}

@@ -31,9 +31,7 @@ PriceProposalRequest _$PriceProposalRequestFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$PriceProposalRequestToJson(
     PriceProposalRequest instance) {
-  final val = <String, dynamic>{
-    'req_id': instance.reqId,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -41,6 +39,7 @@ Map<String, dynamic> _$PriceProposalRequestToJson(
     }
   }
 
+  writeNotNull('req_id', instance.reqId);
   writeNotNull('subscribe', instance.subscribe);
   writeNotNull('trading_period_start', instance.tradingPeriodStart);
   writeNotNull('selected_tick', instance.selectedTick);

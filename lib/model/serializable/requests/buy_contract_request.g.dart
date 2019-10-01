@@ -15,10 +15,7 @@ BuyContractRequest _$BuyContractRequestFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$BuyContractRequestToJson(BuyContractRequest instance) {
-  final val = <String, dynamic>{
-    'req_id': instance.reqId,
-    'buy': instance.buy,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -26,6 +23,8 @@ Map<String, dynamic> _$BuyContractRequestToJson(BuyContractRequest instance) {
     }
   }
 
+  writeNotNull('req_id', instance.reqId);
+  val['buy'] = instance.buy;
   writeNotNull('price', instance.price);
   writeNotNull('subscribe', instance.subscribe);
   return val;

@@ -14,9 +14,17 @@ AssetIndexRequest _$AssetIndexRequestFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$AssetIndexRequestToJson(AssetIndexRequest instance) =>
-    <String, dynamic>{
-      'req_id': instance.reqId,
-      'asset_index': instance.assetIndex,
-      'landing_company': instance.landingCompany,
-    };
+Map<String, dynamic> _$AssetIndexRequestToJson(AssetIndexRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('req_id', instance.reqId);
+  val['asset_index'] = instance.assetIndex;
+  val['landing_company'] = instance.landingCompany;
+  return val;
+}
