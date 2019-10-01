@@ -6,6 +6,7 @@ import 'package:binary_mobile_app/model/serializable/requests/tick_stream_reques
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
+import 'package:binary_mobile_app/model/serializable/responses/forget_all_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
@@ -102,6 +103,16 @@ void main() {
     BuyContractResponse priceProposalResponse = BuyContractResponse.fromJson(jsonDecode(json));
 
     expect(priceProposalResponse.error.code, "ContractBuyValidationError");
+
+  });
+
+  test("Forget All json response", (){
+    var json = "{\"echo_req\": {\"forget_all\": [\"ticks\",\"proposal\"],\"req_id\": 1}, \"forget_all\": [\"8140f3e9-b337-0adf-5cf8-27f0cadf5069\"],\"msg_type\": \"forget_all\",\"req_id\": 1}";
+
+    ForgetAllResponse forgetAllResponse = ForgetAllResponse.fromJson(jsonDecode(json));
+
+    expect(forgetAllResponse.msgType, 'forget_all');
+    expect(forgetAllResponse.forgetAll[0], '8140f3e9-b337-0adf-5cf8-27f0cadf5069');
 
   });
 }
