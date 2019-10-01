@@ -128,7 +128,7 @@ class TradeScreenViewModel  extends ChangeNotifier{
   }
 
   void forgetProposalStream() {
-    binaryApi2.sendRequest(ForgetAllRequest(reqID: 1, forgetAll: ['proposal', 'proposal_open_contract']), getResponseStream: false);
+    binaryApi2.sendRequest(ForgetAllRequest(reqID: 1, forgetAll: ['proposal', 'proposal_open_contract', 'ticks']), getResponseStream: false);
   }
 
 }
