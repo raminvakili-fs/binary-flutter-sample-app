@@ -28,9 +28,8 @@ class OpenContractWidget extends StatelessWidget {
             builder: (_, AsyncSnapshot<ProposalOpenContractResponse> snapshot){
               if (snapshot.hasData){
                 var openContract = snapshot.data;
-                print('${openContract.proposalOpenContract.displayName}');
-                return Text('currentSpot: ${openContract.proposalOpenContract.currentSpot}\n'
-                    'currentSpotTime: ${timeStampToDate(openContract.proposalOpenContract.currentSpotTime)}');
+                return Text('currentSpot: ${openContract.proposalOpenContract?.currentSpot}\n'
+                    'currentSpotTime: ${timeStampToDate(openContract.proposalOpenContract?.currentSpotTime)}');
               }
               return Text('No open contract');
             },
