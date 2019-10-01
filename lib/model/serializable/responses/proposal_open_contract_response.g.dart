@@ -9,7 +9,7 @@ part of proposal_open_contract_response;
 ProposalOpenContractResponse _$ProposalOpenContractResponseFromJson(
     Map<String, dynamic> json) {
   return ProposalOpenContractResponse(
-    error: json['error'],
+    error: json['error'] == null ? null : Error.fromJson(json['error']),
     msgType: json['msg_type'] as String,
     reqId: json['req_id'] as int,
     proposalOpenContract: json['proposal_open_contract'] == null
