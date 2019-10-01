@@ -16,7 +16,7 @@ part 'tick_stream_response.g.dart';
   @JsonKey(name: 'tick')
   final Tick tick;
 
-  TickStreamResponse(this.subscription, this.tick);
+  TickStreamResponse(Error error, String msgType, int reqId, this.subscription, this.tick) : super(error: error, msgType: msgType, reqId: reqId);
 
   factory TickStreamResponse.fromJson(Map<String, dynamic> json) => _$TickStreamResponseFromJson(json);
   Map<String, dynamic> toJson() => _$TickStreamResponseToJson(this);
