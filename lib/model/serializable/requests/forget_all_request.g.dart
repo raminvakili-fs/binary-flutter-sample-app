@@ -12,8 +12,16 @@ ForgetAllRequest _$ForgetAllRequestFromJson(Map<String, dynamic> json) {
   )..reqId = json['req_id'] as int;
 }
 
-Map<String, dynamic> _$ForgetAllRequestToJson(ForgetAllRequest instance) =>
-    <String, dynamic>{
-      'req_id': instance.reqId,
-      'forget_all': instance.forgetAll,
-    };
+Map<String, dynamic> _$ForgetAllRequestToJson(ForgetAllRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('req_id', instance.reqId);
+  val['forget_all'] = instance.forgetAll;
+  return val;
+}

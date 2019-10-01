@@ -17,11 +17,7 @@ ActiveSymbolsRequest _$ActiveSymbolsRequestFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ActiveSymbolsRequestToJson(
     ActiveSymbolsRequest instance) {
-  final val = <String, dynamic>{
-    'req_id': instance.reqId,
-    'active_symbols': instance.activeSymbols,
-    'product_type': instance.productType,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -29,6 +25,9 @@ Map<String, dynamic> _$ActiveSymbolsRequestToJson(
     }
   }
 
+  writeNotNull('req_id', instance.reqId);
+  val['active_symbols'] = instance.activeSymbols;
+  val['product_type'] = instance.productType;
   writeNotNull('landing_company', instance.landingCompany);
   return val;
 }

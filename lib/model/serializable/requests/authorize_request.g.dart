@@ -15,10 +15,7 @@ AuthorizeRequest _$AuthorizeRequestFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$AuthorizeRequestToJson(AuthorizeRequest instance) {
-  final val = <String, dynamic>{
-    'req_id': instance.reqId,
-    'authorize': instance.authorize,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -26,6 +23,8 @@ Map<String, dynamic> _$AuthorizeRequestToJson(AuthorizeRequest instance) {
     }
   }
 
+  writeNotNull('req_id', instance.reqId);
+  val['authorize'] = instance.authorize;
   writeNotNull('add_to_login_history', instance.addToLoginHistory);
   return val;
 }

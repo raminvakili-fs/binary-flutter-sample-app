@@ -7,7 +7,7 @@ part 'request_base.g.dart';
 @JsonSerializable(explicitToJson: true)
 class RequestBase {
 
-  @JsonKey(name: 'req_id')
+  @JsonKey(name: 'req_id', nullable: true, includeIfNull: false)
   int reqId;
 
   RequestBase(this.reqId);

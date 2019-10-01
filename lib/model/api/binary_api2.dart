@@ -36,22 +36,27 @@ class BinaryApi2 {
 
   //Send the request that are received from the different parts of the app and returns a stream to the
   //caller for the upcoming responses
-  Stream<ResponseBase> sendRequest(RequestBase requestBase) {
-    StreamController<ResponseBase> streamController;
-    var streamReqID = _containsReqId(_responseStreams, requestBase.reqId);
+  Stream<ResponseBase> sendRequest(RequestBase requestBase, {bool getResponseStream = true}) {
+    Stream returnedStream;
+    if (getResponseStream) {
+      StreamController<ResponseBase> streamController;
+      var streamReqID = _containsReqId(_responseStreams, requestBase.reqId);
 
-    if (streamReqID == null){
-      streamController = StreamController.broadcast();
-      var responseStream = ResponseStream(streamController, requestBase.reqId);
-      _responseStreams.add(responseStream);
-    } else {
-      streamController = streamReqID.streamController;
+      if (streamReqID == null) {
+        streamController = StreamController.broadcast();
+        var responseStream = ResponseStream(
+            streamController, requestBase.reqId);
+        _responseStreams.add(responseStream);
+      } else {
+        streamController = streamReqID.streamController;
+      }
+      returnedStream = streamController.stream;
     }
 
     print("json: ${jsonEncode(requestBase.toJson())}");
     _channel.sink.add(jsonEncode(requestBase.toJson()));
 
-    return streamController.stream;
+    return returnedStream;
   }
 
   //this callback method is responsible for mapping the response to the proper request source, (it uses req_id to do so)

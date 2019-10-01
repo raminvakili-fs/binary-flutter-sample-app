@@ -4,6 +4,7 @@ import 'package:binary_mobile_app/model/serializable/requests/active_symbols_req
 import 'package:binary_mobile_app/model/serializable/requests/authorize_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
+import 'package:binary_mobile_app/model/serializable/requests/forget_all_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/tick_stream_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
@@ -108,6 +109,10 @@ class TradeScreenViewModel  extends ChangeNotifier{
     _contractsForSymbolResponse.close();
     _selectedAvailableContract.close();
     print("Trade view model streams disposed");
+  }
+
+  void forgetProposalStream() {
+    binaryApi2.sendRequest(ForgetAllRequest(reqID: 1, forgetAll: ['proposal']), getResponseStream: false);
   }
 
 }

@@ -19,10 +19,7 @@ ContractsForSymbolRequest _$ContractsForSymbolRequestFromJson(
 
 Map<String, dynamic> _$ContractsForSymbolRequestToJson(
     ContractsForSymbolRequest instance) {
-  final val = <String, dynamic>{
-    'req_id': instance.reqId,
-    'contracts_for': instance.contractsFor,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -30,6 +27,8 @@ Map<String, dynamic> _$ContractsForSymbolRequestToJson(
     }
   }
 
+  writeNotNull('req_id', instance.reqId);
+  val['contracts_for'] = instance.contractsFor;
   writeNotNull('currency', instance.currency);
   writeNotNull('product_type', instance.productType);
   writeNotNull('landing_company', instance.landingCompany);
