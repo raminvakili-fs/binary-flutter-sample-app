@@ -25,34 +25,39 @@ class ContractsTypeWidget extends StatelessWidget {
                 color: Colors.blueGrey,
                 width: 1.0,
               )),
-          child: Column(
+          child: Stack(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: StreamBuilder(
-                  stream: tradeViewModel.contractsForSymbolResponse,
-                  builder: (_, AsyncSnapshot<ContractsForSymbolResponse> contracts){
-                    if (contracts.hasData && contracts.data.contractsFor.available.length > 0) {
-                      return StreamBuilder(
-                          stream: tradeViewModel.selectedAvailableContract,
-                          builder: (context, AsyncSnapshot<Available> selectedContract) {
-                            Available sA;
-                            if (selectedContract.hasData){
-                              sA = selectedContract.data;
-                            } else {
-                              sA = contracts.data.contractsFor.available[0];
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: StreamBuilder(
+                    stream: tradeViewModel.contractsForSymbolResponse,
+                    builder: (_, AsyncSnapshot<ContractsForSymbolResponse> contracts){
+                      if (contracts.hasData && contracts.data.contractsFor.available.length > 0) {
+                        return StreamBuilder(
+                            stream: tradeViewModel.selectedAvailableContract,
+                            builder: (context, AsyncSnapshot<Available> selectedContract) {
+                              Available sA;
+                              if (selectedContract.hasData){
+                                sA = selectedContract.data;
+                              } else {
+                                sA = contracts.data.contractsFor.available[0];
+                              }
+                              tradeViewModel.selectedAvailableContract.add(sA);
+                              return Text('${sA.contractCategoryDisplay} - ${sA.contractDisplay}');
                             }
-                            tradeViewModel.selectedAvailableContract.add(sA);
-                            return Text('${sA.contractCategoryDisplay} - ${sA.contractDisplay}');
-                          }
-                      );
-                    } else {
-                      return Text("Choose Contracts type");
-                    }
-                  },
+                        );
+                      } else {
+                        return Text("Choose Contracts type");
+                      }
+                    },
+                  ),
                 ),
               ),
-              Icon(Icons.keyboard_arrow_down)
+              Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Align(alignment: Alignment.bottomRight,child: Icon(Icons.keyboard_arrow_down)),
+              )
             ],
           ),
         ),

@@ -42,69 +42,70 @@ class SymbolsWidget extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               Center(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: StreamBuilder(
-                          stream: tradeScreenViewModel.activeSymbols,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<ActiveSymbolsResponse> snapshot) {
-                            if (snapshot != null && snapshot.hasData) {
-                              return StreamBuilder(
-                                stream: tradeScreenViewModel.selectedSymbol,
-                                builder: (_, selectedSymbol) {
-                                  ActiveSymbols sL;
-                                  if (selectedSymbol.hasData) {
-                                    sL = selectedSymbol.data;
-                                  } else if (snapshot
-                                          .data.activeSymbols.length >
-                                      0) {
-                                    sL = snapshot.data.activeSymbols[0];
-                                  } else {
-                                    return Text('No Active Symbol');
-                                  }
-                                  return Text(
-                                      "${sL.marketDisplayName} \n${sL.displayName}",
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ));
-                                },
-                              );
-                            } else {
-                              return Container(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                          }),
-                    ),
-                    Icon(Icons.keyboard_arrow_down)
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: StreamBuilder(
+                      stream: tradeScreenViewModel.activeSymbols,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<ActiveSymbolsResponse> snapshot) {
+                        if (snapshot != null && snapshot.hasData) {
+                          return StreamBuilder(
+                            stream: tradeScreenViewModel.selectedSymbol,
+                            builder: (_, selectedSymbol) {
+                              ActiveSymbols sL;
+                              if (selectedSymbol.hasData) {
+                                sL = selectedSymbol.data;
+                              } else if (snapshot
+                                      .data.activeSymbols.length >
+                                  0) {
+                                sL = snapshot.data.activeSymbols[0];
+                              } else {
+                                return Text('No Active Symbol');
+                              }
+                              return Text(
+                                  "${sL.marketDisplayName} \n${sL.displayName}",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ));
+                            },
+                          );
+                        } else {
+                          return Container(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      }),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: StreamBuilder(
-                      stream: tradeScreenViewModel.tickStream,
-                      builder: (context,
-                          AsyncSnapshot<TickStreamResponse> snapshot) {
-                        if (snapshot.hasData) {
-                          return Container(
-                              color: Colors.lightGreen,
-                              child: Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Text('${snapshot.data.tick.ask.toStringAsFixed(5)}'),
-                              ));
-                        }
-                        return Container(
-                          width: 10,
-                          height: 10,
-                        );
-                      }),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      StreamBuilder(
+                          stream: tradeScreenViewModel.tickStream,
+                          builder: (context,
+                              AsyncSnapshot<TickStreamResponse> snapshot) {
+                            if (snapshot.hasData) {
+                              return Container(
+                                  color: Colors.lightGreen,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text('${snapshot.data.tick.ask.toStringAsFixed(5)}'),
+                                  ));
+                            }
+                            return Container(
+                              width: 10,
+                              height: 10,
+                            );
+                          }),
+                      Icon(Icons.keyboard_arrow_down)
+                    ],
+                  ),
                 ),
               )
             ],
