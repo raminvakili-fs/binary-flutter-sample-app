@@ -51,12 +51,14 @@ class SymbolsWidget extends StatelessWidget {
                           stream: tradeScreenViewModel.selectedSymbol,
                           builder: (_, selectedSymbol) {
                             ActiveSymbols sL;
-                            if (selectedSymbol != null && selectedSymbol.hasData) {
+                            if (selectedSymbol.hasData) {
                               sL = selectedSymbol.data;
+                            } else {
+                              sL = snapshot.data.activeSymbols[0];
                             }
 
                             return Text(
-                                "${snapshot.data.activeSymbols[0].marketDisplayName} \n${snapshot.data.activeSymbols[0].displayName}",
+                                "${sL.marketDisplayName} \n${sL.displayName}",
                                 style: TextStyle(
                                 fontSize: 12,
                             ));
