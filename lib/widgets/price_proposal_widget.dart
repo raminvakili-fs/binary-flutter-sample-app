@@ -1,3 +1,4 @@
+import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
 import 'package:binary_mobile_app/widgets/forms/higher_lower_form.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,10 @@ class PriceProposalWidget extends StatelessWidget {
                   width: 1.0,
                 )),
             child: StreamBuilder(
-              stream: model.selectedContractCategory,
-              builder: (context, contractTypeSnapShot) {
-                if (contractTypeSnapShot.hasData) {
-                  switch (contractTypeSnapShot.data){
+              stream: model.selectedAvailableContract,
+              builder: (BuildContext context, AsyncSnapshot<Available> selectedAvailable) {
+                if (selectedAvailable.hasData) {
+                  switch (selectedAvailable.data.contractCategory){
                     case 'callput':
                       return HigherLowerForm();
                       break;

@@ -35,7 +35,7 @@ class ContractsTypeDialog extends StatelessWidget {
                       ],
                     ),
                     onTap: (){
-                      viewModel.selectedContractCategory.add(availableContract.contractCategory);
+                      viewModel.selectedAvailableContract.add(availableContract);
                       Navigator.of(context).pop();
                     },
                   );

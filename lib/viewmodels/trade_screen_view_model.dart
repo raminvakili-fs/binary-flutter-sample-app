@@ -87,8 +87,8 @@ class TradeScreenViewModel  extends ChangeNotifier{
   BehaviorSubject<ActiveSymbols> get selectedSymbol => _selectedSymbol;
 
 
-  BehaviorSubject<String> _selectedContractCategory = BehaviorSubject<String>();
-  BehaviorSubject<String> get selectedContractCategory => _selectedContractCategory;
+  BehaviorSubject<Available> _selectedAvailableContract = BehaviorSubject<Available>();
+  BehaviorSubject<Available> get selectedAvailableContract => _selectedAvailableContract;
 
   bool _isLoading = false;
 
@@ -106,7 +106,7 @@ class TradeScreenViewModel  extends ChangeNotifier{
     _tickStream.close();
     _selectedSymbol.close();
     _contractsForSymbolResponse.close();
-    _selectedContractCategory.close();
+    _selectedAvailableContract.close();
     print("Trade view model streams disposed");
   }
 
