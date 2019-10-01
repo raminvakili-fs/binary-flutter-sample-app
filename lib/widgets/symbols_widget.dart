@@ -53,10 +53,11 @@ class SymbolsWidget extends StatelessWidget {
                             ActiveSymbols sL;
                             if (selectedSymbol.hasData) {
                               sL = selectedSymbol.data;
-                            } else {
+                            } else if (snapshot.data.activeSymbols.length > 0) {
                               sL = snapshot.data.activeSymbols[0];
+                            } else {
+                              return Text('No Active Symbol');
                             }
-
                             return Text(
                                 "${sL.marketDisplayName} \n${sL.displayName}",
                                 style: TextStyle(
