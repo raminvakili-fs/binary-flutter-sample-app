@@ -42,6 +42,7 @@ class ContractsTypeWidget extends StatelessWidget {
                             } else {
                               sA = contracts.data.contractsFor.available[0];
                             }
+                            tradeViewModel.selectedAvailableContract.add(sA);
                             return Text('${sA.contractCategoryDisplay} - ${sA.contractDisplay}');
                           }
                       );
