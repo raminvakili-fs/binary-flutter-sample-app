@@ -10,20 +10,31 @@ class OpenContractWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tradeViewModel = Provider.of<TradeScreenViewModel>(context);
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: StreamBuilder(
-          stream: tradeViewModel.proposalOpenContractResponse,
-          builder: (_, AsyncSnapshot<ProposalOpenContractResponse> snapshot){
-            if (snapshot.hasData){
-              var openContract = snapshot.data;
-              print('${openContract.proposalOpenContract.displayName}');
-              return Text('currentSpot: ${openContract.proposalOpenContract.currentSpot} \n '
-                  'currentSpotTime: ${timeStampToDate(openContract.proposalOpenContract.currentSpotTime)}');
-            }
-            return Text('No open contract');
-          },
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Container(
+        height: 50,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.white30,
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            border: Border.all(
+              color: Colors.blueGrey,
+              width: 1.0,
+            )),
+        child: Center(
+          child: StreamBuilder(
+            stream: tradeViewModel.proposalOpenContractResponse,
+            builder: (_, AsyncSnapshot<ProposalOpenContractResponse> snapshot){
+              if (snapshot.hasData){
+                var openContract = snapshot.data;
+                print('${openContract.proposalOpenContract.displayName}');
+                return Text('currentSpot: ${openContract.proposalOpenContract.currentSpot}\n'
+                    'currentSpotTime: ${timeStampToDate(openContract.proposalOpenContract.currentSpotTime)}');
+              }
+              return Text('No open contract');
+            },
+          ),
         ),
       ),
     );
