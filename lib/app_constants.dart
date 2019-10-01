@@ -6,6 +6,8 @@ class ContractType{
   static const PUT = 'PUT';
   static const CALLE = 'CALLE';
   static const PUTE = 'PUTE';
+  static const DIGITDIFF = 'DIGITDIFF';
+  static const DIGITMATCH = 'DIGITMATCH';
 
 
 }
