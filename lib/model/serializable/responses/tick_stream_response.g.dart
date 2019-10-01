@@ -8,6 +8,9 @@ part of 'tick_stream_response.dart';
 
 TickStreamResponse _$TickStreamResponseFromJson(Map<String, dynamic> json) {
   return TickStreamResponse(
+    json['error'] == null ? null : Error.fromJson(json['error']),
+    json['msg_type'] as String,
+    json['req_id'] as int,
     json['subscription'] == null
         ? null
         : Subscription.fromJson(json['subscription'] as Map<String, dynamic>),
@@ -19,6 +22,9 @@ TickStreamResponse _$TickStreamResponseFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TickStreamResponseToJson(TickStreamResponse instance) =>
     <String, dynamic>{
+      'error': instance.error?.toJson(),
+      'msg_type': instance.msgType,
+      'req_id': instance.reqId,
       'subscription': instance.subscription?.toJson(),
       'tick': instance.tick?.toJson(),
     };

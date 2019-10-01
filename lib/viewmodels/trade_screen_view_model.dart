@@ -36,6 +36,11 @@ class TradeScreenViewModel  extends ChangeNotifier{
       binaryApi2.sendRequest(ProposalOpenContractRequest(reqID: this.hashCode + 6, contractId: response.buy.contractId, subscribe: 1))
           .listen((response) => proposalOpenContractResponse.add(response));
     });
+
+    selectedSymbol.listen((ActiveSymbols activeSymbol){
+      binaryApi2.sendRequest(TickStreamRequest(this.hashCode + 7, activeSymbol.symbol, 1))
+          .listen((response) => tickStream.add(response));
+    });
   }
 
   buyContract(BuyContractRequest buyContractRequest){
