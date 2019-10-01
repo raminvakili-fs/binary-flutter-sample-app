@@ -1,7 +1,7 @@
 library proposal_open_contract_response;
 
+
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
-import 'package:binary_mobile_app/model/serializable/responses/response_base.dart' as prefix0;
 import 'package:json_annotation/json_annotation.dart';
 
 
@@ -30,7 +30,7 @@ class ProposalOpenContract {
   @JsonKey(nullable: true, name: 'barrier_count')
   int barrierCount;
   @JsonKey(nullable: true, name: 'bid_price')
-  int bidPrice;
+  double bidPrice;
   @JsonKey(nullable: true, name: 'buy_price')
   double buyPrice;
   @JsonKey(nullable: true, name: 'contract_id')

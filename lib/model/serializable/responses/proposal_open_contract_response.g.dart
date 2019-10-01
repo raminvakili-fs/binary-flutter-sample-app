@@ -9,13 +9,14 @@ part of proposal_open_contract_response;
 ProposalOpenContractResponse _$ProposalOpenContractResponseFromJson(
     Map<String, dynamic> json) {
   return ProposalOpenContractResponse(
-    error: json['error'] == null ? null : Error.fromJson(json['error']),
-    msgType: json['msg_type'] as String,
-    reqId: json['req_id'] as int,
+    error: json['error'] == null
+        ? null
+        : Error.fromJson(json['error'] as Map<String, dynamic>),
+    msgType: json['msg_type'],
+    reqId: json['req_id'],
     proposalOpenContract: json['proposal_open_contract'] == null
         ? null
-        : ProposalOpenContract.fromJson(
-            json['proposal_open_contract'] as Map<String, dynamic>),
+        : ProposalOpenContract.fromJson(json['proposal_open_contract']),
   );
 }
 
@@ -32,54 +33,53 @@ ProposalOpenContract _$ProposalOpenContractFromJson(Map<String, dynamic> json) {
   return ProposalOpenContract(
     json['audit_details'] == null
         ? null
-        : AuditDetails.fromJson(json['audit_details'] as Map<String, dynamic>),
-    json['barrier'] as String,
-    json['barrier_count'] as int,
-    json['bid_price'] as int,
-    (json['buy_price'] as num)?.toDouble(),
-    json['contract_id'] as int,
-    json['contract_type'] as String,
-    json['currency'] as String,
-    (json['current_spot'] as num)?.toDouble(),
-    json['current_spot_display_value'] as String,
-    json['current_spot_time'] as int,
-    json['date_expiry'] as int,
-    json['date_settlement'] as int,
-    json['date_start'] as int,
-    json['display_name'] as String,
-    (json['entry_spot'] as num)?.toDouble(),
-    json['entry_spot_display_value'] as String,
-    (json['entry_tick'] as num)?.toDouble(),
-    json['entry_tick_display_value'] as String,
-    json['entry_tick_time'] as int,
-    (json['exit_tick'] as num)?.toDouble(),
-    json['exit_tick_display_value'] as String,
-    json['exit_tick_time'] as int,
-    json['is_expired'] as int,
-    json['is_forward_starting'] as int,
-    json['is_intraday'] as int,
-    json['is_path_dependent'] as int,
-    json['is_settleable'] as int,
-    json['is_sold'] as int,
-    json['is_valid_to_sell'] as int,
-    json['longcode'] as String,
-    json['payout'] as int,
-    (json['profit'] as num)?.toDouble(),
-    (json['profit_percentage'] as num)?.toDouble(),
-    json['purchase_time'] as int,
-    json['sell_price'] as int,
-    (json['sell_spot'] as num)?.toDouble(),
-    json['sell_spot_display_value'] as String,
-    json['sell_spot_time'] as int,
-    json['sell_time'] as int,
-    json['shortcode'] as String,
-    json['status'] as String,
+        : AuditDetails.fromJson(json['audit_details']),
+    json['barrier'],
+    json['barrier_count'],
+    json['bid_price'],
+    json['buy_price'],
+    json['contract_id'],
+    json['contract_type'],
+    json['currency'],
+    json['current_spot'],
+    json['current_spot_display_value'],
+    json['current_spot_time'],
+    json['date_expiry'],
+    json['date_settlement'],
+    json['date_start'],
+    json['display_name'],
+    json['entry_spot'],
+    json['entry_spot_display_value'],
+    json['entry_tick'],
+    json['entry_tick_display_value'],
+    json['entry_tick_time'],
+    json['exit_tick'],
+    json['exit_tick_display_value'],
+    json['exit_tick_time'],
+    json['is_expired'],
+    json['is_forward_starting'],
+    json['is_intraday'],
+    json['is_path_dependent'],
+    json['is_settleable'],
+    json['is_sold'],
+    json['is_valid_to_sell'],
+    json['longcode'],
+    json['payout'],
+    json['profit'],
+    json['profit_percentage'],
+    json['purchase_time'],
+    json['sell_price'],
+    json['sell_spot'],
+    json['sell_spot_display_value'],
+    json['sell_spot_time'],
+    json['sell_time'],
+    json['shortcode'],
+    json['status'],
     json['transaction_ids'] == null
         ? null
-        : TransactionIds.fromJson(
-            json['transaction_ids'] as Map<String, dynamic>),
-    json['underlying'] as String,
-    json['validation_error'] as String,
+        : TransactionIds.fromJson(json['transaction_ids']),
+    json['underlying'],
+    json['validation_error'],
   );
 }
 
@@ -135,30 +135,22 @@ Map<String, dynamic> _$ProposalOpenContractToJson(
 
 AuditDetails _$AuditDetailsFromJson(Map<String, dynamic> json) {
   return AuditDetails(
-    (json['contract_end'] as List)
-        ?.map((e) =>
-            e == null ? null : ContractEnd.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    (json['contract_start'] as List)
-        ?.map((e) => e == null
-            ? null
-            : ContractStart.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    json['contract_end'],
+    json['contract_start'],
   );
 }
 
 Map<String, dynamic> _$AuditDetailsToJson(AuditDetails instance) =>
     <String, dynamic>{
-      'contract_end': instance.contractEnd?.map((e) => e?.toJson())?.toList(),
-      'contract_start':
-          instance.contractStart?.map((e) => e?.toJson())?.toList(),
+      'contract_end': instance.contractEnd,
+      'contract_start': instance.contractStart,
     };
 
 ContractEnd _$ContractEndFromJson(Map<String, dynamic> json) {
   return ContractEnd(
-    json['epoch'] as int,
-    (json['tick'] as num)?.toDouble(),
-    json['tick_display_value'] as String,
+    json['epoch'],
+    json['tick'],
+    json['tick_display_value'],
   );
 }
 
@@ -171,9 +163,9 @@ Map<String, dynamic> _$ContractEndToJson(ContractEnd instance) =>
 
 ContractStart _$ContractStartFromJson(Map<String, dynamic> json) {
   return ContractStart(
-    json['epoch'] as int,
-    (json['tick'] as num)?.toDouble(),
-    json['tick_display_value'] as String,
+    json['epoch'],
+    json['tick'],
+    json['tick_display_value'],
   );
 }
 
@@ -186,8 +178,8 @@ Map<String, dynamic> _$ContractStartToJson(ContractStart instance) =>
 
 TransactionIds _$TransactionIdsFromJson(Map<String, dynamic> json) {
   return TransactionIds(
-    json['buy'] as int,
-    json['sell'] as int,
+    json['buy'],
+    json['sell'],
   );
 }
 

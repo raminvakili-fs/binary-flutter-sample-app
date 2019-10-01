@@ -6,11 +6,13 @@ import 'package:binary_mobile_app/model/serializable/requests/buy_contract_reque
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/forget_all_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
+import 'package:binary_mobile_app/model/serializable/requests/proposal_open_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/tick_stream_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
+import 'package:binary_mobile_app/model/serializable/responses/proposal_open_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
@@ -29,6 +31,11 @@ class TradeScreenViewModel  extends ChangeNotifier{
   TradeScreenViewModel(){
     binaryApi2 = BinaryApi2.getInstance;
     binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
+
+    buyContractResponse.listen((BuyContractResponse response) {
+      binaryApi2.sendRequest(ProposalOpenContractRequest(reqID: this.hashCode + 6, contractId: response.buy.contractId, subscribe: 1))
+          .listen((response) => proposalOpenContractResponse.add(response));
+    });
   }
 
   buyContract(BuyContractRequest buyContractRequest){
@@ -91,6 +98,9 @@ class TradeScreenViewModel  extends ChangeNotifier{
   BehaviorSubject<Available> _selectedAvailableContract = BehaviorSubject<Available>();
   BehaviorSubject<Available> get selectedAvailableContract => _selectedAvailableContract;
 
+  BehaviorSubject<ProposalOpenContractResponse> _proposalOpenContractResponse = BehaviorSubject<ProposalOpenContractResponse>();
+  BehaviorSubject<ProposalOpenContractResponse> get proposalOpenContractResponse => _proposalOpenContractResponse;
+
   bool _isLoading = false;
 
   bool get isLoading {
@@ -108,11 +118,12 @@ class TradeScreenViewModel  extends ChangeNotifier{
     _selectedSymbol.close();
     _contractsForSymbolResponse.close();
     _selectedAvailableContract.close();
+    _proposalOpenContractResponse.close();
     print("Trade view model streams disposed");
   }
 
   void forgetProposalStream() {
-    binaryApi2.sendRequest(ForgetAllRequest(reqID: 1, forgetAll: ['proposal']), getResponseStream: false);
+    binaryApi2.sendRequest(ForgetAllRequest(reqID: 1, forgetAll: ['proposal', 'proposal_open_contract']), getResponseStream: false);
   }
 
 }
