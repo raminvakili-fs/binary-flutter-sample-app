@@ -4,6 +4,7 @@ import 'package:binary_mobile_app/model/api/binary_api2.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/tick_stream_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
+import 'package:binary_mobile_app/model/serializable/responses/balance_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/forget_all_response.dart';
@@ -124,6 +125,15 @@ void main() {
 
     expect(response.statement.transactions.length, 1);
     expect(response.statement.transactions[0].actionType, 'buy');
+
+  });
+
+  test('balance json test', (){
+    var json = '{\"balance\": {\"balance\": 9841.94,\"currency\": \"USD\",\"id\": \"71f2e1ec-3e5d-b38c-c9b4-799bd881f7d5",\"loginid\": \"VRTC2351953\"},\"subscription\": {\"id\": \"71f2e1ec-3e5d-b38c-c9b4-799bd881f7d5\"}}';
+
+    BalanceResponse response = BalanceResponse.fromJson(jsonDecode(json));
+
+    expect(response.balance.currency, 'USD');
 
   });
 }
