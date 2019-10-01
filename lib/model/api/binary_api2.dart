@@ -9,6 +9,7 @@ import 'package:binary_mobile_app/model/serializable/responses/contracts_for_sym
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/proposal_open_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
+import 'package:binary_mobile_app/model/serializable/responses/statement_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -93,6 +94,10 @@ class BinaryApi2 {
 
           case 'proposal_open_contract':
             responseBase = ProposalOpenContractResponse.fromJson(jsonMap);
+            break;
+
+          case 'statement':
+            responseBase = StatementResponse.fromJson(jsonMap);
             break;
         }
         rs.streamController.add(responseBase);
