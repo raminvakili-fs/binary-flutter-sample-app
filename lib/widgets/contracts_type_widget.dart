@@ -12,7 +12,7 @@ class ContractsTypeWidget extends StatelessWidget {
     var tradeViewModel = Provider.of<TradeScreenViewModel>(context);
 
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(8.0),
       child: Card(
         elevation: 4,
         child: InkWell(
