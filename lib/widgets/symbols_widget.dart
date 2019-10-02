@@ -92,7 +92,7 @@ class SymbolsWidget extends StatelessWidget {
                                     padding: const EdgeInsets.all(2.0),
                                     child: snapshot.data.error == null ?
                                       Text('${snapshot.data.tick?.ask?.toStringAsFixed(5)}') :
-                                      Text('${snapshot.data.error.message}', style: TextStyle(fontSize: 8, color: Colors.pinkAccent),),
+                                      Text('${snapshot.data.error.message}', style: TextStyle(fontSize: 9,),),
                                   ));
                             }
                             return Container(

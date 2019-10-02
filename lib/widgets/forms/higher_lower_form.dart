@@ -110,7 +110,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                         initialValue: _barrier,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                            labelText: 'Offset',
+                            labelText: 'barrier',
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(2.0)))),

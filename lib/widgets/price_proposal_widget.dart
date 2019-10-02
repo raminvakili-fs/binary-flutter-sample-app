@@ -38,10 +38,10 @@ class PriceProposalWidget extends StatelessWidget {
                         break;
                     }
 
-                    return Container();
+                    return Center(child: Text('The proper Form for this contract type is not been implemented yet!', textAlign: TextAlign.center,),);
                   }
                   return Container(
-                    width: 100,
+                    width: double.infinity,
                     height: 100,
                   );
                 },
@@ -58,9 +58,7 @@ class PriceProposalWidget extends StatelessWidget {
 class RiseFallForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-    );
+    return Center(child: Text('The proper Form for this contract type is not implemented yet!', textAlign: TextAlign.center,),);;
   }
 }
 
