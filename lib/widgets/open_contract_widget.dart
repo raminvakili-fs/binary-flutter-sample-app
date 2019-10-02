@@ -11,7 +11,7 @@ class OpenContractWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var tradeViewModel = Provider.of<TradeScreenViewModel>(context);
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
         height: 50,
         width: double.infinity,

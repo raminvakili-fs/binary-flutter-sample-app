@@ -47,17 +47,20 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                     ),
                     Flexible(
                       flex: 1,
-                      child: TextFormField(
-                        initialValue: "5",
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            labelText: 'Duration',
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(2.0)))),
-                        onSaved: (pN) {
-                          _duration = int.parse(pN);
-                        },
+                      child: Container(
+                        height: 40,
+                        child: TextFormField(
+                          initialValue: "5",
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              labelText: 'Duration',
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.0)))),
+                          onSaved: (pN) {
+                            _duration = int.parse(pN);
+                          },
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -95,7 +98,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text('Barrier Offset: '),
+                    Text('Barrier: '),
                     SizedBox(
                       width: 10,
                     ),
