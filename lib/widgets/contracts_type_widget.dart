@@ -13,18 +13,12 @@ class ContractsTypeWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: InkWell(
-        onTap: () {
-          showDialog(context: context, builder: (context) => ContractsTypeDialog(viewModel: tradeViewModel,));
-        },
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white30,
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              border: Border.all(
-                color: Colors.blueGrey,
-                width: 1.0,
-              )),
+      child: Card(
+        elevation: 4,
+        child: InkWell(
+          onTap: (){
+            showDialog(context: context, builder: (context) => ContractsTypeDialog(viewModel: tradeViewModel,));
+          },
           child: Stack(
             children: <Widget>[
               Center(
@@ -48,7 +42,7 @@ class ContractsTypeWidget extends StatelessWidget {
                             }
                         );
                       } else {
-                        return Text("Choose Contracts type");
+                        return Text("Choose Contracts type", style: TextStyle(fontSize: 12,), textAlign: TextAlign.center,);
                       }
                     },
                   ),

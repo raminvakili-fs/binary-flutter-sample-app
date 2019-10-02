@@ -19,26 +19,18 @@ class SymbolsWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: InkWell(
-        onTap: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return SymbolsListDialog(
-                  viewModel: tradeScreenViewModel,
-                );
-              });
-        },
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 600),
-          decoration: BoxDecoration(
-              color: Colors.white30,
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              border: Border.all(
-                color: Colors.blueGrey,
-                width: 1.0,
-              )),
-          curve: ElasticInOutCurve(),
+      child: Card(
+        elevation: 4,
+        child: InkWell(
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return SymbolsListDialog(
+                    viewModel: tradeScreenViewModel,
+                  );
+                });
+          },
           child: Stack(
             children: <Widget>[
               Center(
@@ -92,7 +84,10 @@ class SymbolsWidget extends StatelessWidget {
                               AsyncSnapshot<TickStreamResponse> snapshot) {
                             if (snapshot.hasData) {
                               return Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
                                   color: Colors.lightGreen,
+                                ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text('${snapshot.data.tick.ask.toStringAsFixed(5)}'),
