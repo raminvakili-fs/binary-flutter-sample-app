@@ -2,6 +2,7 @@ import 'package:binary_mobile_app/app_constants.dart';
 import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
+import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
 import 'package:flutter/material.dart';
@@ -47,17 +48,20 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                     ),
                     Flexible(
                       flex: 1,
-                      child: TextFormField(
-                        initialValue: "5",
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            labelText: 'Duration',
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(2.0)))),
-                        onSaved: (pN) {
-                          _duration = int.parse(pN);
-                        },
+                      child: Container(
+                        height: 40,
+                        child: TextFormField(
+                          initialValue: "5",
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              labelText: 'Duration',
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2.0)))),
+                          onSaved: (pN) {
+                            _duration = int.parse(pN);
+                          },
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -95,7 +99,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text('Barrier Offset: '),
+                    Text('Barrier: '),
                     SizedBox(
                       width: 10,
                     ),
@@ -106,7 +110,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                         initialValue: _barrier,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                            labelText: 'Offset',
+                            labelText: 'barrier',
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(2.0)))),
@@ -146,18 +150,26 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                     ),
                   ],
                 ),
-                FlatButton(
-                  color: Colors.green,
-                  highlightColor: Colors.blueGrey,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                  onPressed: (){
-                    _getProposal(tradeViewModel);
-                  },
-                  child: Text(
-                    'get price',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                StreamBuilder(
+                  stream: tradeViewModel.selectedAvailableContract,
+                  builder: (context, AsyncSnapshot<Available> snapshot) {
+                    if (snapshot.hasData) {
+                      return FlatButton(
+                        color: Colors.green,
+                        highlightColor: Colors.blueGrey,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                        onPressed: () {
+                          _getProposal(tradeViewModel, snapshot.data);
+                        },
+                        child: Text(
+                          'get price',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      );
+                    }
+                    return Container();
+                  }
                 ),
                 StreamBuilder(
                     stream: tradeViewModel.priceProposal,
@@ -227,7 +239,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
 
   }
 
-  _getProposal(TradeScreenViewModel viewModel) async{
+  _getProposal(TradeScreenViewModel viewModel, Available selectedAvailable) async{
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       viewModel.getPriceForContract(
@@ -237,12 +249,12 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
             basis: 'payout',
             amount: _amount,
             barrier: _barrier,
-            contractType: ContractType.CALL,
+            contractType: selectedAvailable.contractType,
             currency: 'USD',
             durationUnit: _durationUnit.substring(0, 1),
             duration: _duration,
             proposal: 1,
-            symbol: 'frxAUDJPY'
+            symbol: selectedAvailable.underlyingSymbol
         ),
       );
     }

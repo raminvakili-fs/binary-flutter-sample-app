@@ -48,7 +48,7 @@ class _TradeViewState extends State<TradeView> {
     return Column(
       children: <Widget>[
         Container(
-          height: 150,
+          height: 120,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

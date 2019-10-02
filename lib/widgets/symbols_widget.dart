@@ -18,7 +18,7 @@ class SymbolsWidget extends StatelessWidget {
     ));
 
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(8.0),
       child: Card(
         elevation: 4,
         child: InkWell(
@@ -90,7 +90,9 @@ class SymbolsWidget extends StatelessWidget {
                                 ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
-                                    child: Text('${snapshot.data.tick.ask.toStringAsFixed(5)}'),
+                                    child: snapshot.data.error == null ?
+                                      Text('${snapshot.data.tick?.ask?.toStringAsFixed(5)}') :
+                                      Text('${snapshot.data.error.message}', style: TextStyle(fontSize: 9,),),
                                   ));
                             }
                             return Container(
