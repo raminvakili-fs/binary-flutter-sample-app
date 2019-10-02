@@ -90,7 +90,9 @@ class SymbolsWidget extends StatelessWidget {
                                 ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
-                                    child: Text('${snapshot.data.tick.ask.toStringAsFixed(5)}'),
+                                    child: snapshot.data.error == null ?
+                                      Text('${snapshot.data.tick?.ask?.toStringAsFixed(5)}') :
+                                      Text('${snapshot.data.error.message}', style: TextStyle(fontSize: 8, color: Colors.pinkAccent),),
                                   ));
                             }
                             return Container(
