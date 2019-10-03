@@ -78,28 +78,27 @@ class SymbolsWidget extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      StreamBuilder(
-                          stream: tradeScreenViewModel.tickStream,
-                          builder: (context,
-                              AsyncSnapshot<TickStreamResponse> snapshot) {
-                            if (snapshot.hasData) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: Colors.lightGreen,
-                                ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: snapshot.data.error == null ?
-                                      Text('${snapshot.data.tick?.ask?.toStringAsFixed(5)}') :
-                                      Text('${snapshot.data.error.message}', style: TextStyle(fontSize: 9,),),
-                                  ));
-                            }
-                            return Container(
-                              width: 10,
-                              height: 10,
-                            );
-                          }),
+                      Flexible(
+                        child: StreamBuilder(
+                            stream: tradeScreenViewModel.tickStream,
+                            builder: (context,
+                                AsyncSnapshot<TickStreamResponse> snapshot) {
+                              if (snapshot.hasData) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: Colors.lightGreen,
+                                  ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: snapshot.data.error == null ?
+                                        Text('${snapshot.data.tick?.ask?.toStringAsFixed(5)}') :
+                                        Text('${snapshot.data.error.message}', style: TextStyle(fontSize: 9,),),
+                                    ));
+                              }
+                              return Text("...");
+                            }),
+                      ),
                       Icon(Icons.keyboard_arrow_down)
                     ],
                   ),

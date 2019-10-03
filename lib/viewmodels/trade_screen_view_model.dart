@@ -38,6 +38,7 @@ class TradeScreenViewModel  extends ChangeNotifier{
     });
 
     selectedSymbol.listen((ActiveSymbols activeSymbol){
+      _tickStream.add(null);
       binaryApi2.sendRequest(TickStreamRequest(this.hashCode + 7, activeSymbol.symbol, 1))
           .listen((response) => tickStream.add(response));
     });
@@ -47,15 +48,6 @@ class TradeScreenViewModel  extends ChangeNotifier{
     buyContractRequest.reqId = this.hashCode+4;
     binaryApi2.sendRequest(buyContractRequest).listen((response){
       buyContractResponse.add(response);
-    });
-  }
-
-  getTickStream({String ticks, int subscribe}){
-    _setLoading(true);
-    binaryApi2.sendRequest(TickStreamRequest(this.hashCode, ticks, subscribe)).listen((snapshot){
-      if(snapshot != null)
-        _tickStream.add(snapshot);
-      _setLoading(false);
     });
   }
 
@@ -83,7 +75,9 @@ class TradeScreenViewModel  extends ChangeNotifier{
         var activeSymbols = response as ActiveSymbolsResponse;
 
         if (activeSymbols.error == null && activeSymbols.activeSymbols.length > 0) {
-          getContractsForSymbol(ContractsForSymbolRequest(reqId: 1, contractsFor: activeSymbols.activeSymbols[0].symbol, currency: 'USD', productType: 'basic'));
+          var firstSymbol = activeSymbols.activeSymbols[0];
+          getContractsForSymbol(ContractsForSymbolRequest(reqId: 1, contractsFor: firstSymbol.symbol, currency: 'USD', productType: 'basic'));
+          selectedSymbol.add(firstSymbol);
         }
 
       }
@@ -113,15 +107,6 @@ class TradeScreenViewModel  extends ChangeNotifier{
   BehaviorSubject<ProposalOpenContractResponse> _proposalOpenContractResponse = BehaviorSubject<ProposalOpenContractResponse>();
   BehaviorSubject<ProposalOpenContractResponse> get proposalOpenContractResponse => _proposalOpenContractResponse;
 
-  bool _isLoading = false;
-
-  bool get isLoading {
-    return _isLoading;
-  }
-
-  _setLoading(bool loading) {
-    _isLoading = loading;
-  }
 
   @override
   void dispose() {
