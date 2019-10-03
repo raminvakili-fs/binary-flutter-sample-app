@@ -76,9 +76,6 @@ class _TradeViewState extends State<TradeView> {
           ),
         ),
         Expanded(flex: 1, child: PriceProposalWidget()),
-
-        BuyContractWidget(),
-
         OpenContractWidget()
       ],
     );
