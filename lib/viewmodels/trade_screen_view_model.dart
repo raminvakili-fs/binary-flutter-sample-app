@@ -79,6 +79,13 @@ class TradeScreenViewModel  extends ChangeNotifier{
     binaryApi2.sendRequest(activeSymbolsRequest).listen((response){
       if (response != null) {
         _activeSymbolsResponse.add(response);
+
+        var activeSymbols = response as ActiveSymbolsResponse;
+
+        if (activeSymbols.error == null && activeSymbols.activeSymbols.length > 0) {
+          getContractsForSymbol(ContractsForSymbolRequest(reqId: 1, contractsFor: activeSymbols.activeSymbols[0].symbol, currency: 'USD', productType: 'basic'));
+        }
+
       }
     });
   }
