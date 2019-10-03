@@ -24,12 +24,18 @@ import 'package:rxdart/rxdart.dart';
 
 class TradeViewModel  extends BaseViewModel{
 
-  final SymbolsViewModel symbolsViewModel;
-  final ContractsTypeViewModel contractsTypeViewModel;
-  final PriceProposalViewModel priceProposalViewModel;
-  final OpenContractViewModel openContractViewModel;
+  SymbolsViewModel symbolsViewModel;
+  ContractsTypeViewModel contractsTypeViewModel;
+  PriceProposalViewModel priceProposalViewModel;
+  OpenContractViewModel openContractViewModel;
 
-  TradeViewModel({this.symbolsViewModel, this.contractsTypeViewModel, this.priceProposalViewModel, this.openContractViewModel}){
+  TradeViewModel(){
+
+    symbolsViewModel = SymbolsViewModel();
+    contractsTypeViewModel = ContractsTypeViewModel();
+    priceProposalViewModel = PriceProposalViewModel();
+    openContractViewModel = OpenContractViewModel();
+
     binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
 
     symbolsViewModel.contractsForSymbolResponse.listen((response){
@@ -48,6 +54,8 @@ class TradeViewModel  extends BaseViewModel{
   }
 
   void forgetProposalStream() {
+    priceProposalViewModel.isLoading.add(true);
+    openContractViewModel.isLoading.add(true);
     binaryApi2.sendRequest(ForgetAllRequest(reqID: 1, forgetAll: ['proposal', 'proposal_open_contract', 'ticks']), getResponseStream: false);
   }
 

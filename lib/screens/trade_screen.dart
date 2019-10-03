@@ -18,12 +18,7 @@ class TradeScreen extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            builder: (_) => TradeViewModel(
-                  symbolsViewModel: SymbolsViewModel(),
-                  contractsTypeViewModel: ContractsTypeViewModel(),
-                  priceProposalViewModel: PriceProposalViewModel(),
-                  openContractViewModel: OpenContractViewModel()
-                )),
+            builder: (_) => TradeViewModel()),
       ],
       child: Scaffold(
         appBar: AppBar(
