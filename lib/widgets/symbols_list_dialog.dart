@@ -1,12 +1,12 @@
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
-import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/funky_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SymbolsListDialog extends StatelessWidget {
-  final TradeScreenViewModel viewModel;
+  final TradeViewModel viewModel;
 
   const SymbolsListDialog({Key key, this.viewModel}) : super(key: key);
 
@@ -14,7 +14,7 @@ class SymbolsListDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return FunkyOverlay(
       child: StreamBuilder(
-        stream: viewModel.activeSymbols,
+        stream: viewModel.symbolsViewModel.activeSymbols,
         builder: (BuildContext context,
             AsyncSnapshot<ActiveSymbolsResponse> response) {
           if (response != null && response.hasData) {
@@ -31,8 +31,8 @@ class SymbolsListDialog extends StatelessWidget {
                         aS.displayName),
                     onTap: (){
                       viewModel.forgetProposalStream();
-                      viewModel.selectedSymbol.add(aS);
-                      viewModel.getContractsForSymbol(ContractsForSymbolRequest(
+                      viewModel.symbolsViewModel.selectedSymbol.add(aS);
+                      viewModel.contractsTypeViewModel.getContractsForSymbol(ContractsForSymbolRequest(
                         contractsFor: aS.symbol, productType: 'basic'
                       ));
                       Navigator.of(context).pop();

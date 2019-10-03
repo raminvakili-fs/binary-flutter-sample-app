@@ -1,11 +1,11 @@
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
-import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/funky_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ContractsTypeDialog extends StatelessWidget {
-  final TradeScreenViewModel viewModel;
+  final TradeViewModel viewModel;
 
   const ContractsTypeDialog({Key key, this.viewModel}) : super(key: key);
 
@@ -13,7 +13,7 @@ class ContractsTypeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return FunkyOverlay(
       child: StreamBuilder(
-        stream: viewModel.contractsForSymbolResponse,
+        stream: viewModel.contractsTypeViewModel.contractsForSymbolResponse,
         builder: (BuildContext context,
             AsyncSnapshot<ContractsForSymbolResponse> response) {
           if (response != null && response.hasData) {
@@ -35,7 +35,7 @@ class ContractsTypeDialog extends StatelessWidget {
                       ],
                     ),
                     onTap: (){
-                      viewModel.selectedAvailableContract.add(availableContract);
+                      viewModel.contractsTypeViewModel.selectedAvailableContract.add(availableContract);
                       Navigator.of(context).pop();
                     },
                   );
