@@ -43,8 +43,12 @@ class TradeViewModel  extends BaseViewModel{
     });
 
     priceProposalViewModel.buyContractResponse.listen((BuyContractResponse response) {
+      openContractViewModel.isLoading.add(true);
       binaryApi2.sendRequest(ProposalOpenContractRequest(reqID: this.hashCode + 6, contractId: response.buy.contractId, subscribe: 1))
-          .listen((response) => openContractViewModel.proposalOpenContractResponse.add(response));
+          .listen((response){
+        openContractViewModel.proposalOpenContractResponse.add(response);
+        openContractViewModel.isLoading.add(false);
+      });
     });
 
     symbolsViewModel.selectedSymbol.listen((ActiveSymbols activeSymbol){

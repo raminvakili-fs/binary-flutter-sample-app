@@ -1,10 +1,5 @@
 import 'package:binary_mobile_app/screens/statement_screen.dart';
-import 'package:binary_mobile_app/viewmodels/Symbols_view_model.dart';
-import 'package:binary_mobile_app/viewmodels/contracts_type_view_model.dart';
-import 'package:binary_mobile_app/viewmodels/open_contract_view_model.dart';
-import 'package:binary_mobile_app/viewmodels/price_proposal_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
-import 'package:binary_mobile_app/widgets/buy_contract_widget.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_widget.dart';
 import 'package:binary_mobile_app/widgets/open_contract_widget.dart';
 import 'package:binary_mobile_app/widgets/price_proposal_widget.dart';
@@ -70,8 +65,8 @@ class _TradeViewState extends State<TradeView> {
             ],
           ),
         ),
-        Expanded(flex: 1, child: PriceProposalWidget()),
-        OpenContractWidget()
+        Expanded(flex: 2, child: PriceProposalWidget()),
+        Expanded(flex: 1,child: OpenContractWidget())
       ],
     );
   }
