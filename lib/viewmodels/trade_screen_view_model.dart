@@ -29,8 +29,15 @@ class TradeScreenViewModel  extends ChangeNotifier{
   BehaviorSubject<BuyContractResponse> buyContractResponse = BehaviorSubject<BuyContractResponse>();
 
   TradeScreenViewModel(){
+
     binaryApi2 = BinaryApi2.getInstance;
     binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
+
+    getActiveSymbols(ActiveSymbolsRequest(
+      reqId: this.hashCode,
+      activeSymbols: 'brief',
+      productType: 'basic',
+    ));
 
     buyContractResponse.listen((BuyContractResponse response) {
       binaryApi2.sendRequest(ProposalOpenContractRequest(reqID: this.hashCode + 6, contractId: response.buy.contractId, subscribe: 1))
@@ -77,6 +84,7 @@ class TradeScreenViewModel  extends ChangeNotifier{
         if (activeSymbols.error == null && activeSymbols.activeSymbols.length > 0) {
           var firstSymbol = activeSymbols.activeSymbols[0];
           getContractsForSymbol(ContractsForSymbolRequest(reqId: 1, contractsFor: firstSymbol.symbol, currency: 'USD', productType: 'basic'));
+
           selectedSymbol.add(firstSymbol);
         }
 
