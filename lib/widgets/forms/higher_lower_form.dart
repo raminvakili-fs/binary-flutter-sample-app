@@ -1,10 +1,9 @@
-import 'package:binary_mobile_app/app_constants.dart';
 import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
-import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +26,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
 
   @override
   Widget build(BuildContext context) {
-    var tradeViewModel = Provider.of<TradeScreenViewModel>(context);
+    var tradeViewModel = Provider.of<TradeViewModel>(context);
 
     return Form(
       key: _formKey,
@@ -151,7 +150,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                   ],
                 ),
                 StreamBuilder(
-                  stream: tradeViewModel.selectedAvailableContract,
+                  stream: tradeViewModel.contractsTypeViewModel.selectedAvailableContract,
                   builder: (context, AsyncSnapshot<Available> snapshot) {
                     if (snapshot.hasData) {
                       return FlatButton(
@@ -172,7 +171,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                   }
                 ),
                 StreamBuilder(
-                    stream: tradeViewModel.priceProposal,
+                    stream: tradeViewModel.priceProposalViewModel.priceProposal,
                     builder: (BuildContext context,
                         AsyncSnapshot<PriceProposalResponse> snapshot) {
 
@@ -188,7 +187,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                     }),
 
                 StreamBuilder(
-                  stream: tradeViewModel.priceProposal,
+                  stream: tradeViewModel.priceProposalViewModel.priceProposal,
                   builder: (BuildContext context,
                       AsyncSnapshot<PriceProposalResponse> snapshot) {
                     if (snapshot != null && snapshot.hasData) {
@@ -199,7 +198,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           onPressed: () {
-                            tradeViewModel.buyContract(BuyContractRequest(
+                            tradeViewModel.priceProposalViewModel.buyContract(BuyContractRequest(
                                 buy: snapshot.data.proposal.id,
                                 price: snapshot.data.proposal.askPrice));
                           },
@@ -215,7 +214,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                 ),
 
                 StreamBuilder(
-                  stream: tradeViewModel.buyContractResponse,
+                  stream: tradeViewModel.priceProposalViewModel.buyContractResponse,
                   builder: (BuildContext context, AsyncSnapshot<BuyContractResponse> snapshot) {
                     if (snapshot != null && snapshot.hasData) {
                       if (snapshot.data.error == null) {
@@ -239,10 +238,10 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
 
   }
 
-  _getProposal(TradeScreenViewModel viewModel, Available selectedAvailable) async{
+  _getProposal(TradeViewModel viewModel, Available selectedAvailable) async{
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      viewModel.getPriceForContract(
+      viewModel.priceProposalViewModel.getPriceForContract(
         PriceProposalRequest(
             1,
             subscribe: 1,

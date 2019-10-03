@@ -6,9 +6,13 @@ class ContractsTypeViewModel extends BaseViewModel {
   BehaviorSubject<ContractsForSymbolResponse> _contractsForSymbolResponse = BehaviorSubject<ContractsForSymbolResponse>();
   BehaviorSubject<ContractsForSymbolResponse> get contractsForSymbolResponse => _contractsForSymbolResponse;
 
+  BehaviorSubject<Available> _selectedAvailableContract = BehaviorSubject<Available>();
+  BehaviorSubject<Available> get selectedAvailableContract => _selectedAvailableContract;
+
   @override
   void dispose() {
     _contractsForSymbolResponse.close();
+    _selectedAvailableContract.close();
     super.dispose();
   }
 

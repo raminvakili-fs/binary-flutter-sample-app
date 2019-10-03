@@ -1,7 +1,9 @@
 import 'package:binary_mobile_app/screens/statement_screen.dart';
 import 'package:binary_mobile_app/viewmodels/Symbols_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/contracts_type_view_model.dart';
-import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/open_contract_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/price_proposal_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_widget.dart';
 import 'package:binary_mobile_app/widgets/open_contract_widget.dart';
 import 'package:binary_mobile_app/widgets/price_proposal_widget.dart';
@@ -14,18 +16,28 @@ class TradeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (_) => TradeScreenViewModel(symbolsViewModel: SymbolsViewModel(), contractsTypeViewModel: ContractsTypeViewModel(),)),
+        ChangeNotifierProvider(
+            builder: (_) => TradeViewModel(
+                  symbolsViewModel: SymbolsViewModel(),
+                  contractsTypeViewModel: ContractsTypeViewModel(),
+                  priceProposalViewModel: PriceProposalViewModel(),
+                  openContractViewModel: OpenContractViewModel()
+                )),
       ],
       child: Scaffold(
         appBar: AppBar(
           title: Text('App Trader'),
           elevation: 0,
           actions: <Widget>[
-            IconButton(icon: Icon(Icons.account_balance), onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                return StatementScreen();
-              }));
-            },)
+            IconButton(
+              icon: Icon(Icons.account_balance),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return StatementScreen();
+                }));
+              },
+            )
           ],
         ),
         body: TradeView(),
@@ -70,6 +82,6 @@ class _TradeViewState extends State<TradeView> {
   void dispose() {
     super.dispose();
     print('trade screen disposed');
-    Provider.of<TradeScreenViewModel>(_context)?.dispose();
+    Provider.of<TradeViewModel>(_context)?.dispose();
   }
 }

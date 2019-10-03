@@ -17,62 +17,29 @@ import 'package:binary_mobile_app/model/serializable/responses/tick_stream_respo
 import 'package:binary_mobile_app/viewmodels/Symbols_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/base_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/contracts_type_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/open_contract_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/price_proposal_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
-class TradeScreenViewModel  extends BaseViewModel{
+class TradeViewModel  extends BaseViewModel{
 
   final SymbolsViewModel symbolsViewModel;
   final ContractsTypeViewModel contractsTypeViewModel;
+  final PriceProposalViewModel priceProposalViewModel;
+  final OpenContractViewModel openContractViewModel;
 
-  BehaviorSubject<BuyContractResponse> buyContractResponse = BehaviorSubject<BuyContractResponse>();
-
-  TradeScreenViewModel({this.symbolsViewModel, this.contractsTypeViewModel}){
+  TradeViewModel({this.symbolsViewModel, this.contractsTypeViewModel, this.priceProposalViewModel, this.openContractViewModel}){
     binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
 
     symbolsViewModel.contractsForSymbolResponse.listen((response){
       contractsTypeViewModel.contractsForSymbolResponse.add(response);
     });
 
-    buyContractResponse.listen((BuyContractResponse response) {
+    priceProposalViewModel.buyContractResponse.listen((BuyContractResponse response) {
       binaryApi2.sendRequest(ProposalOpenContractRequest(reqID: this.hashCode + 6, contractId: response.buy.contractId, subscribe: 1))
-          .listen((response) => proposalOpenContractResponse.add(response));
+          .listen((response) => openContractViewModel.proposalOpenContractResponse.add(response));
     });
-
-  }
-
-  buyContract(BuyContractRequest buyContractRequest){
-    buyContractRequest.reqId = this.hashCode+4;
-    binaryApi2.sendRequest(buyContractRequest).listen((response){
-      buyContractResponse.add(response);
-    });
-  }
-
-  BehaviorSubject<PriceProposalResponse> _priceProposalResponse = BehaviorSubject<PriceProposalResponse>();
-  BehaviorSubject<PriceProposalResponse> get priceProposal => _priceProposalResponse;
-
-  getPriceForContract(PriceProposalRequest priceProposalRequest){
-    priceProposalRequest.reqId = this.hashCode+1;
-    binaryApi2.sendRequest(priceProposalRequest).listen((response){
-      if (response != null) {
-        _priceProposalResponse.add(response);
-      }
-    });
-  }
-
-  BehaviorSubject<Available> _selectedAvailableContract = BehaviorSubject<Available>();
-  BehaviorSubject<Available> get selectedAvailableContract => _selectedAvailableContract;
-
-  BehaviorSubject<ProposalOpenContractResponse> _proposalOpenContractResponse = BehaviorSubject<ProposalOpenContractResponse>();
-  BehaviorSubject<ProposalOpenContractResponse> get proposalOpenContractResponse => _proposalOpenContractResponse;
-
-
-  @override
-  void dispose() {
-    super.dispose();
-    _selectedAvailableContract.close();
-    _proposalOpenContractResponse.close();
-    print("Trade view model streams disposed");
   }
 
   void forgetProposalStream() {

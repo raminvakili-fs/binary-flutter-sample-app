@@ -1,6 +1,6 @@
 
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
-import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +9,7 @@ class ContractsTypeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var tradeViewModel = Provider.of<TradeScreenViewModel>(context);
+    var tradeViewModel = Provider.of<TradeViewModel>(context);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -29,7 +29,7 @@ class ContractsTypeWidget extends StatelessWidget {
                     builder: (_, AsyncSnapshot<ContractsForSymbolResponse> contracts){
                       if (contracts.hasData && contracts.data.contractsFor.available.length > 0) {
                         return StreamBuilder(
-                            stream: tradeViewModel.selectedAvailableContract,
+                            stream: tradeViewModel.contractsTypeViewModel.selectedAvailableContract,
                             builder: (context, AsyncSnapshot<Available> selectedContract) {
                               Available sA;
                               if (selectedContract.hasData){
@@ -37,7 +37,7 @@ class ContractsTypeWidget extends StatelessWidget {
                               } else {
                                 sA = contracts.data.contractsFor.available[0];
                               }
-                              tradeViewModel.selectedAvailableContract.add(sA);
+                              tradeViewModel.contractsTypeViewModel.selectedAvailableContract.add(sA);
                               return Text('${sA.contractCategoryDisplay} - ${sA.contractDisplay}');
                             }
                         );

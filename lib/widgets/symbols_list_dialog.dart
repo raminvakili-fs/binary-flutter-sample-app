@@ -1,12 +1,12 @@
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
-import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/funky_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SymbolsListDialog extends StatelessWidget {
-  final TradeScreenViewModel viewModel;
+  final TradeViewModel viewModel;
 
   const SymbolsListDialog({Key key, this.viewModel}) : super(key: key);
 

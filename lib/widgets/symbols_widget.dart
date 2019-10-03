@@ -1,6 +1,6 @@
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
-import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/symbols_list_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +9,7 @@ class SymbolsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var tradeScreenViewModel = Provider.of<TradeScreenViewModel>(context);
+    var tradeScreenViewModel = Provider.of<TradeViewModel>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
