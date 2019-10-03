@@ -1,4 +1,6 @@
 import 'package:binary_mobile_app/screens/statement_screen.dart';
+import 'package:binary_mobile_app/viewmodels/Symbols_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/contracts_type_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/trade_screen_view_model.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_widget.dart';
 import 'package:binary_mobile_app/widgets/open_contract_widget.dart';
@@ -12,7 +14,7 @@ class TradeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (_) => TradeScreenViewModel()),
+        ChangeNotifierProvider(builder: (_) => TradeScreenViewModel(symbolsViewModel: SymbolsViewModel(), contractsTypeViewModel: ContractsTypeViewModel(),)),
       ],
       child: Scaffold(
         appBar: AppBar(

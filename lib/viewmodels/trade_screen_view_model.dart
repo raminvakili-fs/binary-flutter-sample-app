@@ -14,41 +14,31 @@ import 'package:binary_mobile_app/model/serializable/responses/contracts_for_sym
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/proposal_open_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
+import 'package:binary_mobile_app/viewmodels/Symbols_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/base_view_model.dart';
+import 'package:binary_mobile_app/viewmodels/contracts_type_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
-class TradeScreenViewModel  extends ChangeNotifier{
+class TradeScreenViewModel  extends BaseViewModel{
 
-  BinaryApi2 binaryApi2;
-
-  BehaviorSubject<TickStreamResponse> _tickStream = BehaviorSubject<TickStreamResponse>();
-  BehaviorSubject<TickStreamResponse> get tickStream => _tickStream;
-
-
+  final SymbolsViewModel symbolsViewModel;
+  final ContractsTypeViewModel contractsTypeViewModel;
 
   BehaviorSubject<BuyContractResponse> buyContractResponse = BehaviorSubject<BuyContractResponse>();
 
-  TradeScreenViewModel(){
-
-    binaryApi2 = BinaryApi2.getInstance;
+  TradeScreenViewModel({this.symbolsViewModel, this.contractsTypeViewModel}){
     binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
 
-    getActiveSymbols(ActiveSymbolsRequest(
-      reqId: this.hashCode,
-      activeSymbols: 'brief',
-      productType: 'basic',
-    ));
+    symbolsViewModel.contractsForSymbolResponse.listen((response){
+      contractsTypeViewModel.contractsForSymbolResponse.add(response);
+    });
 
     buyContractResponse.listen((BuyContractResponse response) {
       binaryApi2.sendRequest(ProposalOpenContractRequest(reqID: this.hashCode + 6, contractId: response.buy.contractId, subscribe: 1))
           .listen((response) => proposalOpenContractResponse.add(response));
     });
 
-    selectedSymbol.listen((ActiveSymbols activeSymbol){
-      _tickStream.add(null);
-      binaryApi2.sendRequest(TickStreamRequest(this.hashCode + 7, activeSymbol.symbol, 1))
-          .listen((response) => tickStream.add(response));
-    });
   }
 
   buyContract(BuyContractRequest buyContractRequest){
@@ -70,45 +60,6 @@ class TradeScreenViewModel  extends ChangeNotifier{
     });
   }
 
-  BehaviorSubject<ActiveSymbolsResponse> _activeSymbolsResponse = BehaviorSubject<ActiveSymbolsResponse>();
-  BehaviorSubject<ActiveSymbolsResponse> get activeSymbols => _activeSymbolsResponse;
-
-  getActiveSymbols(ActiveSymbolsRequest activeSymbolsRequest){
-    activeSymbolsRequest.reqId = this.hashCode+2;
-    binaryApi2.sendRequest(activeSymbolsRequest).listen((response){
-      if (response != null) {
-        _activeSymbolsResponse.add(response);
-
-        var activeSymbols = response as ActiveSymbolsResponse;
-
-        if (activeSymbols.error == null && activeSymbols.activeSymbols.length > 0) {
-          var firstSymbol = activeSymbols.activeSymbols[0];
-          getContractsForSymbol(ContractsForSymbolRequest(reqId: 1, contractsFor: firstSymbol.symbol, currency: 'USD', productType: 'basic'));
-
-          selectedSymbol.add(firstSymbol);
-        }
-
-      }
-    });
-  }
-
-  BehaviorSubject<ContractsForSymbolResponse> _contractsForSymbolResponse = BehaviorSubject<ContractsForSymbolResponse>();
-  BehaviorSubject<ContractsForSymbolResponse> get contractsForSymbolResponse => _contractsForSymbolResponse;
-
-  getContractsForSymbol(ContractsForSymbolRequest contractsForSymbolRequest){
-    contractsForSymbolRequest.reqId = this.hashCode+3;
-    binaryApi2.sendRequest(contractsForSymbolRequest).listen((response){
-      if (response != null) {
-        _contractsForSymbolResponse.add(response);
-      }
-    });
-  }
-
-
-  BehaviorSubject<ActiveSymbols> _selectedSymbol = BehaviorSubject<ActiveSymbols>();
-  BehaviorSubject<ActiveSymbols> get selectedSymbol => _selectedSymbol;
-
-
   BehaviorSubject<Available> _selectedAvailableContract = BehaviorSubject<Available>();
   BehaviorSubject<Available> get selectedAvailableContract => _selectedAvailableContract;
 
@@ -119,9 +70,6 @@ class TradeScreenViewModel  extends ChangeNotifier{
   @override
   void dispose() {
     super.dispose();
-    _tickStream.close();
-    _selectedSymbol.close();
-    _contractsForSymbolResponse.close();
     _selectedAvailableContract.close();
     _proposalOpenContractResponse.close();
     print("Trade view model streams disposed");

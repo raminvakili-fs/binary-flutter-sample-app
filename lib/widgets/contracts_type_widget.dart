@@ -25,7 +25,7 @@ class ContractsTypeWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: StreamBuilder(
-                    stream: tradeViewModel.contractsForSymbolResponse,
+                    stream: tradeViewModel.contractsTypeViewModel.contractsForSymbolResponse,
                     builder: (_, AsyncSnapshot<ContractsForSymbolResponse> contracts){
                       if (contracts.hasData && contracts.data.contractsFor.available.length > 0) {
                         return StreamBuilder(

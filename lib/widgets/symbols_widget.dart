@@ -30,12 +30,12 @@ class SymbolsWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: StreamBuilder(
-                      stream: tradeScreenViewModel.activeSymbols,
+                      stream: tradeScreenViewModel.symbolsViewModel.activeSymbols,
                       builder: (BuildContext context,
                           AsyncSnapshot<ActiveSymbolsResponse> snapshot) {
                         if (snapshot != null && snapshot.hasData) {
                           return StreamBuilder(
-                            stream: tradeScreenViewModel.selectedSymbol,
+                            stream: tradeScreenViewModel.symbolsViewModel.selectedSymbol,
                             builder: (_, selectedSymbol) {
                               ActiveSymbols sL;
                               if (selectedSymbol.hasData) {
@@ -73,7 +73,7 @@ class SymbolsWidget extends StatelessWidget {
                     children: <Widget>[
                       Flexible(
                         child: StreamBuilder(
-                            stream: tradeScreenViewModel.tickStream,
+                            stream: tradeScreenViewModel.symbolsViewModel.tickStream,
                             builder: (context,
                                 AsyncSnapshot<TickStreamResponse> snapshot) {
                               if (snapshot.hasData) {

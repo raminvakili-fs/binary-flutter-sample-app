@@ -13,7 +13,7 @@ class ContractsTypeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return FunkyOverlay(
       child: StreamBuilder(
-        stream: viewModel.contractsForSymbolResponse,
+        stream: viewModel.contractsTypeViewModel.contractsForSymbolResponse,
         builder: (BuildContext context,
             AsyncSnapshot<ContractsForSymbolResponse> response) {
           if (response != null && response.hasData) {

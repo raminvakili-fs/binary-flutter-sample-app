@@ -14,7 +14,7 @@ class SymbolsListDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return FunkyOverlay(
       child: StreamBuilder(
-        stream: viewModel.activeSymbols,
+        stream: viewModel.symbolsViewModel.activeSymbols,
         builder: (BuildContext context,
             AsyncSnapshot<ActiveSymbolsResponse> response) {
           if (response != null && response.hasData) {
@@ -31,8 +31,8 @@ class SymbolsListDialog extends StatelessWidget {
                         aS.displayName),
                     onTap: (){
                       viewModel.forgetProposalStream();
-                      viewModel.selectedSymbol.add(aS);
-                      viewModel.getContractsForSymbol(ContractsForSymbolRequest(
+                      viewModel.symbolsViewModel.selectedSymbol.add(aS);
+                      viewModel.symbolsViewModel.getContractsForSymbol(ContractsForSymbolRequest(
                         contractsFor: aS.symbol, productType: 'basic'
                       ));
                       Navigator.of(context).pop();
