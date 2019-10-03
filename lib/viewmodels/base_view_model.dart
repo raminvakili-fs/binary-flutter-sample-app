@@ -1,16 +1,17 @@
 import 'package:binary_mobile_app/model/api/binary_api2.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:rxdart/rxdart.dart';
 
-class BaseViewModel extends ChangeNotifier {
-  bool _isLoading = false;
-
-  bool get isLoading => _isLoading;
+abstract class BaseViewModel extends ChangeNotifier {
 
   BinaryApi2 binaryApi2 = BinaryApi2.getInstance;
 
-  setLoading (bool loading) {
-    _isLoading = loading;
-  }
+  BehaviorSubject<bool> isLoading = BehaviorSubject()..add(false);
 
+  @override
+  void dispose() {
+    super.dispose();
+    isLoading.close();
+  }
 
 }

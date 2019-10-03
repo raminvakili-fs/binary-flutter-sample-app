@@ -40,6 +40,11 @@ class TradeViewModel  extends BaseViewModel{
       binaryApi2.sendRequest(ProposalOpenContractRequest(reqID: this.hashCode + 6, contractId: response.buy.contractId, subscribe: 1))
           .listen((response) => openContractViewModel.proposalOpenContractResponse.add(response));
     });
+
+    symbolsViewModel.selectedSymbol.listen((ActiveSymbols activeSymbol){
+      contractsTypeViewModel.getContractsForSymbol(ContractsForSymbolRequest(reqId: 1, contractsFor: activeSymbol.symbol, currency: 'USD', productType: 'basic'));
+    });
+
   }
 
   void forgetProposalStream() {

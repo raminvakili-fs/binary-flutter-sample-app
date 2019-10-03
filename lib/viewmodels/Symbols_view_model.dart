@@ -43,8 +43,6 @@ class SymbolsViewModel extends BaseViewModel {
 
         if (activeSymbols.error == null && activeSymbols.activeSymbols.length > 0) {
           var firstSymbol = activeSymbols.activeSymbols[0];
-          getContractsForSymbol(ContractsForSymbolRequest(reqId: 1, contractsFor: firstSymbol.symbol, currency: 'USD', productType: 'basic'));
-
           selectedSymbol.add(firstSymbol);
         }
 
@@ -55,14 +53,6 @@ class SymbolsViewModel extends BaseViewModel {
   BehaviorSubject<ContractsForSymbolResponse> _contractsForSymbolResponse = BehaviorSubject<ContractsForSymbolResponse>();
   BehaviorSubject<ContractsForSymbolResponse> get contractsForSymbolResponse => _contractsForSymbolResponse;
 
-  getContractsForSymbol(ContractsForSymbolRequest contractsForSymbolRequest){
-    contractsForSymbolRequest.reqId = this.hashCode+3;
-    binaryApi2.sendRequest(contractsForSymbolRequest).listen((response){
-      if (response != null) {
-        _contractsForSymbolResponse.add(response);
-      }
-    });
-  }
 
   @override
   void dispose() {

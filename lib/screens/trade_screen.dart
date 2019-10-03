@@ -59,6 +59,8 @@ class _TradeViewState extends State<TradeView> {
   Widget build(BuildContext context) {
     _context = context;
 
+    print('************** rebuilt **************');
+
     return Column(
       children: <Widget>[
         Container(
