@@ -10,70 +10,78 @@ class BuyContractWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TradeViewModel>(
       builder: (context, model, child){
-        return Column (
-          children: <Widget>[
+        return StreamBuilder(
+          stream: model.priceProposalViewModel.isLoading,
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data){
+              return Container();
+            }
+            return Column (
+              children: <Widget>[
 
-            StreamBuilder(
-                stream: model.priceProposalViewModel.priceProposal,
-                builder: (BuildContext context,
-                    AsyncSnapshot<PriceProposalResponse> snapshot) {
+                StreamBuilder(
+                    stream: model.priceProposalViewModel.priceProposal,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<PriceProposalResponse> snapshot) {
 
-                  if (snapshot.hasData) {
-                    if (snapshot.data.error == null){
-                      return Text(
-                          "Stake: \$${snapshot.data.proposal.askPrice}  Payout: \$${snapshot.data.proposal.payout}  Spot: ${snapshot.data.proposal.spot}");
-                    } else {
-                      return (Text(snapshot.data.error.message, style: TextStyle(color: Colors.pinkAccent),));
+                      if (snapshot.hasData) {
+                        if (snapshot.data.error == null){
+                          return Text(
+                              "Stake: \$${snapshot.data.proposal.askPrice}  Payout: \$${snapshot.data.proposal.payout}  Spot: ${snapshot.data.proposal.spot}");
+                        } else {
+                          return (Text(snapshot.data.error.message, style: TextStyle(color: Colors.pinkAccent),));
+                        }
+                      }
+                      return Container();
+                    }),
+
+                StreamBuilder(
+                    stream: model.priceProposalViewModel.priceProposal,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<PriceProposalResponse> snapshot) {
+                      if (snapshot != null && snapshot.hasData) {
+                        if (snapshot.data.error == null) {
+                          return FlatButton(
+                            color: Colors.green,
+                            highlightColor: Colors.blueGrey,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                            onPressed: () {
+                              model.priceProposalViewModel.buyContract(BuyContractRequest(
+                                  buy: snapshot.data.proposal.id,
+                                  price: snapshot.data.proposal.askPrice));
+                            },
+                            child: Text('Purchase', style: TextStyle(color: Colors
+                                .white),),
+                          );
+                        } else {
+                          return Text(snapshot.data.error.message);
+                        }
+                      }
+                      return Container();
                     }
-                  }
-                  return Container();
-                }),
+                ),
 
-            StreamBuilder(
-                stream: model.priceProposalViewModel.priceProposal,
-                builder: (BuildContext context,
-                    AsyncSnapshot<PriceProposalResponse> snapshot) {
-                  if (snapshot != null && snapshot.hasData) {
-                    if (snapshot.data.error == null) {
-                      return FlatButton(
-                        color: Colors.green,
-                        highlightColor: Colors.blueGrey,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0)),
-                        onPressed: () {
-                          model.priceProposalViewModel.buyContract(BuyContractRequest(
-                              buy: snapshot.data.proposal.id,
-                              price: snapshot.data.proposal.askPrice));
-                        },
-                        child: Text('Purchase', style: TextStyle(color: Colors
-                            .white),),
-                      );
-                    } else {
-                      return Text(snapshot.data.error.message);
+                StreamBuilder(
+                  stream: model.priceProposalViewModel.buyContractResponse,
+                  builder: (BuildContext context, AsyncSnapshot<BuyContractResponse> snapshot) {
+                    if (snapshot != null && snapshot.hasData) {
+                      if (snapshot.data.error == null) {
+                        return Text("payout: ${snapshot.data.buy
+                            .payout} balanceAfter: ${snapshot.data.buy
+                            .balanceAfter} buyPrice: ${snapshot.data.buy
+                            .buyPrice}");
+                      } else {
+                        return Text(snapshot.data.error.message);
+                      }
                     }
-                  }
-                  return Container();
-                }
-            ),
+                    return Container();
+                  },
+                )
 
-            StreamBuilder(
-              stream: model.priceProposalViewModel.buyContractResponse,
-              builder: (BuildContext context, AsyncSnapshot<BuyContractResponse> snapshot) {
-                if (snapshot != null && snapshot.hasData) {
-                  if (snapshot.data.error == null) {
-                    return Text("payout: ${snapshot.data.buy
-                        .payout} balanceAfter: ${snapshot.data.buy
-                        .balanceAfter} buyPrice: ${snapshot.data.buy
-                        .buyPrice}");
-                  } else {
-                    return Text(snapshot.data.error.message);
-                  }
-                }
-                return Container();
-              },
-            )
-
-          ],
+              ],
+            );
+          }
         );
       },
     );
