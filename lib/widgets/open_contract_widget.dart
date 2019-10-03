@@ -26,14 +26,22 @@ class OpenContractWidget extends StatelessWidget {
           children: <Widget>[
             BuyContractWidget(),
             StreamBuilder(
-              stream: tradeViewModel.openContractViewModel.proposalOpenContractResponse,
-              builder: (_, AsyncSnapshot<ProposalOpenContractResponse> snapshot){
-                if (snapshot.hasData){
-                  var openContract = snapshot.data;
-                  return Text('currentSpot: ${openContract.proposalOpenContract?.currentSpot}\n'
-                      'currentSpotTime: ${timeStampToDate(openContract.proposalOpenContract?.currentSpotTime)}');
+              stream: tradeViewModel.openContractViewModel.isLoading,
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data){
+                  return Container();
                 }
-                return Center(child: Text('No open contract'));
+                return StreamBuilder(
+                  stream: tradeViewModel.openContractViewModel.proposalOpenContractResponse,
+                  builder: (_, AsyncSnapshot<ProposalOpenContractResponse> snapshot){
+                    if (snapshot.hasData){
+                      var openContract = snapshot.data;
+                      return Text('currentSpot: ${openContract.proposalOpenContract?.currentSpot}\n'
+                          'currentSpotTime: ${timeStampToDate(openContract.proposalOpenContract?.currentSpotTime)}');
+                    }
+                    return Center(child: Text('No open contract'));
+                  },
+                );
               },
             ),
           ],
