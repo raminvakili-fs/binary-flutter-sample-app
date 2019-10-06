@@ -1,3 +1,4 @@
+import 'package:binary_mobile_app/model/contract_category.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/viewmodels/base_view_model.dart';
@@ -6,11 +7,14 @@ import 'package:rxdart/rxdart.dart';
 class ContractsTypeViewModel extends BaseViewModel {
 
 
-  BehaviorSubject<ContractsForSymbolResponse> _contractsForSymbolResponse = BehaviorSubject<ContractsForSymbolResponse>();
+  final _contractsForSymbolResponse = BehaviorSubject<ContractsForSymbolResponse>();
   BehaviorSubject<ContractsForSymbolResponse> get contractsForSymbolResponse => _contractsForSymbolResponse;
 
-  BehaviorSubject<Available> _selectedAvailableContract = BehaviorSubject<Available>();
+  final _selectedAvailableContract = BehaviorSubject<Available>();
   BehaviorSubject<Available> get selectedAvailableContract => _selectedAvailableContract;
+
+  final _contractCategoryStream = BehaviorSubject<ContractCategory>();
+  BehaviorSubject<ContractCategory> get contractCategoryStream => _contractCategoryStream;
 
   getContractsForSymbol(ContractsForSymbolRequest contractsForSymbolRequest){
     contractsForSymbolRequest.reqId = this.hashCode+3;
@@ -21,12 +25,16 @@ class ContractsTypeViewModel extends BaseViewModel {
       }
       isLoading.add(false);
     });
+
+    _contractsForSymbolResponse.listen((response) => _contractCategoryStream.add(ContractCategory(contractsForSymbolResponse: response)));
+
   }
 
   @override
   void dispose() {
     _contractsForSymbolResponse.close();
     _selectedAvailableContract.close();
+    _contractCategoryStream.close();
     super.dispose();
   }
 
