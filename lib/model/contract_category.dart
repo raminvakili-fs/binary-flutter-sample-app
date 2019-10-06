@@ -20,6 +20,12 @@ class ContractCategory {
       }
       category.addContractType(available: availableContract);
     }
+
+    for (var c in categories){
+      c.fillContractTypeItems();
+    }
+
+    print("done");
   }
 
   Category _containsCategory(String categoryName) {
@@ -39,12 +45,13 @@ class Category {
   final String symbol;
   final List<ContractType> contractTypes = [];
   final List<String> availableDurations = [];
+  final List<ContractTypeItem> contractTypeItems = [];
 
   Category({this.symbol, this.categoryDisplayName, this.categoryName});
 
   addContractType({Available available}) {
     if (!_containsContractType(available.contractType)) {
-      contractTypes.add(ContractType(name: available.contractType, displayName: available.contractDisplay, position: typesPosition[available.contractType]));
+      contractTypes.add(ContractType(name: available.contractType, displayName: available.contractDisplay, position: typesPosition[available.contractType], categoryDisplayName: available.contractCategoryDisplay));
     }
   }
 
@@ -57,14 +64,34 @@ class Category {
     return false;
   }
 
+  fillContractTypeItems(){
+    if (contractTypes.length % 2 == 0) {
+      for (int i = 0; i < contractTypes.length; i += 2) {
+        contractTypeItems.add(ContractTypeItem(
+            contractTypes[i].displayName, contractTypes[i + 1].displayName, "${contractTypes[i].displayName} ${contractTypes[i + 1].displayName}", contractTypes[i].categoryDisplayName));
+
+      }
+    }
+  }
+
 }
 
 class ContractType {
   final String name;
   final String displayName;
+  final categoryDisplayName;
   final Position position;
 
-  ContractType({this.name, this.displayName, this.position});
+  ContractType({this.categoryDisplayName, this.name, this.displayName, this.position});
+}
+
+class ContractTypeItem{
+  final String displayName;
+  final String categoryName;
+  final String top;
+  final String bottom;
+
+  ContractTypeItem(this.top, this.bottom, this.displayName, this.categoryName);
 }
 
 const typesPosition = {

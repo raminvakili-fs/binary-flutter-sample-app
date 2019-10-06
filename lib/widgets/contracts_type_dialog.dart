@@ -28,7 +28,9 @@ class ContractsTypeDialog extends StatelessWidget {
 
                   return ExpansionTile(
                     title: Text("${category.categoryDisplayName}"),
-                    children: category.contractTypes.map((type) => Text('${type.displayName}')).toList(),
+                    children: category.contractTypeItems.map((ContractTypeItem type) => ListTile(
+                      onTap: () => print(type.categoryName),
+                      title: Text('${type.displayName} ${type.categoryName}', style: TextStyle(fontSize: 9),),)).toList(),
                   );
 
 //                  return ListTile(
