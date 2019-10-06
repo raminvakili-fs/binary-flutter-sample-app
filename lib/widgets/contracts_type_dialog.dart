@@ -1,3 +1,4 @@
+import 'package:binary_mobile_app/model/contract_category.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/funky_overlay.dart';
@@ -13,32 +14,37 @@ class ContractsTypeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return FunkyOverlay(
       child: StreamBuilder(
-        stream: viewModel.contractsTypeViewModel.contractsForSymbolResponse,
-        builder: (BuildContext context,
-            AsyncSnapshot<ContractsForSymbolResponse> response) {
+        stream: viewModel.contractsTypeViewModel.contractCategoryStream,
+        builder:
+            (BuildContext context, AsyncSnapshot<ContractCategory> response) {
           if (response != null && response.hasData) {
-            ContractsForSymbolResponse contractsForSymbolResponse = response.data;
+            ContractCategory contractCategory = response.data;
 
             return Material(
               child: ListView.builder(
-                itemCount: contractsForSymbolResponse.contractsFor.available.length,
+                itemCount: contractCategory.categories.length,
                 itemBuilder: (BuildContext context, int index) {
+                  Category category = contractCategory.categories[index];
 
-                  Available availableContract = contractsForSymbolResponse.contractsFor.available[index];
-
-                  return ListTile(
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("${availableContract.contractCategory} - ${availableContract.contractCategoryDisplay} - ${availableContract.contractDisplay}"),
-                        Text("${availableContract.contractType} - ${availableContract.underlyingSymbol}"),
-                      ],
-                    ),
-                    onTap: (){
-                      viewModel.contractsTypeViewModel.selectedAvailableContract.add(availableContract);
-                      Navigator.of(context).pop();
-                    },
+                  return ExpansionTile(
+                    title: Text("${category.categoryDisplayName}"),
+                    children: category.contractTypes.map((type) => Text('${type.displayName}')).toList(),
                   );
+
+//                  return ListTile(
+//                    title: Column(
+//                      crossAxisAlignment: CrossAxisAlignment.start,
+//                      children: <Widget>[
+//                        Text("${category.categoryDisplayName}"),
+//                        Text(
+//                            "${category.contractTypes[0].displayName} - ${category.contractTypes[1].displayName}"),
+//                      ],
+//                    ),
+//                    onTap: () {
+////                      viewModel.contractsTypeViewModel.selectedAvailableContract.add(availableContract);
+//                      Navigator.of(context).pop();
+//                    },
+//                  );
                 },
               ),
             );
