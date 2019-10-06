@@ -67,9 +67,9 @@ class Available{
   @JsonKey(nullable: true, name: 'last_digit_range')
   List<int> lastDigitRange;
   @JsonKey(nullable: true, name: 'high_barrier')
-  String highBarrier;
+  double highBarrier;
   @JsonKey(nullable: true, name: 'low_barrier')
-  String lowBarrier;
+  double lowBarrier;
   @JsonKey(nullable: true, name: 'market')
   String market;
   @JsonKey(nullable: true, name: 'max_contract_duration')

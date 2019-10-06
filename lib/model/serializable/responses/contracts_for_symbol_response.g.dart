@@ -58,8 +58,8 @@ Available _$AvailableFromJson(Map<String, dynamic> json) {
     json['contract_category_display'] as String,
     json['contract_display'] as String,
     json['contract_type'] as String,
-    json['low_barrier'] as String,
-    json['high_barrier'] as String,
+    json['low_barrier'] is String ? double.tryParse(json['low_barrier']) : json['low_barrier'] as double,
+    json['high_barrier'] is String ? double.tryParse(json['high_barrier']) : json['high_barrier'] as double,
     json['exchange_name'] as String,
     json['expiry_type'] as String,
     (json['forward_starting_options'] as List)
