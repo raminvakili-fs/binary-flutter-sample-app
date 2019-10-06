@@ -31,7 +31,7 @@ class ContractsTypeDialog extends StatelessWidget {
                     children: category.contractTypeItems.map((ContractTypeItem type) => ListTile(
                       onTap: () {
                         viewModel.contractsTypeViewModel.selectedAvailableContract.add(type);
-//                      Navigator.of(context).pop();
+                        Navigator.of(context).pop();
                       },
                       title: Text('${type.displayName} ${type.categoryName}', style: TextStyle(fontSize: 9),),)).toList(),
                   );

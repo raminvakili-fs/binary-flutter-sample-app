@@ -99,6 +99,8 @@ class ContractType {
 
   ContractType(
       {this.available, this.categoryDisplayName, this.name, this.displayName});
+
+
 }
 
 class ContractTypeItem {
@@ -106,16 +108,20 @@ class ContractTypeItem {
   final String categoryName;
   final String top;
   final String bottom;
+  double amount = 10;
 
   ContractTypeItem(this.top, this.bottom, this.displayName, this.categoryName);
 }
 
 class DigitsContractItem extends ContractTypeItem {
+
   final List<int> lastDigitRanges;
 
   DigitsContractItem(
       {ContractTypeItem contractItem, this.lastDigitRanges})
       : super(contractItem.top, contractItem.bottom, contractItem.displayName, contractItem.categoryName);
+
+
 }
 
 const typesPosition = {
