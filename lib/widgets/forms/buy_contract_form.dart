@@ -7,20 +7,18 @@ class BuyContractForm extends StatefulWidget {
 
   final ContractTypeItem contractTypeItem;
 
-  const BuyContractForm({Key key, this.contractTypeItem}) : super(key: key);
+  BuyContractForm({Key key, this.contractTypeItem}) : super(key: key){
+    print("");
+  }
 
   @override
-  _BuyContractFormState createState() => _BuyContractFormState(contractTypeItem);
+  _BuyContractFormState createState() => _BuyContractFormState();
 
 }
 
 class _BuyContractFormState extends State<BuyContractForm> {
 
-  final ContractTypeItem contractTypeItem;
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  _BuyContractFormState(this.contractTypeItem);
 
 
   @override
@@ -36,7 +34,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
             child: ListView(
               padding: EdgeInsets.all(15.0),
               children: <Widget>[
-                contractTypeItem.createForm(),
+                widget.contractTypeItem.createForm(),
                 SizedBox(
                   height: 10.0,
                 ),
@@ -52,7 +50,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                       width: 100,
                       height: 40,
                       child: TextFormField(
-                        initialValue: contractTypeItem.amount.toString(),
+                        initialValue: widget.contractTypeItem.amount.toString(),
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             labelText: 'payout',
@@ -60,7 +58,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                                 borderRadius:
                                 BorderRadius.all(Radius.circular(2.0)))),
                         onSaved: (a) {
-                          contractTypeItem.amount = double.parse(a);
+                          widget.contractTypeItem.amount = double.parse(a);
                         },
                       ),
                     ),
