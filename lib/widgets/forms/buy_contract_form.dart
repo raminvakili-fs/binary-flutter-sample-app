@@ -36,12 +36,12 @@ class _BuyContractFormState extends State<BuyContractForm> {
             child: ListView(
               padding: EdgeInsets.all(15.0),
               children: <Widget>[
+                contractTypeItem.createForm(),
                 SizedBox(
                   height: 10.0,
                 ),
-                SizedBox(
-                  height: 10.0,
-                ),
+
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,6 +68,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                     ),
                   ],
                 ),
+
                 StreamBuilder(
                     stream: tradeViewModel.contractsTypeViewModel.selectedAvailableContract,
                     builder: (context, AsyncSnapshot<ContractTypeItem> snapshot) {
@@ -78,7 +79,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           onPressed: () {
-                            //_getProposal(tradeViewModel, snapshot.data);
+                            _getProposal(tradeViewModel, snapshot.data);
                           },
                           child: Text(
                             'get price',
@@ -95,5 +96,15 @@ class _BuyContractFormState extends State<BuyContractForm> {
         ],
       ),
     );
+  }
+
+  _getProposal(
+      TradeViewModel viewModel, ContractTypeItem contractTypeItem) async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      viewModel.priceProposalViewModel.getPriceForContract(
+        contractTypeItem.createRequest()
+      );
+    }
   }
 }

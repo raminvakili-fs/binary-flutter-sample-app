@@ -19,7 +19,7 @@ class PriceProposalWidget extends StatelessWidget {
                 stream: model.contractsTypeViewModel.selectedAvailableContract,
                 builder: (BuildContext context, AsyncSnapshot<ContractTypeItem> selectedAvailable) {
                   if (selectedAvailable.hasData) {
-                    return _matchProperForm(selectedAvailable.data);
+                    return Container(width: double.infinity, child: _matchProperForm(selectedAvailable.data));
                   }
                   return Container(
                     width: double.infinity,
@@ -35,11 +35,7 @@ class PriceProposalWidget extends StatelessWidget {
   }
 
   Widget _matchProperForm(ContractTypeItem contractTypeItem) {
-
-    if (contractTypeItem is DigitsContractItem) {
-
-    }
-    return Center(child: Text('The proper Form for this contract type is not been implemented yet!', textAlign: TextAlign.center,),);
+    return contractTypeItem.createForm();
   }
 }
 
