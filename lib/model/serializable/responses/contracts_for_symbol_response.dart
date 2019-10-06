@@ -64,6 +64,12 @@ class Available{
   String expiryType;
   @JsonKey(nullable: true, name: 'forward_starting_options')
   List<ForwardStartingOptions> forwardStartingOptions;
+  @JsonKey(nullable: true, name: 'last_digit_range')
+  List<int> lastDigitRange;
+  @JsonKey(nullable: true, name: 'high_barrier')
+  String highBarrier;
+  @JsonKey(nullable: true, name: 'low_barrier')
+  String lowBarrier;
   @JsonKey(nullable: true, name: 'market')
   String market;
   @JsonKey(nullable: true, name: 'max_contract_duration')
@@ -81,8 +87,8 @@ class Available{
 
 
   Available(this.barrierCategory, this.barriers, this.contractCategory,
-      this.contractCategoryDisplay, this.contractDisplay, this.contractType,
-      this.exchangeName, this.expiryType, this.forwardStartingOptions,
+      this.contractCategoryDisplay, this.contractDisplay, this.contractType, this.lowBarrier, this.highBarrier,
+      this.exchangeName, this.expiryType, this.forwardStartingOptions, this.lastDigitRange,
       this.market, this.maxContractDuration, this.minContractDuration,
       this.sentiment, this.startType, this.submarket, this.underlyingSymbol);
 

@@ -58,6 +58,8 @@ Available _$AvailableFromJson(Map<String, dynamic> json) {
     json['contract_category_display'] as String,
     json['contract_display'] as String,
     json['contract_type'] as String,
+    json['low_barrier'] as String,
+    json['high_barrier'] as String,
     json['exchange_name'] as String,
     json['expiry_type'] as String,
     (json['forward_starting_options'] as List)
@@ -65,6 +67,7 @@ Available _$AvailableFromJson(Map<String, dynamic> json) {
             ? null
             : ForwardStartingOptions.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    (json['last_digit_range'] as List)?.map((e) => e as int)?.toList(),
     json['market'] as String,
     json['max_contract_duration'] as String,
     json['min_contract_duration'] as String,
@@ -86,6 +89,9 @@ Map<String, dynamic> _$AvailableToJson(Available instance) => <String, dynamic>{
       'expiry_type': instance.expiryType,
       'forward_starting_options':
           instance.forwardStartingOptions?.map((e) => e?.toJson())?.toList(),
+      'last_digit_range': instance.lastDigitRange,
+      'high_barrier': instance.highBarrier,
+      'low_barrier': instance.lowBarrier,
       'market': instance.market,
       'max_contract_duration': instance.maxContractDuration,
       'min_contract_duration': instance.minContractDuration,
