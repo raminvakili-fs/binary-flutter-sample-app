@@ -1,3 +1,4 @@
+import 'package:binary_mobile_app/model/contract_category.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_dialog.dart';
@@ -34,31 +35,31 @@ class ContractsTypeWidget extends StatelessWidget {
                       } else {
                         return StreamBuilder(
                           stream: tradeViewModel.contractsTypeViewModel
-                              .contractsForSymbolResponse,
+                              .contractCategoryStream,
                           builder: (_,
-                              AsyncSnapshot<ContractsForSymbolResponse>
+                              AsyncSnapshot<ContractCategory>
                               contracts) {
                             if (contracts.hasData &&
-                                contracts.data.contractsFor.available.length >
+                                contracts.data.categories.length >
                                     0) {
                               return StreamBuilder(
                                   stream: tradeViewModel.contractsTypeViewModel
                                       .selectedAvailableContract,
                                   builder: (context,
-                                      AsyncSnapshot<Available>
+                                      AsyncSnapshot<ContractTypeItem>
                                       selectedContract) {
-                                    Available sA;
+                                    ContractTypeItem cT;
                                     if (selectedContract.hasData) {
-                                      sA = selectedContract.data;
+                                      cT = selectedContract.data;
                                     } else {
-                                      sA = contracts
-                                          .data.contractsFor.available[0];
+                                      cT = contracts
+                                          .data.categories[0].contractTypeItems[0];
                                     }
                                     tradeViewModel.contractsTypeViewModel
                                         .selectedAvailableContract
-                                        .add(sA);
+                                        .add(cT);
                                     return Text(
-                                        '${sA.contractCategoryDisplay} - ${sA.contractDisplay}');
+                                        '${cT.displayName} - ${cT.categoryName}');
                                   });
                             } else {
                               return Text(

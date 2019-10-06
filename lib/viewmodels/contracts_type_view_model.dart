@@ -10,8 +10,8 @@ class ContractsTypeViewModel extends BaseViewModel {
   final _contractsForSymbolResponse = BehaviorSubject<ContractsForSymbolResponse>();
   BehaviorSubject<ContractsForSymbolResponse> get contractsForSymbolResponse => _contractsForSymbolResponse;
 
-  final _selectedAvailableContract = BehaviorSubject<Available>();
-  BehaviorSubject<Available> get selectedAvailableContract => _selectedAvailableContract;
+  final _selectedAvailableContract = BehaviorSubject<ContractTypeItem>();
+  BehaviorSubject<ContractTypeItem> get selectedAvailableContract => _selectedAvailableContract;
 
   final _contractCategoryStream = BehaviorSubject<ContractCategory>();
   BehaviorSubject<ContractCategory> get contractCategoryStream => _contractCategoryStream;

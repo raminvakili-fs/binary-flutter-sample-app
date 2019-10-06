@@ -6,7 +6,7 @@ class ContractCategory {
 
   ContractCategory(
       {@required ContractsForSymbolResponse contractsForSymbolResponse}) {
-    for (Available availableContract in contractsForSymbolResponse.contractsFor
+    for (var availableContract in contractsForSymbolResponse.contractsFor
         .available) {
       Category category = _containsCategory(availableContract.contractCategory);
 

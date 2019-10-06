@@ -1,3 +1,4 @@
+import 'package:binary_mobile_app/model/contract_category.dart';
 import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
@@ -151,7 +152,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                 ),
                 StreamBuilder(
                   stream: tradeViewModel.contractsTypeViewModel.selectedAvailableContract,
-                  builder: (context, AsyncSnapshot<Available> snapshot) {
+                  builder: (context, AsyncSnapshot<ContractTypeItem> snapshot) {
                     if (snapshot.hasData) {
                       return FlatButton(
                         color: Colors.green,
@@ -159,7 +160,7 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0)),
                         onPressed: () {
-                          _getProposal(tradeViewModel, snapshot.data);
+                          //_getProposal(tradeViewModel, snapshot.data);
                         },
                         child: Text(
                           'get price',
@@ -179,25 +180,25 @@ class _HigherLowerFormState extends State<HigherLowerForm> {
 
   }
 
-  _getProposal(TradeViewModel viewModel, Available selectedAvailable) async{
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      viewModel.priceProposalViewModel.getPriceForContract(
-        PriceProposalRequest(
-            1,
-            subscribe: 1,
-            basis: 'payout',
-            amount: _amount,
-            barrier: _barrier,
-            contractType: selectedAvailable.contractType,
-            currency: 'USD',
-            durationUnit: _durationUnit.substring(0, 1),
-            duration: _duration,
-            proposal: 1,
-            symbol: selectedAvailable.underlyingSymbol
-        ),
-      );
-    }
-  }
+//  _getProposal(TradeViewModel viewModel, Available selectedAvailable) async{
+//    if (_formKey.currentState.validate()) {
+//      _formKey.currentState.save();
+//      viewModel.priceProposalViewModel.getPriceForContract(
+//        PriceProposalRequest(
+//            1,
+//            subscribe: 1,
+//            basis: 'payout',
+//            amount: _amount,
+//            barrier: _barrier,
+//            contractType: selectedAvailable.contractType,
+//            currency: 'USD',
+//            durationUnit: _durationUnit.substring(0, 1),
+//            duration: _duration,
+//            proposal: 1,
+//            symbol: selectedAvailable.underlyingSymbol
+//        ),
+//      );
+//    }
+//  }
 
 }

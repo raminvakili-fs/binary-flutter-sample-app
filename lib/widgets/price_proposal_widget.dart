@@ -1,4 +1,5 @@
 import 'package:binary_mobile_app/app_constants.dart';
+import 'package:binary_mobile_app/model/contract_category.dart' as prefix0;
 import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
@@ -23,9 +24,9 @@ class PriceProposalWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: StreamBuilder(
                 stream: model.contractsTypeViewModel.selectedAvailableContract,
-                builder: (BuildContext context, AsyncSnapshot<Available> selectedAvailable) {
+                builder: (BuildContext context, AsyncSnapshot<prefix0.ContractTypeItem> selectedAvailable) {
                   if (selectedAvailable.hasData) {
-                    return _matchProperForm(selectedAvailable.data.contractType);
+                    return _matchProperForm(selectedAvailable.data.categoryName);
                   }
                   return Container(
                     width: double.infinity,
