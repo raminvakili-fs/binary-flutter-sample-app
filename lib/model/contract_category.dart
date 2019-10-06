@@ -1,3 +1,4 @@
+import 'package:binary_mobile_app/model/contract_type_form_classes.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:flutter/cupertino.dart';
@@ -115,42 +116,6 @@ abstract class ContractTypeItem {
 
   PriceProposalRequest createRequest();
   Widget createForm();
-}
-
-class UnimplementedContractItem extends ContractTypeItem {
-
-  @override
-  Widget createForm() {
-    // TODO: implement createForm
-    return Container(child: Center(child: Text('Unimplemented!')),);
-  }
-
-  @override
-  PriceProposalRequest createRequest() {
-    // TODO: implement createRequest
-    return null;
-  }
-
-}
-
-class DigitsContractItem extends ContractTypeItem {
-
-  final List<int> lastDigitRanges;
-
-  DigitsContractItem(
-      {this.lastDigitRanges});
-
-  @override
-  Widget createForm() {
-    return null;
-  }
-
-  @override
-  PriceProposalRequest createRequest() {
-    return null;
-  }
-
-
 }
 
 const typesPosition = {

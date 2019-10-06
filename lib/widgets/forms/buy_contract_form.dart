@@ -40,8 +40,6 @@ class _BuyContractFormState extends State<BuyContractForm> {
                 SizedBox(
                   height: 10.0,
                 ),
-
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
