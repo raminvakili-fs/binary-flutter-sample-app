@@ -1,5 +1,4 @@
 import 'package:binary_mobile_app/model/contract_category.dart';
-import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_dialog.dart';
 import 'package:flutter/material.dart';
@@ -31,35 +30,26 @@ class ContractsTypeWidget extends StatelessWidget {
                     stream: tradeViewModel.contractsTypeViewModel.isLoading,
                     builder: (context, loadingSnapshot) {
                       if (!loadingSnapshot.hasData || loadingSnapshot.data) {
-                        return Container(width: 20, height: 20, child: CircularProgressIndicator());
+                        return Container(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator());
                       } else {
                         return StreamBuilder(
-                          stream: tradeViewModel.contractsTypeViewModel
-                              .contractCategoryStream,
-                          builder: (_,
-                              AsyncSnapshot<ContractCategory>
-                              contracts) {
-                            if (contracts.hasData &&
-                                contracts.data.categories.length >
-                                    0) {
+                          stream: tradeViewModel.contractsTypeViewModel.contractCategoryStream,
+                          builder: (_, AsyncSnapshot<ContractCategory> contracts) {
+                            if (contracts.hasData && contracts.data.categories.length > 0) {
                               return StreamBuilder(
-                                  stream: tradeViewModel.contractsTypeViewModel
-                                      .selectedAvailableContract,
-                                  builder: (context,
-                                      AsyncSnapshot<ContractTypeItem>
-                                      selectedContract) {
+                                  stream: tradeViewModel.contractsTypeViewModel.selectedAvailableContract,
+                                  builder: (context, AsyncSnapshot<ContractTypeItem> selectedContract) {
                                     ContractTypeItem cT;
                                     if (selectedContract.hasData) {
                                       cT = selectedContract.data;
                                     } else {
-                                      cT = contracts
-                                          .data.categories[0].contractTypeItems[0];
+                                      cT = contracts.data.categories[0].contractTypeItems[0];
                                     }
-                                    tradeViewModel.contractsTypeViewModel
-                                        .selectedAvailableContract
-                                        .add(cT);
-                                    return Text(
-                                        '${cT.displayName} - ${cT.categoryName}');
+                                    //tradeViewModel.contractsTypeViewModel.selectedAvailableContract.add(cT);
+                                    return Text('${cT.displayName} - ${cT.categoryName}');
                                   });
                             } else {
                               return Text(
