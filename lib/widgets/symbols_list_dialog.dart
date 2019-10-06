@@ -32,9 +32,7 @@ class SymbolsListDialog extends StatelessWidget {
                     onTap: (){
                       viewModel.forgetProposalStream();
                       viewModel.symbolsViewModel.selectedSymbol.add(aS);
-                      viewModel.contractsTypeViewModel.getContractsForSymbol(ContractsForSymbolRequest(
-                        contractsFor: aS.symbol, productType: 'basic'
-                      ));
+//                      viewModel.contractsTypeViewModel.getContractsForSymbol(ContractsForSymbolRequest(contractsFor: aS.symbol, productType: 'basic'));
                       Navigator.of(context).pop();
                     },
                   );

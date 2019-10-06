@@ -18,6 +18,7 @@ class ContractsTypeViewModel extends BaseViewModel {
 
   getContractsForSymbol(ContractsForSymbolRequest contractsForSymbolRequest){
     contractsForSymbolRequest.reqId = this.hashCode+3;
+    print("Getting contract for ${contractsForSymbolRequest.contractsFor}");
     isLoading.add(true);
     binaryApi2.sendRequest(contractsForSymbolRequest).listen((response){
       if (response != null) {
