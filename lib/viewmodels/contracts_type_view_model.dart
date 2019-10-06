@@ -26,7 +26,12 @@ class ContractsTypeViewModel extends BaseViewModel {
       isLoading.add(false);
     });
 
-    _contractsForSymbolResponse.listen((response) => _contractCategoryStream.add(ContractCategory(contractsForSymbolResponse: response)));
+    _contractsForSymbolResponse.listen((response) {
+      var contractCategory = ContractCategory(contractsForSymbolResponse: response);
+      _contractCategoryStream.add(contractCategory);
+      print("done");
+    });
+
 
   }
 

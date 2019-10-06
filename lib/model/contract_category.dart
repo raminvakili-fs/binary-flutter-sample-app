@@ -9,7 +9,7 @@ class ContractCategory {
 
     for (Available availableContract in contractsForSymbolResponse.contractsFor.available) {
 
-      Category category = containsCategory(availableContract.contractCategory);
+      Category category = _containsCategory(availableContract.contractCategory);
 
       if (category == null) {
         category = Category(
@@ -22,7 +22,7 @@ class ContractCategory {
     }
   }
 
-  Category containsCategory(String categoryName) {
+  Category _containsCategory(String categoryName) {
     for (Category c in categories) {
       if (c.categoryName == categoryName) {
         return c;
@@ -44,7 +44,7 @@ class Category {
 
   addContractType({Available available}) {
     if (!_containsContractType(available.contractType)) {
-      contractTypes.add(ContractType(name: available.contractType, displayName: available.contractDisplay));
+      contractTypes.add(ContractType(name: available.contractType, displayName: available.contractDisplay, position: typesPosition[available.contractType]));
     }
   }
 
@@ -62,42 +62,47 @@ class Category {
 class ContractType {
   final String name;
   final String displayName;
+  final Position position;
 
-  ContractType({this.name, this.displayName});
+  ContractType({this.name, this.displayName, this.position});
 }
 
 const typesPosition = {
-  'CALL'        : 'top',
-  'PUT'         : 'bottom',
-  'CALLE'       : 'top',
-  'PUTE'        : 'bottom',
-  'ASIANU'      : 'top',
-  'ASIAND'      : 'bottom',
-  'DIGITMATCH'  : 'top',
-  'DIGITDIFF'   : 'bottom',
-  'DIGITEVEN'   : 'top',
-  'DIGITODD'    : 'bottom',
-  'DIGITOVER'   : 'top',
-  'DIGITUNDER'  : 'bottom',
-  'EXPIRYRANGEE': 'top',
-  'EXPIRYMISSE' : 'bottom',
-  'EXPIRYRANGE' : 'top',
-  'EXPIRYMISS'  : 'bottom',
-  'RANGE'       : 'top',
-  'UPORDOWN'    : 'bottom',
-  'ONETOUCH'    : 'top',
-  'NOTOUCH'     : 'bottom',
-  'LBFLOATCALL' : 'middle',
-  'LBFLOATPUT'  : 'middle',
-  'LBHIGHLOW'   : 'middle',
-  'RESETCALL'   : 'top',
-  'RESETPUT'    : 'bottom',
-  'CALLSPREAD'  : 'top',
-  'PUTSPREAD'   : 'bottom',
-  'TICKHIGH'    : 'top',
-  'TICKLOW'     : 'bottom',
-  'RUNHIGH'     : 'top',
-  'RUNLOW'      : 'bottom',
+  'CALL'        : Position.TOP,
+  'PUT'         : Position.BOTTOM,
+  'CALLE'       : Position.TOP,
+  'PUTE'        : Position.BOTTOM,
+  'ASIANU'      : Position.TOP,
+  'ASIAND'      : Position.BOTTOM,
+  'DIGITMATCH'  : Position.TOP,
+  'DIGITDIFF'   : Position.BOTTOM,
+  'DIGITEVEN'   : Position.TOP,
+  'DIGITODD'    : Position.BOTTOM,
+  'DIGITOVER'   : Position.TOP,
+  'DIGITUNDER'  : Position.BOTTOM,
+  'EXPIRYRANGEE': Position.TOP,
+  'EXPIRYMISSE' : Position.BOTTOM,
+  'EXPIRYRANGE' : Position.TOP,
+  'EXPIRYMISS'  : Position.BOTTOM,
+  'RANGE'       : Position.TOP,
+  'UPORDOWN'    : Position.BOTTOM,
+  'ONETOUCH'    : Position.TOP,
+  'NOTOUCH'     : Position.BOTTOM,
+  'LBFLOATCALL' : Position.MIDDLE,
+  'LBFLOATPUT'  : Position.MIDDLE,
+  'LBHIGHLOW'   : Position.MIDDLE,
+  'RESETCALL'   : Position.TOP,
+  'RESETPUT'    : Position.BOTTOM,
+  'CALLSPREAD'  : Position.TOP,
+  'PUTSPREAD'   : Position.BOTTOM,
+  'TICKHIGH'    : Position.TOP,
+  'TICKLOW'     : Position.BOTTOM,
+  'RUNHIGH'     : Position.TOP,
+  'RUNLOW'      : Position.BOTTOM,
 };
+
+enum Position {
+  TOP, BOTTOM, MIDDLE
+}
 
 
