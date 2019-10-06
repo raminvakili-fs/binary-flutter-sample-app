@@ -10,8 +10,8 @@ class ContractsTypeViewModel extends BaseViewModel {
   final _contractsForSymbolResponse = BehaviorSubject<ContractsForSymbolResponse>();
   BehaviorSubject<ContractsForSymbolResponse> get contractsForSymbolResponse => _contractsForSymbolResponse;
 
-  final _selectedAvailableContract = BehaviorSubject<ContractTypeItem>();
-  BehaviorSubject<ContractTypeItem> get selectedAvailableContract => _selectedAvailableContract;
+  final _selectedContractType = BehaviorSubject<ContractTypeItem>();
+  BehaviorSubject<ContractTypeItem> get selectedContractType => _selectedContractType;
 
   final _contractCategoryStream = BehaviorSubject<ContractCategory>();
   BehaviorSubject<ContractCategory> get contractCategoryStream => _contractCategoryStream;
@@ -39,7 +39,7 @@ class ContractsTypeViewModel extends BaseViewModel {
   @override
   void dispose() {
     _contractsForSymbolResponse.close();
-    _selectedAvailableContract.close();
+    _selectedContractType.close();
     _contractCategoryStream.close();
     super.dispose();
   }

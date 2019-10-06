@@ -68,7 +68,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                 ),
 
                 StreamBuilder(
-                    stream: tradeViewModel.contractsTypeViewModel.selectedAvailableContract,
+                    stream: tradeViewModel.contractsTypeViewModel.selectedContractType,
                     builder: (context, AsyncSnapshot<ContractTypeItem> snapshot) {
                       if (snapshot.hasData) {
                         return FlatButton(

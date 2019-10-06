@@ -160,7 +160,7 @@ class _MatchDiffFormState extends State<MatchDiffForm> {
                   ],
                 ),
                 StreamBuilder(
-                    stream: tradeViewModel.contractsTypeViewModel.selectedAvailableContract,
+                    stream: tradeViewModel.contractsTypeViewModel.selectedContractType,
                     builder: (context, AsyncSnapshot<ContractTypeItem> snapshot) {
                       if (snapshot.hasData) {
                         return FlatButton(

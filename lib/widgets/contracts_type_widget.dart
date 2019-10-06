@@ -40,16 +40,14 @@ class ContractsTypeWidget extends StatelessWidget {
                           builder: (_, AsyncSnapshot<ContractCategory> contracts) {
                             if (contracts.hasData && contracts.data.categories.length > 0) {
                               return StreamBuilder(
-                                  stream: tradeViewModel.contractsTypeViewModel.selectedAvailableContract,
+                                  stream: tradeViewModel.contractsTypeViewModel.selectedContractType,
                                   builder: (context, AsyncSnapshot<ContractTypeItem> selectedContract) {
                                     ContractTypeItem cT;
                                     if (selectedContract.hasData) {
                                       cT = selectedContract.data;
-                                    } else {
-                                      cT = contracts.data.categories[0].contractTypeItems[0];
+                                      return Text('${cT.displayName} - ${cT.categoryName}');
                                     }
-                                    //tradeViewModel.contractsTypeViewModel.selectedAvailableContract.add(cT);
-                                    return Text('${cT.displayName} - ${cT.categoryName}');
+                                    return Container();
                                   });
                             } else {
                               return Text(

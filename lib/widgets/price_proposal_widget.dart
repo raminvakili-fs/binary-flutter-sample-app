@@ -17,7 +17,7 @@ class PriceProposalWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: StreamBuilder(
-                stream: model.contractsTypeViewModel.selectedAvailableContract,
+                stream: model.contractsTypeViewModel.selectedContractType,
                 builder: (BuildContext context, AsyncSnapshot<ContractTypeItem> selectedAvailable) {
                   if (selectedAvailable.hasData) {
                     print("creating Form");
