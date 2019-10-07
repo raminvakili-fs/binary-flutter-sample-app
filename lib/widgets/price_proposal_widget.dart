@@ -9,7 +9,6 @@ class PriceProposalWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TradeViewModel>(
       builder: (ctx, model, child) {
-
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
@@ -18,10 +17,15 @@ class PriceProposalWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: StreamBuilder(
                 stream: model.contractsTypeViewModel.selectedContractType,
-                builder: (BuildContext context, AsyncSnapshot<ContractTypeItem> selectedContract) {
+                builder: (BuildContext context,
+                    AsyncSnapshot<ContractTypeItem> selectedContract) {
                   if (selectedContract.hasData) {
                     print("creating Form");
-                    return Container(width: double.infinity, child: BuyContractForm(contractTypeItem: selectedContract.data,));
+                    return Container(
+                        width: double.infinity,
+                        child: BuyContractForm(
+                          contractTypeItem: selectedContract.data,
+                        ));
                   }
                   return Container(
                     width: double.infinity,
@@ -35,21 +39,23 @@ class PriceProposalWidget extends StatelessWidget {
       },
     );
   }
-
 }
-
 
 class RiseFallForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('The proper Form for this contract type is not implemented yet!', textAlign: TextAlign.center,),);;
+    return Center(
+      child: Text(
+        'The proper Form for this contract type is not implemented yet!',
+        textAlign: TextAlign.center,
+      ),
+    );
+    ;
   }
 }
-
 
 /*
 
 
 
  */
-

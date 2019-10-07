@@ -7,22 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BuyContractForm extends StatefulWidget {
-
   final ContractTypeItem contractTypeItem;
 
-  BuyContractForm({Key key, this.contractTypeItem}) : super(key: key){
+  BuyContractForm({Key key, this.contractTypeItem}) : super(key: key) {
     print("");
   }
 
   @override
   _BuyContractFormState createState() => _BuyContractFormState();
-
 }
 
 class _BuyContractFormState extends State<BuyContractForm> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +26,10 @@ class _BuyContractFormState extends State<BuyContractForm> {
 
     Widget childForm;
 
-    if (widget.contractTypeItem is DigitsContractItem){
-      childForm = DigitsForm(contractItem: widget.contractTypeItem,);
+    if (widget.contractTypeItem is DigitsContractItem) {
+      childForm = DigitsForm(
+        contractItem: widget.contractTypeItem,
+      );
     } else {
       childForm = Container();
     }
@@ -48,9 +46,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                 SizedBox(
                   height: 10.0,
                 ),
-
                 childForm,
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,7 +65,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                             labelText: 'payout',
                             border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(2.0)))),
+                                    BorderRadius.all(Radius.circular(2.0)))),
                         onSaved: (a) {
                           widget.contractTypeItem.amount = double.parse(a);
                         },
@@ -77,10 +73,11 @@ class _BuyContractFormState extends State<BuyContractForm> {
                     ),
                   ],
                 ),
-
                 StreamBuilder(
-                    stream: tradeViewModel.contractsTypeViewModel.selectedContractType,
-                    builder: (context, AsyncSnapshot<ContractTypeItem> snapshot) {
+                    stream: tradeViewModel
+                        .contractsTypeViewModel.selectedContractType,
+                    builder:
+                        (context, AsyncSnapshot<ContractTypeItem> snapshot) {
                       if (snapshot.hasData) {
                         return FlatButton(
                           color: Colors.green,
@@ -98,44 +95,15 @@ class _BuyContractFormState extends State<BuyContractForm> {
                       }
                       return Container();
                     }),
-
                 Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: StreamBuilder(
-                        stream: tradeViewModel.priceProposalViewModel.priceProposalTop,
-                          builder: (_, AsyncSnapshot<PriceProposalResponse> snapshot) {
-                            if (snapshot.hasData && snapshot.data.error == null) {
-                              return Column(
-                                children: <Widget>[
-                                  FlatButton(
-                                    color: Colors.green,
-                                    highlightColor: Colors.blueGrey,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5.0)),
-                                    onPressed: () {
-
-                                    },
-                                    child: Text(
-                                      widget.contractTypeItem.top,
-                                      style: TextStyle(color: Colors.white, fontSize: 10),
-                                    ),
-                                  ),
-
-                                  Text('payout: ${snapshot.data.proposal.payout}  stake: ${snapshot.data.proposal.askPrice}')
-                                ],
-                              );
-                            }
-                            return Container();
-                          },
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: StreamBuilder(
-                        stream: tradeViewModel.priceProposalViewModel.priceProposalBottom,
-                        builder: (_, AsyncSnapshot<PriceProposalResponse> snapshot) {
+                        stream: tradeViewModel
+                            .priceProposalViewModel.priceProposalTop,
+                        builder:
+                            (_, AsyncSnapshot<PriceProposalResponse> snapshot) {
                           if (snapshot.hasData && snapshot.data.error == null) {
                             return Column(
                               children: <Widget>[
@@ -144,16 +112,46 @@ class _BuyContractFormState extends State<BuyContractForm> {
                                   highlightColor: Colors.blueGrey,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5.0)),
-                                  onPressed: () {
-
-                                  },
+                                  onPressed: () {},
                                   child: Text(
-                                    widget.contractTypeItem.bottom,
-                                    style: TextStyle(color: Colors.white, fontSize: 10),
+                                    widget.contractTypeItem.top,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 10),
                                   ),
                                 ),
-
-                                Text('payout: ${snapshot.data.proposal.payout}  stake: ${snapshot.data.proposal.askPrice}')
+                                Text(
+                                    'payout: ${snapshot.data.proposal.payout}  stake: ${snapshot.data.proposal.askPrice}')
+                              ],
+                            );
+                          }
+                          return Container();
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: StreamBuilder(
+                        stream: tradeViewModel
+                            .priceProposalViewModel.priceProposalBottom,
+                        builder:
+                            (_, AsyncSnapshot<PriceProposalResponse> snapshot) {
+                          if (snapshot.hasData && snapshot.data.error == null) {
+                            return Column(
+                              children: <Widget>[
+                                FlatButton(
+                                  color: Colors.green,
+                                  highlightColor: Colors.blueGrey,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0)),
+                                  onPressed: () {},
+                                  child: Text(
+                                    widget.contractTypeItem.bottom,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 10),
+                                  ),
+                                ),
+                                Text(
+                                    'payout: ${snapshot.data.proposal.payout}  stake: ${snapshot.data.proposal.askPrice}')
                               ],
                             );
                           }
@@ -163,9 +161,6 @@ class _BuyContractFormState extends State<BuyContractForm> {
                     ),
                   ],
                 ),
-
-
-
               ],
             ),
           ),
@@ -174,18 +169,15 @@ class _BuyContractFormState extends State<BuyContractForm> {
     );
   }
 
-  _getProposal(
-      TradeViewModel viewModel, ContractTypeItem contractTypeItem) async {
+  _getProposal(TradeViewModel viewModel, ContractTypeItem contractTypeItem) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      viewModel.priceProposalViewModel.getPriceForContractTop(
-        contractTypeItem.createRequest(Position.TOP)
-      );
+      viewModel.forgetProposalStream();
+      viewModel.priceProposalViewModel
+          .getPriceForContractTop(contractTypeItem.createRequest(Position.TOP));
 
       viewModel.priceProposalViewModel.getPriceForContractBottom(
-          contractTypeItem.createRequest(Position.BOTTOM)
-      );
-
+          contractTypeItem.createRequest(Position.BOTTOM));
     }
   }
 }

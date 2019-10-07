@@ -24,7 +24,7 @@ class OpenContractWidget extends StatelessWidget {
             )),
         child: Column(
           children: <Widget>[
-            BuyContractWidget(),
+            //BuyContractWidget(),
             StreamBuilder(
               stream: tradeViewModel.openContractViewModel.isLoading,
               builder: (context, snapshot) {
