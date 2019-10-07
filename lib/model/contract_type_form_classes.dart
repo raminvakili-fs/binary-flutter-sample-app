@@ -29,6 +29,7 @@ class DigitsContractItem extends ContractTypeItem {
       durationUnit: 't',
       duration: duration,
       currency: 'USD',
+      basis: basis,
       contractType: position == Position.TOP ? 'DIGITMATCH' : 'DIGITDIFF'
     );
   }

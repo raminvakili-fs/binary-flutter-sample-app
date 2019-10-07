@@ -88,7 +88,7 @@ class Category {
         contractItem.bottom = contractTypes[i + 1].displayName;
         contractItem.displayName = "${contractTypes[i].displayName} ${contractTypes[i + 1].displayName}";
         contractItem.categoryName = contractTypes[i].categoryDisplayName;
-        contractItem.categoryName = contractTypes[i].available.underlyingSymbol;
+        contractItem.symbol = contractTypes[i].available.underlyingSymbol;
 
         contractTypeItems.add(contractItem);
       }
@@ -117,7 +117,7 @@ abstract class ContractTypeItem {
   String symbol;
   String basis = Basis.PAYOUT;
   double amount = 10;
-  int duration = 0;
+  int duration = 5;
 
   PriceProposalRequest createRequest(Position position);
 

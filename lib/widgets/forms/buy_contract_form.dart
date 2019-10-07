@@ -106,19 +106,25 @@ class _BuyContractFormState extends State<BuyContractForm> {
                       child: StreamBuilder(
                         stream: tradeViewModel.priceProposalViewModel.priceProposalTop,
                           builder: (_, AsyncSnapshot<PriceProposalResponse> snapshot) {
-                            if (snapshot.hasData) {
-                              return FlatButton(
-                                color: Colors.green,
-                                highlightColor: Colors.blueGrey,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                onPressed: () {
+                            if (snapshot.hasData && snapshot.data.error == null) {
+                              return Column(
+                                children: <Widget>[
+                                  FlatButton(
+                                    color: Colors.green,
+                                    highlightColor: Colors.blueGrey,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5.0)),
+                                    onPressed: () {
 
-                                },
-                                child: Text(
-                                  widget.contractTypeItem.top,
-                                  style: TextStyle(color: Colors.white, fontSize: 10),
-                                ),
+                                    },
+                                    child: Text(
+                                      widget.contractTypeItem.top,
+                                      style: TextStyle(color: Colors.white, fontSize: 10),
+                                    ),
+                                  ),
+
+                                  Text('payout: ${snapshot.data.proposal.payout}  stake: ${snapshot.data.proposal.askPrice}')
+                                ],
                               );
                             }
                             return Container();
@@ -130,19 +136,25 @@ class _BuyContractFormState extends State<BuyContractForm> {
                       child: StreamBuilder(
                         stream: tradeViewModel.priceProposalViewModel.priceProposalBottom,
                         builder: (_, AsyncSnapshot<PriceProposalResponse> snapshot) {
-                          if (snapshot.hasData) {
-                            return FlatButton(
-                              color: Colors.green,
-                              highlightColor: Colors.blueGrey,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.0)),
-                              onPressed: () {
+                          if (snapshot.hasData && snapshot.data.error == null) {
+                            return Column(
+                              children: <Widget>[
+                                FlatButton(
+                                  color: Colors.green,
+                                  highlightColor: Colors.blueGrey,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0)),
+                                  onPressed: () {
 
-                              },
-                              child: Text(
-                                widget.contractTypeItem.bottom,
-                                style: TextStyle(color: Colors.white, fontSize: 10),
-                              ),
+                                  },
+                                  child: Text(
+                                    widget.contractTypeItem.bottom,
+                                    style: TextStyle(color: Colors.white, fontSize: 10),
+                                  ),
+                                ),
+
+                                Text('payout: ${snapshot.data.proposal.payout}  stake: ${snapshot.data.proposal.askPrice}')
+                              ],
                             );
                           }
                           return Container();
@@ -150,7 +162,9 @@ class _BuyContractFormState extends State<BuyContractForm> {
                       ),
                     ),
                   ],
-                )
+                ),
+
+
 
               ],
             ),
