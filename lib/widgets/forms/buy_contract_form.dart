@@ -110,6 +110,8 @@ class _BuyContractFormState extends State<BuyContractForm> {
 
                 // ********* A Form based on Symbol and Contract type
 
+                SizedBox(height: 10,),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -234,7 +236,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                                 ],
                               );
                             } else {
-                              return Text('${snapshot.data.error.message}', style: TextStyle(fontSize: 10),);
+                              return Container(width: double.infinity, child: Center(child: Text('${snapshot.data.error.message}', textAlign:TextAlign.center, style: TextStyle(fontSize: 10),)));
                             }
                           }
                           return Container();
