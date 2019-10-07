@@ -111,7 +111,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       viewModel.priceProposalViewModel.getPriceForContract(
-        contractTypeItem.createRequest()
+        contractTypeItem.createRequest(Position.TOP)
       );
     }
   }

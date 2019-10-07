@@ -1,3 +1,4 @@
+import 'package:binary_mobile_app/app_constants.dart';
 import 'package:binary_mobile_app/model/contract_type_form_classes.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
@@ -87,6 +88,7 @@ class Category {
         contractItem.bottom = contractTypes[i + 1].displayName;
         contractItem.displayName = "${contractTypes[i].displayName} ${contractTypes[i + 1].displayName}";
         contractItem.categoryName = contractTypes[i].categoryDisplayName;
+        contractItem.categoryName = contractTypes[i].available.underlyingSymbol;
 
         contractTypeItems.add(contractItem);
       }
@@ -112,9 +114,13 @@ abstract class ContractTypeItem {
   String categoryName;
   String top;
   String bottom;
+  String symbol;
+  String basis = Basis.PAYOUT;
   double amount = 10;
+  int duration = 0;
 
-  PriceProposalRequest createRequest();
+  PriceProposalRequest createRequest(Position position);
+
 }
 
 const typesPosition = {

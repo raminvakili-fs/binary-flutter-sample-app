@@ -8,8 +8,11 @@ class ContractType{
   static const PUTE = 'PUTE';
   static const DIGITDIFF = 'DIGITDIFF';
   static const DIGITMATCH = 'DIGITMATCH';
+}
 
-
+class Basis {
+  static const PAYOUT = 'payout';
+  static const STAKE = 'stake';
 }
 
 
