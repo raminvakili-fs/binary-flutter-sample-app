@@ -1,5 +1,6 @@
 import 'package:binary_mobile_app/model/contract_category.dart';
 import 'package:binary_mobile_app/model/contract_type_form_classes.dart';
+import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/forms/digits_form.dart';
 import 'package:flutter/material.dart';
@@ -98,6 +99,59 @@ class _BuyContractFormState extends State<BuyContractForm> {
                       return Container();
                     }),
 
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: StreamBuilder(
+                        stream: tradeViewModel.priceProposalViewModel.priceProposalTop,
+                          builder: (_, AsyncSnapshot<PriceProposalResponse> snapshot) {
+                            if (snapshot.hasData) {
+                              return FlatButton(
+                                color: Colors.green,
+                                highlightColor: Colors.blueGrey,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                onPressed: () {
+
+                                },
+                                child: Text(
+                                  widget.contractTypeItem.top,
+                                  style: TextStyle(color: Colors.white, fontSize: 10),
+                                ),
+                              );
+                            }
+                            return Container();
+                          },
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: StreamBuilder(
+                        stream: tradeViewModel.priceProposalViewModel.priceProposalBottom,
+                        builder: (_, AsyncSnapshot<PriceProposalResponse> snapshot) {
+                          if (snapshot.hasData) {
+                            return FlatButton(
+                              color: Colors.green,
+                              highlightColor: Colors.blueGrey,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              onPressed: () {
+
+                              },
+                              child: Text(
+                                widget.contractTypeItem.bottom,
+                                style: TextStyle(color: Colors.white, fontSize: 10),
+                              ),
+                            );
+                          }
+                          return Container();
+                        },
+                      ),
+                    ),
+                  ],
+                )
+
               ],
             ),
           ),
@@ -110,9 +164,14 @@ class _BuyContractFormState extends State<BuyContractForm> {
       TradeViewModel viewModel, ContractTypeItem contractTypeItem) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      viewModel.priceProposalViewModel.getPriceForContract(
+      viewModel.priceProposalViewModel.getPriceForContractTop(
         contractTypeItem.createRequest(Position.TOP)
       );
+
+      viewModel.priceProposalViewModel.getPriceForContractBottom(
+          contractTypeItem.createRequest(Position.BOTTOM)
+      );
+
     }
   }
 }

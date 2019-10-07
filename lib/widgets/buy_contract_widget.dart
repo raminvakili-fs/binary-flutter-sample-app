@@ -20,7 +20,7 @@ class BuyContractWidget extends StatelessWidget {
               children: <Widget>[
 
                 StreamBuilder(
-                    stream: model.priceProposalViewModel.priceProposal,
+                    stream: model.priceProposalViewModel.priceProposalTop,
                     builder: (BuildContext context,
                         AsyncSnapshot<PriceProposalResponse> snapshot) {
 
@@ -36,7 +36,7 @@ class BuyContractWidget extends StatelessWidget {
                     }),
 
                 StreamBuilder(
-                    stream: model.priceProposalViewModel.priceProposal,
+                    stream: model.priceProposalViewModel.priceProposalTop,
                     builder: (BuildContext context,
                         AsyncSnapshot<PriceProposalResponse> snapshot) {
                       if (snapshot != null && snapshot.hasData) {
