@@ -47,7 +47,7 @@ class PriceProposalRequest
   @JsonKey(includeIfNull: false, name: 'multiplier', nullable: true)
   final int multiplier;
 
-  PriceProposalRequest(int reqId, {this.subscribe, this.tradingPeriodStart, this.selectedTick, this.dateExpiry, this.dateStart, this.proposal, this.amount, this.basis, this.contractType, this.currency, this.duration, this.durationUnit, this.barrier, this.barrier2, this.symbol, this.productType, this.multiplier}) : super(reqId);
+  PriceProposalRequest({int reqId, this.subscribe, this.tradingPeriodStart, this.selectedTick, this.dateExpiry, this.dateStart, this.proposal, this.amount, this.basis, this.contractType, this.currency, this.duration, this.durationUnit, this.barrier, this.barrier2, this.symbol, this.productType, this.multiplier}) : super(reqId: reqId);
 
   factory PriceProposalRequest.fromJson(Map<String, dynamic> json) => _$PriceProposalRequestFromJson(json);
 

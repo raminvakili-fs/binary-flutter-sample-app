@@ -16,7 +16,7 @@ class ActiveSymbolsRequest extends RequestBase{
   @JsonKey(name: 'landing_company', nullable: true, includeIfNull: false)
   String landingCompany;
 
-  ActiveSymbolsRequest({int reqId, this.activeSymbols, this.landingCompany, this.productType}) : super(reqId);
+  ActiveSymbolsRequest({int reqId, this.activeSymbols, this.landingCompany, this.productType}) : super(reqId: reqId);
 
   factory ActiveSymbolsRequest.fromJson(Map<String, dynamic> json) => _$ActiveSymbolsRequestFromJson(json);
 

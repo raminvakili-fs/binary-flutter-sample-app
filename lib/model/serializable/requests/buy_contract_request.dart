@@ -16,7 +16,7 @@ class BuyContractRequest extends RequestBase {
   int subscribe;
 
 
-  BuyContractRequest({int reqID, this.buy, this.price, this.subscribe}) : super(reqID);
+  BuyContractRequest({int reqID, this.buy, this.price, this.subscribe}) : super(reqId: reqID);
 
   factory BuyContractRequest.fromJson(Map<String, dynamic> json) => _$BuyContractRequestFromJson(json);
   Map<String, dynamic> toJson() => _$BuyContractRequestToJson(this);

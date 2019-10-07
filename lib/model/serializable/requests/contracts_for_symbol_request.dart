@@ -18,7 +18,7 @@ class ContractsForSymbolRequest extends RequestBase{
   @JsonKey(name: 'landing_company', nullable: true, includeIfNull: false)
   String landingCompany;
 
-  ContractsForSymbolRequest({int reqId, this.contractsFor, this.currency, this.productType, this.landingCompany}) : super(reqId);
+  ContractsForSymbolRequest({int reqId, this.contractsFor, this.currency, this.productType, this.landingCompany}) : super(reqId: reqId);
 
   factory ContractsForSymbolRequest.fromJson(Map<String, dynamic> json) => _$ContractsForSymbolRequestFromJson(json);
 

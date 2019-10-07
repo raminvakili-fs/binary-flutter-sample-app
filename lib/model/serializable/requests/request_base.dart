@@ -10,7 +10,7 @@ class RequestBase {
   @JsonKey(name: 'req_id', nullable: true, includeIfNull: false)
   int reqId;
 
-  RequestBase(this.reqId);
+  RequestBase({this.reqId});
 
 
   factory RequestBase.fromJson(Map<String, dynamic> json) => _$RequestBaseFromJson(json);

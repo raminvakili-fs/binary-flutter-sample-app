@@ -22,7 +22,6 @@ class DigitsContractItem extends ContractTypeItem {
   @override
   PriceProposalRequest createRequest(Position position) {
     return PriceProposalRequest(
-      1,
       subscribe: 1,
       symbol: symbol,
       barrier: selectedDigit.toString(),

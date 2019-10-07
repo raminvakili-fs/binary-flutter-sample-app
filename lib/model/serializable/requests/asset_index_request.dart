@@ -15,7 +15,7 @@ class AssetIndexRequest extends RequestBase{
   @JsonKey(name: 'landing_company')
   final String landingCompany;
 
-  AssetIndexRequest(int reqId, this.assetIndex, this.landingCompany) : super(reqId);
+  AssetIndexRequest(int reqId, this.assetIndex, this.landingCompany) : super(reqId: reqId);
 
   factory AssetIndexRequest.fromJson(Map<String, dynamic> json) => _$AssetIndexRequestFromJson(json);
 

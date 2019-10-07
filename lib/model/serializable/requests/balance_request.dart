@@ -16,7 +16,7 @@ class BalanceRequest extends RequestBase{
   @JsonKey(name: 'balance')
   int balance;
 
-  BalanceRequest({int reqId, this.account = 'current', this.subscribe = 0, this.balance = 1}) : super(reqId);
+  BalanceRequest({int reqId, this.account = 'current', this.subscribe = 0, this.balance = 1}) : super(reqId:reqId);
 
   factory BalanceRequest.fromJson(Map<String, dynamic> json) => _$BalanceRequestFromJson(json);
 

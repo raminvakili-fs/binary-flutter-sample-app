@@ -8,7 +8,7 @@ part of price_proposal_request;
 
 PriceProposalRequest _$PriceProposalRequestFromJson(Map<String, dynamic> json) {
   return PriceProposalRequest(
-    json['req_id'] as int,
+    reqId: json['req_id'] as int,
     subscribe: json['subscribe'] as int,
     tradingPeriodStart: json['trading_period_start'] as int,
     selectedTick: json['selected_tick'] as int,

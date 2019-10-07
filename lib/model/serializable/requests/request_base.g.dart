@@ -8,7 +8,7 @@ part of 'request_base.dart';
 
 RequestBase _$RequestBaseFromJson(Map<String, dynamic> json) {
   return RequestBase(
-    json['req_id'] as int,
+    reqId: json['req_id'] as int,
   );
 }
 

@@ -12,7 +12,7 @@ class ForgetAllRequest extends RequestBase{
   @JsonKey(name: 'forget_all')
   List<String> forgetAll;
 
-  ForgetAllRequest({int reqID, this.forgetAll}) : super(reqID);
+  ForgetAllRequest({int reqID, this.forgetAll}) : super(reqId: reqID);
 
   factory ForgetAllRequest.fromJson(Map<String, dynamic> json) => _$ForgetAllRequestFromJson(json);
 

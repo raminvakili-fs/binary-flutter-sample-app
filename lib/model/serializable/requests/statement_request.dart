@@ -22,7 +22,7 @@ class StatementRequest extends RequestBase {
   @JsonKey(nullable: true, name: 'offset', includeIfNull: false)
   int offset;
 
-  StatementRequest({int reqId, this.dateFrom, this.dateTo, this.statement = 1, this.description, this.limit, this.offset}) : super(reqId);
+  StatementRequest({int reqId, this.dateFrom, this.dateTo, this.statement = 1, this.description, this.limit, this.offset}) : super(reqId:reqId);
 
   factory StatementRequest.fromJson(Map<String, dynamic> json) => _$StatementRequestFromJson(json);
   Map<String, dynamic> toJson() => _$StatementRequestToJson(this);

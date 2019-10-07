@@ -17,7 +17,7 @@ class ProposalOpenContractRequest extends RequestBase{
   @JsonKey(name: 'subscribe', nullable: true, includeIfNull: false)
   int subscribe;
 
-  ProposalOpenContractRequest({int reqID, this.proposalOpenContract = 1, @required this.contractId, this.subscribe}) : super(reqID);
+  ProposalOpenContractRequest({int reqID, this.proposalOpenContract = 1, @required this.contractId, this.subscribe}) : super(reqId: reqID);
 
   factory ProposalOpenContractRequest.fromJson(Map<String, dynamic> json) => _$ProposalOpenContractRequestFromJson(json);
 

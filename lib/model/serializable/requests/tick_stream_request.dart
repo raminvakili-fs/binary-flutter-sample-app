@@ -20,7 +20,7 @@ class TickStreamRequest extends RequestBase{
   @JsonKey(name: 'subscribe')
   final int subscribe;
 
-  TickStreamRequest(this.reqId, this.ticks, this.subscribe) : super(reqId);
+  TickStreamRequest(this.reqId, this.ticks, this.subscribe) : super(reqId: reqId);
 
   factory TickStreamRequest.fromJson(Map<String, dynamic> json) => _$TickStreamRequestFromJson(json);
 
