@@ -44,10 +44,72 @@ class _BuyContractFormState extends State<BuyContractForm> {
             child: ListView(
               padding: EdgeInsets.all(15.0),
               children: <Widget>[
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Duration: '),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: TextFormField(
+                        initialValue: "5",
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            labelText: 'Duration',
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(2.0)))),
+                        onSaved: (pN) {
+                          widget.contractTypeItem.duration = int.parse(pN);
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    DropdownButton<String>(
+                      value: widget.contractTypeItem.durationUnit,
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          widget.contractTypeItem.durationUnit = newValue;
+                        });
+                      },
+                      items: <String>[
+                        'ticks',
+                        'seconds',
+                        'minutes',
+                        'hours',
+                        'days'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    )
+                  ],
+                ),
+
                 SizedBox(
                   height: 10.0,
                 ),
+
                 childForm,
+
+                // ********* A Form based on Symbol and Contract type
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,

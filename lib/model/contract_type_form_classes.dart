@@ -5,7 +5,7 @@ class UnimplementedContractItem extends ContractTypeItem {
   @override
   PriceProposalRequest createRequest(Position position) {
     // TODO: implement createRequest
-    return null;
+    return PriceProposalRequest();
   }
 }
 
@@ -26,7 +26,7 @@ class DigitsContractItem extends ContractTypeItem {
       symbol: symbol,
       barrier: selectedDigit.toString(),
       proposal: 1,
-      durationUnit: 't',
+      durationUnit: durationUnit.substring(0, 1),
       duration: duration,
       currency: 'USD',
       basis: basis,

@@ -118,6 +118,7 @@ abstract class ContractTypeItem {
   String basis = Basis.PAYOUT;
   double amount = 10;
   int duration = 5;
+  String durationUnit = 'ticks';
 
   PriceProposalRequest createRequest(Position position);
 
