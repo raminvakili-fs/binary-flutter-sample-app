@@ -1,5 +1,7 @@
 import 'package:binary_mobile_app/model/contract_category.dart';
+import 'package:binary_mobile_app/model/contract_type_form_classes.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
+import 'package:binary_mobile_app/widgets/forms/digits_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +27,14 @@ class _BuyContractFormState extends State<BuyContractForm> {
   Widget build(BuildContext context) {
     var tradeViewModel = Provider.of<TradeViewModel>(context);
 
+    Widget childForm;
+
+    if (widget.contractTypeItem is DigitsContractItem){
+      childForm = DigitsForm(contractItem: widget.contractTypeItem,);
+    } else {
+      childForm = Container();
+    }
+
     return Form(
       key: _formKey,
       child: Column(
@@ -34,10 +44,12 @@ class _BuyContractFormState extends State<BuyContractForm> {
             child: ListView(
               padding: EdgeInsets.all(15.0),
               children: <Widget>[
-                widget.contractTypeItem.createForm(),
                 SizedBox(
                   height: 10.0,
                 ),
+
+                childForm,
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,

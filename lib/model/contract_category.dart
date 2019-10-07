@@ -115,7 +115,6 @@ abstract class ContractTypeItem {
   double amount = 10;
 
   PriceProposalRequest createRequest();
-  Widget createForm();
 }
 
 const typesPosition = {

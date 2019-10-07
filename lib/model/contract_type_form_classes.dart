@@ -1,14 +1,8 @@
 import 'package:binary_mobile_app/model/contract_category.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
-import 'package:flutter/material.dart';
 
 class UnimplementedContractItem extends ContractTypeItem {
 
-  @override
-  Widget createForm() {
-    // TODO: implement createForm
-    return Container(child: Center(child: Text('Unimplemented!')),);
-  }
 
   @override
   PriceProposalRequest createRequest() {
@@ -21,13 +15,14 @@ class UnimplementedContractItem extends ContractTypeItem {
 class DigitsContractItem extends ContractTypeItem {
 
   final List<int> lastDigitRanges;
+  int selectedDigit;
 
-  DigitsContractItem({this.lastDigitRanges});
-
-  @override
-  Widget createForm() {
-    return null;
+  DigitsContractItem({this.lastDigitRanges}){
+    if (lastDigitRanges != null && lastDigitRanges.length > 0) {
+      selectedDigit = lastDigitRanges[0];
+    }
   }
+
 
   @override
   PriceProposalRequest createRequest() {
