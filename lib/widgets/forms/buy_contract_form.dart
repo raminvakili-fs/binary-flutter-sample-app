@@ -203,30 +203,39 @@ class _BuyContractFormState extends State<BuyContractForm> {
                             .priceProposalViewModel.priceProposalBottom,
                         builder:
                             (_, AsyncSnapshot<PriceProposalResponse> snapshot) {
-                          if (snapshot.hasData && snapshot.data.error == null) {
-                            return Column(
-                              children: <Widget>[
-                                FlatButton(
-                                  color: Colors.green,
-                                  highlightColor: Colors.blueGrey,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                  onPressed: () {
-                                    tradeViewModel.priceProposalViewModel.buyContract(
-                                        BuyContractRequest(
-                                            buy: snapshot.data.proposal.id,
-                                            price: snapshot.data.proposal.askPrice));
-                                  },
-                                  child: Text(
-                                    widget.contractTypeItem.bottom,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 10),
+                          if (snapshot.hasData) {
+                            if (snapshot.data.error == null) {
+                              return Column(
+                                children: <Widget>[
+                                  FlatButton(
+                                    color: Colors.green,
+                                    highlightColor: Colors.blueGrey,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            5.0)),
+                                    onPressed: () {
+                                      tradeViewModel.priceProposalViewModel
+                                          .buyContract(
+                                          BuyContractRequest(
+                                              buy: snapshot.data.proposal.id,
+                                              price: snapshot.data.proposal
+                                                  .askPrice));
+                                    },
+                                    child: Text(
+                                      widget.contractTypeItem.bottom,
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 10),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                    'payout: ${snapshot.data.proposal.payout}  stake: ${snapshot.data.proposal.askPrice}')
-                              ],
-                            );
+                                  Text(
+                                      'payout: ${snapshot.data.proposal
+                                          .payout}  stake: ${snapshot.data
+                                          .proposal.askPrice}')
+                                ],
+                              );
+                            } else {
+                              return Text('${snapshot.data.error.message}', style: TextStyle(fontSize: 10),);
+                            }
                           }
                           return Container();
                         },
