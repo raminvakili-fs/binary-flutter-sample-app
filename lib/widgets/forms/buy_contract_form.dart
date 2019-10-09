@@ -5,6 +5,7 @@ import 'package:binary_mobile_app/model/serializable/requests/buy_contract_reque
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/forms/contracts_forms/digits_form.dart';
+import 'package:binary_mobile_app/widgets/shared/rotating_Icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -176,11 +177,24 @@ class _BuyContractFormState extends State<BuyContractForm> {
                         builder:
                             (context, AsyncSnapshot<ContractTypeItem> snapshot) {
                           if (snapshot.hasData) {
-                            return IconButton(
-                              color: Theme.of(context).accentColor,
-                              icon: Icon(Icons.refresh),
-                              onPressed: (){
-                                _getProposal(tradeViewModel, snapshot.data);
+                            return StreamBuilder(
+                              stream: tradeViewModel.priceProposalViewModel.isLoading,
+                              builder: (_, snapshot) {
+                                if(snapshot.hasData) {
+                                  if (snapshot.data) {
+                                    return RotatingIcon(
+                                      icon: Icons.refresh,
+                                    );
+                                  }
+                                  return IconButton(
+                                    color: Theme.of(context).accentColor,
+                                    icon: Icon(Icons.refresh),
+                                    onPressed: (){
+                                      _getProposal(tradeViewModel, snapshot.data);
+                                    },
+                                  );
+                                }
+                                return Container();
                               },
                             );
                           }
