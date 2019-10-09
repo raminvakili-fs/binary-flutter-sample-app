@@ -46,13 +46,14 @@ class SymbolsWidget extends StatelessWidget {
                                   0) {
                                 sL = snapshot.data.activeSymbols[0];
                               } else {
-                                return Text('No Active Symbol');
+                                return Text('No Active Symbol', style: TextStyle(fontSize: 12),);
                               }
-                              return Text(
-                                  "${sL.marketDisplayName} \n${sL.displayName}",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  ));
+                              return Column(
+                                children: <Widget>[
+                                  Text("${sL.marketDisplayName}", style: TextStyle(fontSize: 12,), textAlign: TextAlign.center,),
+                                  Text("${sL.displayName}", style: TextStyle(fontSize: 12,), textAlign: TextAlign.center,),
+                                ],
+                              );
                             },
                           );
                         } else {

@@ -27,39 +27,46 @@ class ContractsTypeWidget extends StatelessWidget {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: StreamBuilder(
-                    stream: tradeViewModel.contractsTypeViewModel.isLoading,
-                    builder: (context, loadingSnapshot) {
-                      if (!loadingSnapshot.hasData || loadingSnapshot.data) {
-                        return Center(child: BinaryProgressIndicator(elementsColor: Theme.of(context).accentColor, height: 15, width: 30,));
-                      } else {
-                        return StreamBuilder(
-                          stream: tradeViewModel.contractsTypeViewModel.contractCategoryStream,
-                          builder: (_, AsyncSnapshot<ContractCategory> contracts) {
-                            if (contracts.hasData && contracts.data.categories.length > 0) {
-                              return StreamBuilder(
-                                  stream: tradeViewModel.contractsTypeViewModel.selectedContractType,
-                                  builder: (context, AsyncSnapshot<ContractTypeItem> selectedContract) {
-                                    ContractTypeItem cT;
-                                    if (selectedContract.hasData) {
-                                      cT = selectedContract.data;
-                                      return Text('${cT.displayName} - ${cT.categoryName}');
-                                    }
-                                    return Container();
-                                  });
-                            } else {
-                              return Text(
-                                "Choose Contracts type",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                                textAlign: TextAlign.center,
-                              );
-                            }
-                          },
-                        );
-                      }
-                    },
+                  child: Center(
+                    child: StreamBuilder(
+                      stream: tradeViewModel.contractsTypeViewModel.isLoading,
+                      builder: (context, loadingSnapshot) {
+                        if (!loadingSnapshot.hasData || loadingSnapshot.data) {
+                          return BinaryProgressIndicator(elementsColor: Theme.of(context).accentColor, height: 15, width: 30,);
+                        } else {
+                          return StreamBuilder(
+                            stream: tradeViewModel.contractsTypeViewModel.contractCategoryStream,
+                            builder: (_, AsyncSnapshot<ContractCategory> contracts) {
+                              if (contracts.hasData && contracts.data.categories.length > 0) {
+                                return StreamBuilder(
+                                    stream: tradeViewModel.contractsTypeViewModel.selectedContractType,
+                                    builder: (context, AsyncSnapshot<ContractTypeItem> selectedContract) {
+                                      ContractTypeItem cT;
+                                      if (selectedContract.hasData) {
+                                        cT = selectedContract.data;
+                                        return Column(
+                                          children: <Widget>[
+                                            Text('${cT.displayName}', style: TextStyle(fontSize: 12), textAlign: TextAlign.center,),
+                                            Text('${cT.displayName} - ${cT.categoryName}', style: TextStyle(fontSize: 12), textAlign: TextAlign.center,),
+                                          ],
+                                        );
+                                      }
+                                      return Container();
+                                    });
+                              } else {
+                                return Text(
+                                  "Choose Contracts type",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                );
+                              }
+                            },
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ),
               ),

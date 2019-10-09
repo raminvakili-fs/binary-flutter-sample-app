@@ -58,17 +58,21 @@ class _BuyContractFormState extends State<BuyContractForm> {
                     ),
                     Flexible(
                       flex: 1,
-                      child: TextFormField(
-                        initialValue: "5",
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            labelText: 'Duration',
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(2.0)))),
-                        onSaved: (pN) {
-                          widget.contractTypeItem.duration = int.parse(pN);
-                        },
+                      child: Container(
+                        height: 50,
+                        child: TextFormField(
+                          initialValue: "5",
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              labelText: 'Duration',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Theme.of(context).accentColor, width: 1.0),
+                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              )),
+                          onSaved: (pN) {
+                            widget.contractTypeItem.duration = int.parse(pN);
+                          },
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -149,14 +153,15 @@ class _BuyContractFormState extends State<BuyContractForm> {
                     ),
                     Container(
                       width: 100,
-                      height: 40,
+                      height: 50,
                       child: TextFormField(
                         initialValue: widget.contractTypeItem.amount.toString(),
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
+                          labelText: 'Amount',
                             border: OutlineInputBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(2.0)))),
+                                    BorderRadius.all(Radius.circular(8.0)))),
                         onSaved: (a) {
                           widget.contractTypeItem.amount = double.parse(a);
                         },
