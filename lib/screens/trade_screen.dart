@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:binary_mobile_app/app_constants.dart';
+import 'package:binary_mobile_app/model/oauth.dart';
 import 'package:binary_mobile_app/screens/statement_screen.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_widget.dart';
@@ -43,34 +44,7 @@ class TradeScreen extends StatelessWidget {
               icon: Icon(Icons.assignment_ind),
               onPressed: () async {
 
-                runZoned((){
-
-                  HttpServer.bind('0.0.0.0', 80).then((server){
-
-                    print('*************************** Server running at: ${server.address.address}');
-
-                    server.transform(HttpBodyHandler()).listen((HttpRequestBody body) async {
-
-                      print('**************************************** ${body.request.uri}');
-
-
-                    });
-
-                    server.listen((HttpRequest request) {
-                      print('*************************** ${request.first}');
-                    });
-
-                  });
-                });
-
-                var url = 'https://oauth.binary.com/oauth2/authorize?app_id=$APP_ID';
-
-
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
+                getToken("", "");
 
 
               }
