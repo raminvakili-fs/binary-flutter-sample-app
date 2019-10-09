@@ -141,7 +141,7 @@ class _CollectionScaleTransitionState extends State<CollectionScaleTransition>
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: (widget.children.length * 0.25).round()),
+      duration: Duration(seconds: (widget.children.length * 0.3).round()),
     );
 
     _widgets = _WidgetAnimations.createList<double>(
