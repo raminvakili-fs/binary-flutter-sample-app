@@ -176,18 +176,12 @@ class _BuyContractFormState extends State<BuyContractForm> {
                         builder:
                             (context, AsyncSnapshot<ContractTypeItem> snapshot) {
                           if (snapshot.hasData) {
-                            return FlatButton(
-                              color: Colors.green,
-                              highlightColor: Colors.blueGrey,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.0)),
-                              onPressed: () {
+                            return IconButton(
+                              color: Theme.of(context).accentColor,
+                              icon: Icon(Icons.refresh),
+                              onPressed: (){
                                 _getProposal(tradeViewModel, snapshot.data);
                               },
-                              child: Text(
-                                'get price',
-                                style: TextStyle(color: Colors.white),
-                              ),
                             );
                           }
                           return Container();
@@ -196,7 +190,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                   ],
                 ),
 
-                SizedBox(height: 10,),
+                SizedBox(height: 20,),
 
                 Row(
                   children: <Widget>[
@@ -248,7 +242,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                               return Column(
                                 children: <Widget>[
                                   FlatButton(
-                                    color: Colors.green,
+                                    color: Colors.redAccent,
                                     highlightColor: Colors.blueGrey,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(

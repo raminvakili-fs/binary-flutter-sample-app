@@ -39,10 +39,10 @@ class _BinaryProgressIndicatorState extends State<BinaryProgressIndicator> {
 
   _buildElement(){
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 1),
+      padding: const EdgeInsets.symmetric(horizontal: 1.5),
       child: Container(
         width: widget.width / 12,
-        height: widget.height,
+        height: widget.height * 0.8,
         decoration: BoxDecoration(
           color: widget.elementsColor,
           borderRadius: BorderRadius.all(Radius.circular(2.0)),
