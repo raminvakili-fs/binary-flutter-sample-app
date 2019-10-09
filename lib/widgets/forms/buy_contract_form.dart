@@ -179,9 +179,9 @@ class _BuyContractFormState extends State<BuyContractForm> {
                           if (snapshot.hasData) {
                             return StreamBuilder(
                               stream: tradeViewModel.priceProposalViewModel.isLoading,
-                              builder: (_, snapshot) {
-                                if(snapshot.hasData) {
-                                  if (snapshot.data) {
+                              builder: (_, loading) {
+                                if(loading.hasData) {
+                                  if (loading.data) {
                                     return RotatingIcon(
                                       icon: Icons.refresh,
                                     );
