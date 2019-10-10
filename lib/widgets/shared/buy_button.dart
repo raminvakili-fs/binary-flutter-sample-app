@@ -7,7 +7,7 @@ class BuyButton extends StatefulWidget {
   final Size buttonSize;
 
   const BuyButton(
-      {Key key, @required this.onPressed, this.buttonSize = const Size(50, 20)})
+      {Key key, @required this.onPressed, this.buttonSize = const Size(100, 20)})
       : super(key: key);
 
   @override
@@ -27,14 +27,19 @@ class _BuyButtonState extends State<BuyButton>
     arrowPos = widget.buttonSize.width / 2;
 
     _animationController = AnimationController(
-      animationBehavior: AnimationBehavior.preserve,
-        duration: Duration(seconds: 1),
+        duration: Duration(milliseconds: 300),
         vsync: this,);
 
     _arrowAnimation = Tween<double>(begin: arrowPos, end: widget.buttonSize.width).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.fastOutSlowIn,
     ));
+
+    _animationController.addListener((){
+      if (_animationController.isCompleted) {
+        _animationController.reverse();
+      }
+    });
   }
 
   @override
