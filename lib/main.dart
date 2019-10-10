@@ -11,8 +11,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.white,
-        accentColor: Color.fromRGBO(42, 49, 80, 30)
+        primaryColor: Color.fromARGB(255, 240, 240, 240),
+        backgroundColor: Color.fromARGB(255, 42, 49, 80),
+        accentColor: Color.fromRGBO(42, 49, 80, 30),
+        scaffoldBackgroundColor: Color.fromARGB(255, 240, 240, 240)
       ),
       home: TradeScreen(),
     );
