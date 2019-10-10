@@ -52,31 +52,9 @@ class StatementScreen extends StatelessWidget {
                     return ListView.builder(
                       itemCount: response.statement.transactions.length,
                       itemBuilder: (context, index) {
-                        Transactions transaction =
-                        response.statement.transactions[index];
-                        return Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: ListTile(
-                            leading: Icon(
-                              transaction.amount <= 0
-                                  ? Icons.remove
-                                  : Icons.add,
-                              color: transaction.amount <= 0
-                                  ? Colors.pinkAccent
-                                  : Colors.greenAccent,
-                            ),
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                Text('profit: ${transaction.amount}'),
-                                Text(
-                                  'time: ${timeStampToDate(transaction.transactionTime)}',
-                                  style: TextStyle(fontSize: 9),
-                                ),
-                              ],
-                            ),
-                          ),
+                        Transactions transaction = response.statement.transactions[index];
+                        return TransactionItem(
+                          transaction: transaction,
                         );
                       },
                     );
@@ -94,3 +72,46 @@ class StatementScreen extends StatelessWidget {
     );
   }
 }
+
+class TransactionItem extends StatelessWidget {
+
+  final Transactions transaction;
+
+  const TransactionItem({Key key, @required this.transaction}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    bool profit = transaction.amount <= 0 ? false : true;
+
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: ListTile(
+        onTap: (){},
+        leading: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: profit ? Colors.greenAccent : Colors.pinkAccent,
+              width: 1.0,
+            ),
+          ),
+          child: Icon(
+            profit ? Icons.add : Icons.remove,
+            color: profit ? Colors.greenAccent : Colors.pinkAccent,
+          ),
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            profit ? Text('Profit: ${transaction.amount}') : Text('Loss: ${transaction.amount}'),
+            Text('Date: ${timeStampToDate(transaction.transactionTime)}', style: TextStyle(fontSize: 9),),
+          ],
+        ),
+        trailing: Text('Balance: ${transaction.balanceAfter}', style: TextStyle(fontSize: 9),),
+      ),
+    );
+  }
+}
+
