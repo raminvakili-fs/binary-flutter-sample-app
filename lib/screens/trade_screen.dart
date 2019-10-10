@@ -88,7 +88,6 @@ class _TradeViewState extends State<TradeView> {
             ],
           ),
         ),
-        BuyButton(onPressed: (){}),
         Expanded(flex: 2, child: PriceProposalWidget()),
         Expanded(flex: 1, child: OpenContractWidget()),
       ],

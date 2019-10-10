@@ -8,6 +8,7 @@ class BuyButton extends StatefulWidget {
   final Duration animationDuration;
   final Color backgroundColor;
   final Color arrowColor;
+  final Widget leading;
 
   const BuyButton(
       {Key key,
@@ -15,7 +16,7 @@ class BuyButton extends StatefulWidget {
       this.buttonSize = const Size(100, 20),
       this.animationDuration = const Duration(milliseconds: 300),
       this.backgroundColor = Colors.lightGreen,
-      this.arrowColor = Colors.green})
+      this.arrowColor = Colors.green, this.leading})
       : super(key: key);
 
   @override
@@ -82,6 +83,11 @@ class _BuyButtonState extends State<BuyButton>
                       backgroundColor: widget.backgroundColor,
                     ),
                     size: widget.buttonSize,
+                  ),
+
+                  Align(
+                    alignment: Alignment(- 0.85, 0.0),
+                    child: widget.leading,
                   )
                 ],
               ),
