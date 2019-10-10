@@ -18,7 +18,7 @@ _launchURL(String url) async {
 Future<Stream<String>> _server() async {
   final StreamController<String> onCode = new StreamController();
   HttpServer server =
-  await HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 8080);
+  await HttpServer.bind('localhost', 8080);
   server.listen((HttpRequest request) async {
     final String code = request.uri.queryParameters["code"];
     request.response
@@ -36,7 +36,7 @@ Future<Stream<String>> _server() async {
 Future<Token> getToken(String appId, String appSecret) async {
   Stream<String> onCode = await _server();
   String url =
-      "https://oauth.binary.com/oauth2/authorize?app_id=$APP_ID";
+      "https://oauth.binary.com/oauth2/authorize?app_id=1159";
   _launchURL(url);
   final String code = await onCode.first;
   final http.Response response = await http.get(
