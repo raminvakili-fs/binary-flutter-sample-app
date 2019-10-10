@@ -5,9 +5,17 @@ class BuyButton extends StatefulWidget {
   final Function onPressed;
 
   final Size buttonSize;
+  final Duration animationDuration;
+  final Color backgroundColor;
+  final Color arrowColor;
 
   const BuyButton(
-      {Key key, @required this.onPressed, this.buttonSize = const Size(100, 20)})
+      {Key key,
+      @required this.onPressed,
+      this.buttonSize = const Size(100, 20),
+      this.animationDuration = const Duration(milliseconds: 300),
+      this.backgroundColor = Colors.lightGreen,
+      this.arrowColor = Colors.green})
       : super(key: key);
 
   @override
@@ -27,15 +35,18 @@ class _BuyButtonState extends State<BuyButton>
     arrowPos = widget.buttonSize.width / 2;
 
     _animationController = AnimationController(
-        duration: Duration(milliseconds: 300),
-        vsync: this,);
+      duration: widget.animationDuration,
+      vsync: this,
+    );
 
-    _arrowAnimation = Tween<double>(begin: arrowPos, end: widget.buttonSize.width).animate(CurvedAnimation(
+    _arrowAnimation =
+        Tween<double>(begin: arrowPos, end: widget.buttonSize.width)
+            .animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.fastOutSlowIn,
     ));
 
-    _animationController.addListener((){
+    _animationController.addListener(() {
       if (_animationController.isCompleted) {
         _animationController.reverse();
       }
@@ -53,16 +64,27 @@ class _BuyButtonState extends State<BuyButton>
       child: AnimatedBuilder(
         animation: _animationController,
         builder: (BuildContext context, Widget child) {
-          return Container(
-            width: widget.buttonSize.width,
-            height: widget.buttonSize.height,
-            child: Stack(
-              children: <Widget>[
-                CustomPaint(
-                  painter: BuyButtonPainter(arrowPos: _arrowAnimation.value),
-                  size: widget.buttonSize,
-                )
-              ],
+          return ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(5.0),
+              topRight: Radius.circular(5.0),
+              bottomRight: Radius.circular(5.0),
+            ),
+            child: Container(
+              width: widget.buttonSize.width,
+              height: widget.buttonSize.height,
+              child: Stack(
+                children: <Widget>[
+                  CustomPaint(
+                    painter: BuyButtonPainter(
+                      arrowPos: _arrowAnimation.value,
+                      arrowColor: widget.arrowColor,
+                      backgroundColor: widget.backgroundColor,
+                    ),
+                    size: widget.buttonSize,
+                  )
+                ],
+              ),
             ),
           );
         },
@@ -80,7 +102,13 @@ class _BuyButtonState extends State<BuyButton>
 class BuyButtonPainter extends CustomPainter {
   final double arrowPos;
 
-  BuyButtonPainter({@required this.arrowPos});
+  final Color backgroundColor;
+  final Color arrowColor;
+
+  BuyButtonPainter(
+      {@required this.backgroundColor,
+      @required this.arrowColor,
+      @required this.arrowPos});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -99,12 +127,11 @@ class BuyButtonPainter extends CustomPainter {
       ..lineTo(arrowPos, height)
       ..lineTo(arrowPos, 0);
 
-    paint.color = Colors.yellow;
+    paint.color = backgroundColor;
 
     canvas.drawPath(painPath, paint);
 
     painPath.reset();
-
 
     double arrowEnd = arrowPos + arrowWidth;
 
@@ -114,7 +141,8 @@ class BuyButtonPainter extends CustomPainter {
       ..lineTo(arrowPos, height)
       ..lineTo(0, height)
       ..lineTo(0, 0);
-    paint..color = Colors.red;
+
+    paint..color = arrowColor;
 
     canvas.drawPath(painPath, paint);
 
