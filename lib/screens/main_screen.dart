@@ -12,16 +12,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(value: MainScreenViewModel()),
-      ],
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Binary.com'),
-        ),
-        body: Content(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Binary.com'),
       ),
+      body: Content(),
     );
   }
 }
@@ -32,10 +27,6 @@ class Content extends StatefulWidget {
 }
 
 class _ContentState extends State<Content> {
-
-
-
-
   @override
   void initState() {
     super.initState();
@@ -43,45 +34,15 @@ class _ContentState extends State<Content> {
 
   @override
   Widget build(BuildContext context) {
-    var mainViewModel = Provider.of<MainScreenViewModel>(context);
     return Center(
       child: Column(
         children: <Widget>[
           RaisedButton(
-            child: (mainViewModel.activeSymbols != null) ?
-                    Text('Active Symbols ${mainViewModel.activeSymbols.activeSymbols[0].market}') :
-                    Text('Active Symbols'),
-            onPressed: () {
-              mainViewModel.getActiveSymbols(ActiveSymbolsRequest(reqId: 1, activeSymbols: "brief", productType: "basic"));
-            },
-          ),
-          RaisedButton(
             child: Text('authorize'),
-            onPressed: () {
-            },
-          ),
-          RaisedButton(
-            child: StreamBuilder(
-                stream: mainViewModel.tickStream,
-                builder: (context, snapshot) {
-                  print("View Side ${snapshot.hasData}");
-                  if (snapshot.hasData) {
-                    var tickStream = snapshot.data as TickStreamResponse;
-                    return Text('tick stream ${tickStream.tick.bid}');
-                  }
-                  return Container(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(),
-                  );
-                }),
-            onPressed: () {
-              mainViewModel.getTickStream(ticks: "R_50", subscribe: 1);
-            },
+            onPressed: () {},
           ),
         ],
       ),
     );
   }
-
 }
