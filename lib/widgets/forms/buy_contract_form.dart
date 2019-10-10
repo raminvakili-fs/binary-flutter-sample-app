@@ -5,6 +5,7 @@ import 'package:binary_mobile_app/model/serializable/requests/buy_contract_reque
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/forms/contracts_forms/digits_form.dart';
+import 'package:binary_mobile_app/widgets/shared/buy_button.dart';
 import 'package:binary_mobile_app/widgets/shared/rotating_Icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -218,18 +219,14 @@ class _BuyContractFormState extends State<BuyContractForm> {
                           if (snapshot.hasData && snapshot.data.error == null) {
                             return Column(
                               children: <Widget>[
-                                FlatButton(
-                                  color: Colors.green,
-                                  highlightColor: Colors.blueGrey,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
+                                BuyButton(
                                   onPressed: () {
                                     tradeViewModel.priceProposalViewModel.buyContract(
                                         BuyContractRequest(
                                             buy: snapshot.data.proposal.id,
                                             price: snapshot.data.proposal.askPrice));
                                   },
-                                  child: Text(
+                                  leading: Text(
                                     widget.contractTypeItem.top,
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 10),
@@ -255,12 +252,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
                             if (snapshot.data.error == null) {
                               return Column(
                                 children: <Widget>[
-                                  FlatButton(
-                                    color: Colors.redAccent,
-                                    highlightColor: Colors.blueGrey,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            5.0)),
+                                  BuyButton(
                                     onPressed: () {
                                       tradeViewModel.priceProposalViewModel
                                           .buyContract(
@@ -269,11 +261,13 @@ class _BuyContractFormState extends State<BuyContractForm> {
                                               price: snapshot.data.proposal
                                                   .askPrice));
                                     },
-                                    child: Text(
+                                    leading: Text(
                                       widget.contractTypeItem.bottom,
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 10),
                                     ),
+                                    backgroundColor: Colors.redAccent,
+                                    arrowColor: Colors.red,
                                   ),
                                   Text(
                                       'stake: \$${snapshot.data.proposal.askPrice}\npayout: \$${snapshot.data.proposal.payout}', textAlign: TextAlign.center, style: TextStyle(fontSize: 10),)

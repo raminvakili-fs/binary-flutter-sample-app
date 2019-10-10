@@ -13,7 +13,7 @@ class BuyButton extends StatefulWidget {
   const BuyButton(
       {Key key,
       @required this.onPressed,
-      this.buttonSize = const Size(100, 20),
+      this.buttonSize = const Size(100, 35),
       this.animationDuration = const Duration(milliseconds: 300),
       this.backgroundColor = Colors.lightGreen,
       this.arrowColor = Colors.green, this.leading})
@@ -59,7 +59,7 @@ class _BuyButtonState extends State<BuyButton>
     return InkWell(
       highlightColor: Colors.white12,
       onTap: () {
-        print('Clicked');
+        widget.onPressed();
         _animationController.forward();
       },
       child: AnimatedBuilder(
