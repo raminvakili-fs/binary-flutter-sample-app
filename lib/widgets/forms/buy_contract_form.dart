@@ -232,8 +232,11 @@ class _BuyContractFormState extends State<BuyContractForm> {
                                         color: Colors.white, fontSize: 10),
                                   ),
                                 ),
-                                Text(
-                                    'stake: \$${snapshot.data.proposal.askPrice}\npayout: \$${snapshot.data.proposal.payout}', textAlign: TextAlign.center, style: TextStyle(fontSize: 10),)
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                      'stake: \$${snapshot.data.proposal.askPrice}\npayout: \$${snapshot.data.proposal.payout}', textAlign: TextAlign.center, style: TextStyle(fontSize: 10),),
+                                )
                               ],
                             );
                           }
@@ -269,8 +272,11 @@ class _BuyContractFormState extends State<BuyContractForm> {
                                     backgroundColor: Colors.redAccent,
                                     arrowColor: Colors.red,
                                   ),
-                                  Text(
-                                      'stake: \$${snapshot.data.proposal.askPrice}\npayout: \$${snapshot.data.proposal.payout}', textAlign: TextAlign.center, style: TextStyle(fontSize: 10),)
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                        'stake: \$${snapshot.data.proposal.askPrice}\npayout: \$${snapshot.data.proposal.payout}', textAlign: TextAlign.center, style: TextStyle(fontSize: 10),),
+                                  )
                                 ],
                               );
                             } else {

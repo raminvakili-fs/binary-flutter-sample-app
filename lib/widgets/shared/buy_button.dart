@@ -14,7 +14,7 @@ class BuyButton extends StatefulWidget {
       {Key key,
       @required this.onPressed,
       this.buttonSize = const Size(100, 35),
-      this.animationDuration = const Duration(milliseconds: 300),
+      this.animationDuration = const Duration(milliseconds: 250),
       this.backgroundColor = Colors.lightGreen,
       this.arrowColor = Colors.green, this.leading})
       : super(key: key);
@@ -65,31 +65,46 @@ class _BuyButtonState extends State<BuyButton>
       child: AnimatedBuilder(
         animation: _animationController,
         builder: (BuildContext context, Widget child) {
-          return ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(5.0),
-              topRight: Radius.circular(5.0),
-              bottomRight: Radius.circular(5.0),
-            ),
-            child: Container(
-              width: widget.buttonSize.width,
-              height: widget.buttonSize.height,
-              child: Stack(
-                children: <Widget>[
-                  CustomPaint(
-                    painter: BuyButtonPainter(
-                      arrowPos: _arrowAnimation.value,
-                      arrowColor: widget.arrowColor,
-                      backgroundColor: widget.backgroundColor,
-                    ),
-                    size: widget.buttonSize,
+          return Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 2.0, // has the effect of softening the shadow
+                  spreadRadius: 1.0, // has the effect of extending the shadow
+                  offset: Offset(
+                    1.0, // horizontal, move right 10
+                    1.0, // vertical, move down 10
                   ),
+                )
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5.0),
+                topRight: Radius.circular(5.0),
+                bottomRight: Radius.circular(5.0),
+              ),
+              child: Container(
+                width: widget.buttonSize.width,
+                height: widget.buttonSize.height,
+                child: Stack(
+                  children: <Widget>[
+                    CustomPaint(
+                      painter: BuyButtonPainter(
+                        arrowPos: _arrowAnimation.value,
+                        arrowColor: widget.arrowColor,
+                        backgroundColor: widget.backgroundColor,
+                      ),
+                      size: widget.buttonSize,
+                    ),
 
-                  Align(
-                    alignment: Alignment(- 0.85, 0.0),
-                    child: widget.leading,
-                  )
-                ],
+                    Align(
+                      alignment: Alignment(- 0.85, 0.0),
+                      child: widget.leading,
+                    )
+                  ],
+                ),
               ),
             ),
           );
