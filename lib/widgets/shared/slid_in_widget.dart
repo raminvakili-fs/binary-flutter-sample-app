@@ -5,8 +5,10 @@ class SlidInWidget extends StatefulWidget {
 
   final double startingVerticalOffset;
 
+  final Duration animationDuration;
+
   const SlidInWidget(
-      {Key key, @required this.child, this.startingVerticalOffset = 30})
+      {Key key, @required this.child, this.startingVerticalOffset = 30, this.animationDuration = const Duration(milliseconds: 1000)})
       : super(key: key);
 
   @override
@@ -22,9 +24,7 @@ class _SlidInWidgetState extends State<SlidInWidget>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-        duration: Duration(
-          milliseconds: 1000,
-        ),
+        duration: widget.animationDuration,
         vsync: this);
 
     _slidAnimation = Tween<double>(begin: widget.startingVerticalOffset, end: 0)
