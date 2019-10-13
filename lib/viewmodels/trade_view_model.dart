@@ -1,6 +1,6 @@
 import 'package:binary_mobile_app/api_info.dart';
 import 'package:binary_mobile_app/model/api/binary_api2.dart';
-import 'package:binary_mobile_app/model/contract_category.dart';
+import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
 import 'package:binary_mobile_app/model/serializable/requests/active_symbols_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/authorize_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';

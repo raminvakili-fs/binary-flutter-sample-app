@@ -1,4 +1,4 @@
-import 'package:binary_mobile_app/model/contract_category.dart';
+import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
 import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
