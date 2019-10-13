@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:binary_mobile_app/model/api/binary_api2.dart';
+import 'package:binary_mobile_app/model/authentication/oauth.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/tick_stream_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
@@ -134,6 +135,12 @@ void main() {
     BalanceResponse response = BalanceResponse.fromJson(jsonDecode(json));
 
     expect(response.balance.currency, 'USD');
+
+  });
+
+  test('Parse accounts from ouath url', (){
+
+    var oauthUrl = 'http://localhost.com/?acct1=CR962847&token1=a1-WF7J1vrLnYaYfYDO1HFiORhvr9Ut0&cur1=USD&acct2=VRTC2351953&token2=a1-RdH2uQrpsuGMi2xYwwCyeVIiENeIq&cur2=USD&state=';
 
   });
 }

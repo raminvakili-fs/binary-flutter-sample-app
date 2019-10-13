@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class User {
 
   List<Account> _accounts;
@@ -13,7 +15,7 @@ class Account {
   final String token;
   final String currency;
 
-  Account(this.id, this.token, this.currency);
+  Account({@required this.id, @required this.token, @required this.currency});
 
 
 }

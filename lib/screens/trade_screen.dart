@@ -42,15 +42,15 @@ class TradeScreen extends StatelessWidget {
               },
             ),
 
-//            IconButton(
-//              icon: Icon(Icons.assignment_ind),
-//              onPressed: () async {
-//
-//                getToken("", "");
-//
-//
-//              }
-//            )
+            IconButton(
+              icon: Icon(Icons.assignment_ind),
+              onPressed: () async {
+
+                getToken("", "");
+
+
+              }
+            )
           ],
         ),
         body: TradeView(),

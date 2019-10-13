@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:binary_mobile_app/model/authentication/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,6 +25,8 @@ Future<Stream<String>> _server() async {
 
     print("Token from OAuth is $token");
 
+    User user = parseUserAccounts (request.uri);
+
     request.response
       ..statusCode = 200
       ..headers.set("Content-Type", ContentType.HTML.mimeType)
@@ -35,6 +38,25 @@ Future<Stream<String>> _server() async {
   });
   return onCode.stream;
 }
+
+User parseUserAccounts(Uri uri) {
+  var user = User();
+
+  int accountIndex = 1;
+
+  while (uri.queryParameters['acct$accountIndex'] != null) {
+    user.addAccount(Account(
+      id: uri.queryParameters['acct$accountIndex'],
+      token: uri.queryParameters['token$accountIndex'],
+      currency: uri.queryParameters['cur$accountIndex']
+    ));
+    accountIndex++;
+  }
+
+  return user;
+}
+
+
 
 Future<Token> getToken(String appId, String appSecret) async {
   Stream<String> onCode = await _server();
