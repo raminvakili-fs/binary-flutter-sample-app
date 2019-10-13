@@ -178,24 +178,11 @@ class _BuyContractFormState extends State<BuyContractForm> {
                         builder:
                             (context, AsyncSnapshot<ContractTypeItem> snapshot) {
                           if (snapshot.hasData) {
-                            return StreamBuilder(
-                              stream: tradeViewModel.priceProposalViewModel.isLoading,
-                              builder: (_, loading) {
-                                if(loading.hasData) {
-                                  if (loading.data) {
-                                    return RotatingIcon(
-                                      icon: Icons.refresh,
-                                    );
-                                  }
-                                  return IconButton(
-                                    color: Theme.of(context).accentColor,
-                                    icon: Icon(Icons.refresh),
-                                    onPressed: (){
-                                      _getProposal(tradeViewModel, snapshot.data);
-                                    },
-                                  );
-                                }
-                                return Container();
+                            return RotatingIcon(
+                              icon: Icons.refresh,
+                              loadingStream: tradeViewModel.priceProposalViewModel.isLoading,
+                              onPressed: (){
+                                _getProposal(tradeViewModel, snapshot.data);
                               },
                             );
                           }
