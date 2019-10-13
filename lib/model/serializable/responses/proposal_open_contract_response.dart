@@ -94,7 +94,7 @@ class ProposalOpenContract {
   @JsonKey(nullable: true, name: 'purchase_time')
   int purchaseTime;
   @JsonKey(nullable: true, name: 'sell_price')
-  int sellPrice;
+  double sellPrice;
   @JsonKey(nullable: true, name: 'sell_spot')
   double sellSpot;
   @JsonKey(nullable: true, name: 'sell_spot_display_value')

@@ -67,7 +67,7 @@ ProposalOpenContract _$ProposalOpenContractFromJson(Map<String, dynamic> json) {
     (json['profit'] as num)?.toDouble(),
     (json['profit_percentage'] as num)?.toDouble(),
     json['purchase_time'] as int,
-    json['sell_price'] as int,
+    (json['sell_price'] as num)?.toDouble(),
     (json['sell_spot'] as num)?.toDouble(),
     json['sell_spot_display_value'] as String,
     json['sell_spot_time'] as int,
