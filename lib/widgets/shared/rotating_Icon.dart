@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
 
 class RotatingIcon extends StatefulWidget {
   final IconData icon;
   final Duration duration;
   final Function onPressed;
 
-  final BehaviorSubject<bool> loadingStream;
+  final Stream<bool> loadingStream;
 
   const RotatingIcon({Key key, @required this.icon, this.duration = const Duration(seconds: 2), this.loadingStream, @required this.onPressed}) : super(key: key);
 
