@@ -20,14 +20,17 @@ Future<Stream<String>> _server() async {
   HttpServer server =
   await HttpServer.bind('localhost', 8080);
   server.listen((HttpRequest request) async {
-    final String code = request.uri.queryParameters["code"];
+    final String token = request.uri.queryParameters["token2"];
+
+    print("Token from OAuth is $token");
+
     request.response
       ..statusCode = 200
       ..headers.set("Content-Type", ContentType.HTML.mimeType)
       ..write("<html><h1>You can now close this window</h1></html>");
     await request.response.close();
     await server.close(force: true);
-    onCode.add(code);
+    onCode.add(token);
     await onCode.close();
   });
   return onCode.stream;
@@ -36,7 +39,7 @@ Future<Stream<String>> _server() async {
 Future<Token> getToken(String appId, String appSecret) async {
   Stream<String> onCode = await _server();
   String url =
-      "https://oauth.binary.com/oauth2/authorize?app_id=1159";
+      "https://oauth.binary.com/oauth2/authorize?app_id=$APP_ID";
   _launchURL(url);
   final String code = await onCode.first;
   final http.Response response = await http.get(
