@@ -1,5 +1,5 @@
 
-import 'package:binary_mobile_app/model/authentication/oauth.dart';
+import 'package:binary_mobile_app/model/authentication/user.dart';
 import 'package:binary_mobile_app/screens/statement_screen.dart';
 import 'package:binary_mobile_app/viewmodels/app_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
@@ -17,13 +17,29 @@ class TradeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final appViewModel = Provider.of<AppViewModel>(context);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(builder: (_) => TradeViewModel()),
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: Text('App Trader'),
+          title: StreamBuilder(
+
+            stream: appViewModel.userInfo,
+
+            builder: (_, AsyncSnapshot<User> snapshot){
+
+              var userID = '';
+
+              if (snapshot.hasData){
+                userID = snapshot.data.accounts[0].id;
+              }
+              return Text('App Trader $userID', style: TextStyle(fontSize: 12),);
+            },
+          ),
           elevation: 0,
           actions: <Widget>[
             IconButton(
@@ -39,9 +55,9 @@ class TradeScreen extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.assignment_ind),
               onPressed: () async {
-                final appViewModel = Provider.of<AppViewModel>(context);
+
                 appViewModel.authenticateWithOauth();
-                //OAuthentication.instance.getToken();
+
               }
             )
           ],
