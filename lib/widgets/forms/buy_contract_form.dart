@@ -1,6 +1,6 @@
 import 'package:binary_mobile_app/app_constants.dart';
-import 'package:binary_mobile_app/model/contract_category.dart';
-import 'package:binary_mobile_app/model/contract_type_form_classes.dart';
+import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
+import 'package:binary_mobile_app/model/serializable/categories/contract_type_form_classes.dart';
 import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';

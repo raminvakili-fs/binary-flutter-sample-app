@@ -1,4 +1,4 @@
-import 'package:binary_mobile_app/model/contract_category.dart';
+import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/forms/buy_contract_form.dart';
 import 'package:binary_mobile_app/widgets/shared/binary_progress_indicator.dart';

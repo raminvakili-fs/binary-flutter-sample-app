@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
-import '../app_constants.dart';
+import '../../app_constants.dart';
 
 _launchURL(String url) async {
   if (await canLaunch(url)) {

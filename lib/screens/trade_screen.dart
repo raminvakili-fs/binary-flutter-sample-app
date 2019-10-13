@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:binary_mobile_app/app_constants.dart';
-import 'package:binary_mobile_app/model/oauth.dart';
+import 'package:binary_mobile_app/model/authentication/oauth.dart';
 import 'package:binary_mobile_app/screens/statement_screen.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_widget.dart';
