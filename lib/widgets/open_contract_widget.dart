@@ -27,20 +27,24 @@ class OpenContractWidget extends StatelessWidget {
                   return StreamBuilder(
                     stream: tradeViewModel.openContractViewModel.proposalOpenContractResponse,
                     builder: (_, AsyncSnapshot<ProposalOpenContractResponse> snapshot){
-                      if (snapshot.hasData && snapshot.data.proposalOpenContract != null){
-                        var openContract = snapshot.data;
-                        return Container(
-                          width: double.infinity,
-                          child: Center(
-                            child: Column(
-                              children: <Widget>[
-                                Text('entrySpot: ${openContract.proposalOpenContract?.entrySpotDisplayValue}\n'
-                                    'currentSpot: ${openContract.proposalOpenContract?.currentSpotDisplayValue}\n', textAlign: TextAlign.center, style: TextStyle(fontSize: 10),),
-                                openContract.proposalOpenContract.exitTickDisplayValue == null ? Container() : Text('exitSpot: ${openContract.proposalOpenContract?.exitTickDisplayValue}', textAlign: TextAlign.center, style: TextStyle(fontSize: 10),),
-                              ],
+                      if (snapshot.hasData){
+                        if (snapshot.data.error == null) {
+                          var openContract = snapshot.data;
+                          return Container(
+                            width: double.infinity,
+                            child: Center(
+                              child: Column(
+                                children: <Widget>[
+                                  Text('entrySpot: ${openContract.proposalOpenContract?.entrySpotDisplayValue}\n'
+                                      'currentSpot: ${openContract.proposalOpenContract?.currentSpotDisplayValue}\n', textAlign: TextAlign.center, style: TextStyle(fontSize: 10),),
+                                  openContract.proposalOpenContract.exitTickDisplayValue == null ? Container() : Text('exitSpot: ${openContract.proposalOpenContract?.exitTickDisplayValue}', textAlign: TextAlign.center, style: TextStyle(fontSize: 10),),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                          return Center(child: Text('${snapshot.data.error.message}'));
+                        }
                       }
                       return Center(child: Text('No open contract'));
                     },
