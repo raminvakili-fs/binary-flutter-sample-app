@@ -1,21 +1,15 @@
-import 'dart:async';
-import 'dart:io';
 
-import 'package:binary_mobile_app/app_constants.dart';
 import 'package:binary_mobile_app/model/authentication/oauth.dart';
 import 'package:binary_mobile_app/screens/statement_screen.dart';
+import 'package:binary_mobile_app/viewmodels/app_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_widget.dart';
 import 'package:binary_mobile_app/widgets/open_contract_widget.dart';
 import 'package:binary_mobile_app/widgets/price_proposal_widget.dart';
-import 'package:binary_mobile_app/widgets/shared/binary_progress_indicator.dart';
-import 'package:binary_mobile_app/widgets/shared/buy_button.dart';
 import 'package:binary_mobile_app/widgets/shared/slid_in_widget.dart';
 import 'package:binary_mobile_app/widgets/symbols_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:http_server/http_server.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class TradeScreen extends StatelessWidget {
 
@@ -45,10 +39,9 @@ class TradeScreen extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.assignment_ind),
               onPressed: () async {
-
-                getToken("", "");
-
-
+                final appViewModel = Provider.of<AppViewModel>(context);
+                appViewModel.authenticateWithOauth();
+                //OAuthentication.instance.getToken();
               }
             )
           ],

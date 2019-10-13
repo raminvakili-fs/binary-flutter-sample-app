@@ -8,66 +8,84 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../app_constants.dart';
 
-_launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+
+class OAuthentication {
+
+  static OAuthentication _instance;
+
+  OAuthentication._();
+
+  static OAuthentication get instance {
+    if (_instance == null) {
+      _instance = OAuthentication._();
+    }
+    return _instance;
+  }
+
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  Future<Stream<String>> _server() async {
+    final StreamController<String> onCode = new StreamController();
+    HttpServer server =
+    await HttpServer.bind('localhost', 8080);
+    server.listen((HttpRequest request) async {
+      final String token = request.uri.queryParameters["token2"];
+
+      User user = parseUserAccounts (request.uri);
+
+      userInfo.complete(user);
+
+      request.response
+        ..statusCode = 200
+        ..headers.set("Content-Type", ContentType.HTML.mimeType)
+        ..write("<html><h1>You can now close this window</h1></html>");
+      await request.response.close();
+      await server.close(force: true);
+      onCode.add(token);
+      await onCode.close();
+    });
+    return onCode.stream;
+  }
+
+  User parseUserAccounts(Uri uri) {
+    var user = User();
+
+    int accountIndex = 1;
+
+    while (uri.queryParameters['acct$accountIndex'] != null) {
+      user.addAccount(Account(
+          id: uri.queryParameters['acct$accountIndex'],
+          token: uri.queryParameters['token$accountIndex'],
+          currency: uri.queryParameters['cur$accountIndex']
+      ));
+      accountIndex++;
+    }
+
+    return user;
+  }
+
+
+  Completer userInfo = Completer<User>();
+
+
+  Future<User> getToken() async {
+    Stream<String> onCode = await _server();
+    String url =
+        "https://oauth.binary.com/oauth2/authorize?app_id=$APP_ID";
+    _launchURL(url);
+
+    return userInfo.future;
   }
 }
 
-Future<Stream<String>> _server() async {
-  final StreamController<String> onCode = new StreamController();
-  HttpServer server =
-  await HttpServer.bind('localhost', 8080);
-  server.listen((HttpRequest request) async {
-    final String token = request.uri.queryParameters["token2"];
 
-    print("Token from OAuth is $token");
-
-    User user = parseUserAccounts (request.uri);
-
-    request.response
-      ..statusCode = 200
-      ..headers.set("Content-Type", ContentType.HTML.mimeType)
-      ..write("<html><h1>You can now close this window</h1></html>");
-    await request.response.close();
-    await server.close(force: true);
-    onCode.add(token);
-    await onCode.close();
-  });
-  return onCode.stream;
-}
-
-User parseUserAccounts(Uri uri) {
-  var user = User();
-
-  int accountIndex = 1;
-
-  while (uri.queryParameters['acct$accountIndex'] != null) {
-    user.addAccount(Account(
-      id: uri.queryParameters['acct$accountIndex'],
-      token: uri.queryParameters['token$accountIndex'],
-      currency: uri.queryParameters['cur$accountIndex']
-    ));
-    accountIndex++;
-  }
-
-  return user;
-}
-
-
-
-Future<Token> getToken(String appId, String appSecret) async {
-  Stream<String> onCode = await _server();
-  String url =
-      "https://oauth.binary.com/oauth2/authorize?app_id=$APP_ID";
-  _launchURL(url);
-  final String code = await onCode.first;
-  final http.Response response = await http.get(
-      "https://graph.facebook.com/v2.2/oauth/access_token?client_id=$appId&redirect_uri=http://localhost:8080/&client_secret=$appSecret&code=$code");
-  return new Token.fromMap(jsonDecode(response.body));
-}
 class Token {
   final String access;
   final String type;

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 class User {
 
   List<Account> _accounts;
+  List<Account> get accounts => _accounts;
 
   User() : _accounts = List<Account>();
 
