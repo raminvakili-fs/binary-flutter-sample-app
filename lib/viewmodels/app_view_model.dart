@@ -11,8 +11,10 @@ class AppViewModel extends ChangeNotifier {
   
   authenticateWithOauth() async{
     User user = await OAuthentication.instance.getToken();
-    print('User info: ${user.accounts[0].token}');
-    _userInfo.add(user);
+    if (user != null && user.accounts.length > 0) {
+      print('User info: ${user.accounts[0].token}');
+      _userInfo.add(user);
+    }
   }
 
   @override
