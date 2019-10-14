@@ -1,5 +1,6 @@
 
 import 'package:binary_mobile_app/model/authentication/user.dart';
+import 'package:binary_mobile_app/model/serializable/responses/authorize_response.dart';
 import 'package:binary_mobile_app/screens/statement_screen.dart';
 import 'package:binary_mobile_app/viewmodels/app_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
@@ -26,19 +27,33 @@ class TradeScreen extends StatelessWidget {
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: StreamBuilder(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('App Trader'),
+              SizedBox(height: 8,),
+              StreamBuilder(
 
-            stream: appViewModel.userInfo,
+                stream: appViewModel.authorizeResponse,
 
-            builder: (_, AsyncSnapshot<User> snapshot){
+                builder: (_, AsyncSnapshot<AuthorizeResponse> snapshot){
 
-              var userID = '';
 
-              if (snapshot.hasData){
-                userID = snapshot.data.accounts[0].id;
-              }
-              return Text('App Trader $userID', style: TextStyle(fontSize: 12),);
-            },
+                  if (snapshot.hasData){
+                    var msg = '';
+                    if (snapshot.data.error == null) {
+                      msg = 'Login ID: ${snapshot.data.authorize.loginid}';
+                    } else {
+                      msg = snapshot.data.error.message;
+                    }
+                    return Text(msg, style: TextStyle(fontSize: 11),);
+                  }
+                  return Container();
+                },
+              )
+
+            ],
           ),
           elevation: 0,
           actions: <Widget>[

@@ -12,6 +12,7 @@ import '../../app_constants.dart';
 class OAuthentication {
 
   static OAuthentication _instance;
+  HttpServer _oauthServer;
 
   OAuthentication._();
 
@@ -31,36 +32,38 @@ class OAuthentication {
     }
   }
 
-  Future<Stream<String>> _server() async {
+  _runServer() async {
     final StreamController<String> onCode = new StreamController();
-    HttpServer server =
-    await HttpServer.bind('localhost', 8080);
-    server.listen((HttpRequest request) async {
-      final String token = request.uri.queryParameters["token2"];
 
-      User user = parseUserAccounts (request.uri);
+    if (_oauthServer == null){
+      _oauthServer = await HttpServer.bind('localhost', 8080);
+      _oauthServer.listen((HttpRequest request) async {
+        final String token = request.uri.queryParameters["token2"];
 
-      userInfo.complete(user);
+        OAuthResponse user = parseUserAccounts (request.uri);
 
-      request.response
-        ..statusCode = 200
-        ..headers.set("Content-Type", ContentType.HTML.mimeType)
-        ..write("<html><h1>You can now close this window</h1></html>");
-      await request.response.close();
-      await server.close(force: true);
-      onCode.add(token);
-      await onCode.close();
-    });
-    return onCode.stream;
+        userInfo.complete(user);
+
+        request.response
+          ..statusCode = 200
+          ..headers.set("Content-Type", ContentType.HTML.mimeType)
+          ..write("<html><center><font size=\"8\">Logged in successfully! <br> <a href=\"bat://binary.app\">Open App Trader</a></font></center></html>");
+        await request.response.close();
+        await _oauthServer.close(force: true);
+        onCode.add(token);
+        await onCode.close();
+      });
+    }
+
   }
 
-  User parseUserAccounts(Uri uri) {
-    var user = User();
+  OAuthResponse parseUserAccounts(Uri uri) {
+    var user = OAuthResponse();
 
     int accountIndex = 1;
 
     while (uri.queryParameters['acct$accountIndex'] != null) {
-      user.addAccount(Account(
+      user.addAccount(TokenInfo(
           id: uri.queryParameters['acct$accountIndex'],
           token: uri.queryParameters['token$accountIndex'],
           currency: uri.queryParameters['cur$accountIndex']
@@ -72,15 +75,13 @@ class OAuthentication {
   }
 
 
-  Completer userInfo = Completer<User>();
+  Completer userInfo = Completer<OAuthResponse>();
 
 
-  Future<User> getToken() async {
-    Stream<String> onCode = await _server();
-    String url =
-        "https://oauth.binary.com/oauth2/authorize?app_id=$APP_ID";
+  Future<OAuthResponse> getToken() async {
+    await _runServer();
+    String url = "https://oauth.binary.com/oauth2/authorize?app_id=$APP_ID";
     _launchURL(url);
-
     return userInfo.future;
   }
 }

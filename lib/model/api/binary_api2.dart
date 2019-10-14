@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:binary_mobile_app/app_constants.dart';
 import 'package:binary_mobile_app/model/serializable/requests/request_base.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
+import 'package:binary_mobile_app/model/serializable/responses/authorize_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/balance_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
@@ -103,6 +104,10 @@ class BinaryApi2 {
 
           case 'balance':
             responseBase = BalanceResponse.fromJson(jsonMap);
+            break;
+
+          case 'authorize':
+            responseBase = AuthorizeResponse.fromJson(jsonMap);
             break;
         }
         rs.streamController.add(responseBase);

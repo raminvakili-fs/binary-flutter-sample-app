@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 
-class User {
+class OAuthResponse {
 
-  List<Account> _accounts;
-  List<Account> get accounts => _accounts;
+  List<TokenInfo> _accounts;
+  List<TokenInfo> get accounts => _accounts;
 
-  User() : _accounts = List<Account>();
+  OAuthResponse() : _accounts = List<TokenInfo>();
 
-  addAccount(Account account) => _accounts.add(account);
+  addAccount(TokenInfo account) => _accounts.add(account);
 
 }
 
-class Account {
+class TokenInfo {
   final String id;
   final String token;
   final String currency;
 
-  Account({@required this.id, @required this.token, @required this.currency});
+  TokenInfo({@required this.id, @required this.token, @required this.currency});
 
 
 }
