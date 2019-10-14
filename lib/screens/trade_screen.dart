@@ -27,23 +27,33 @@ class TradeScreen extends StatelessWidget {
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: StreamBuilder(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('App Trader'),
+              SizedBox(height: 8,),
+              StreamBuilder(
 
-            stream: appViewModel.authorizeResponse,
+                stream: appViewModel.authorizeResponse,
 
-            builder: (_, AsyncSnapshot<AuthorizeResponse> snapshot){
+                builder: (_, AsyncSnapshot<AuthorizeResponse> snapshot){
 
-              var userInfo = '';
 
-              if (snapshot.hasData){
-                if (snapshot.data.error == null) {
-                  userInfo = snapshot.data.authorize.loginid;
-                } else {
-                  userInfo = snapshot.data.error.message;
-                }
-              }
-              return Text('App Trader $userInfo', style: TextStyle(fontSize: 12),);
-            },
+                  if (snapshot.hasData){
+                    var msg = '';
+                    if (snapshot.data.error == null) {
+                      msg = 'Login ID: ${snapshot.data.authorize.loginid}';
+                    } else {
+                      msg = snapshot.data.error.message;
+                    }
+                    return Text(msg, style: TextStyle(fontSize: 11),);
+                  }
+                  return Container();
+                },
+              )
+
+            ],
           ),
           elevation: 0,
           actions: <Widget>[
