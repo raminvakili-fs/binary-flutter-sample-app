@@ -1,27 +1,15 @@
-import 'package:binary_mobile_app/api_info.dart';
-import 'package:binary_mobile_app/model/api/binary_api2.dart';
 import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
-import 'package:binary_mobile_app/model/serializable/requests/active_symbols_request.dart';
-import 'package:binary_mobile_app/model/serializable/requests/authorize_request.dart';
-import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/forget_all_request.dart';
-import 'package:binary_mobile_app/model/serializable/requests/price_proposal_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/proposal_open_contract_request.dart';
-import 'package:binary_mobile_app/model/serializable/requests/tick_stream_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
-import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
-import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/proposal_open_contract_response.dart';
-import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
 import 'package:binary_mobile_app/viewmodels/symbols_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/base_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/contracts_type_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/open_contract_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/price_proposal_view_model.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:rxdart/rxdart.dart';
 
 class TradeViewModel  extends BaseViewModel{
 
