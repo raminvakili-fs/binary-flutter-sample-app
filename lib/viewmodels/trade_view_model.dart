@@ -40,7 +40,8 @@ class TradeViewModel  extends BaseViewModel{
         });
 
       } else {
-        openContractViewModel.proposalOpenContractResponse.add(ProposalOpenContractResponse(error: response.error, reqId: response.reqId, proposalOpenContract: null));
+        openContractViewModel.proposalOpenContractResponse.add(ProposalOpenContractResponse(error: response.error, msgType: 'proposal_open_contract', reqId: response.reqId, proposalOpenContract: null));
+        openContractViewModel.isLoading.add(false);
       }
 
     });
