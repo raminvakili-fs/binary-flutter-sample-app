@@ -1,5 +1,6 @@
 
 import 'package:binary_mobile_app/model/authentication/user.dart';
+import 'package:binary_mobile_app/model/serializable/responses/authorize_response.dart';
 import 'package:binary_mobile_app/screens/statement_screen.dart';
 import 'package:binary_mobile_app/viewmodels/app_view_model.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
@@ -28,16 +29,20 @@ class TradeScreen extends StatelessWidget {
         appBar: AppBar(
           title: StreamBuilder(
 
-            stream: appViewModel.userInfo,
+            stream: appViewModel.authorizeResponse,
 
-            builder: (_, AsyncSnapshot<User> snapshot){
+            builder: (_, AsyncSnapshot<AuthorizeResponse> snapshot){
 
-              var userID = '';
+              var userInfo = '';
 
               if (snapshot.hasData){
-                userID = snapshot.data.accounts[0].id;
+                if (snapshot.data.error == null) {
+                  userInfo = snapshot.data.authorize.loginid;
+                } else {
+                  userInfo = snapshot.data.error.message;
+                }
               }
-              return Text('App Trader $userID', style: TextStyle(fontSize: 12),);
+              return Text('App Trader $userInfo', style: TextStyle(fontSize: 12),);
             },
           ),
           elevation: 0,

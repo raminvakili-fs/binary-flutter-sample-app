@@ -38,7 +38,7 @@ class OAuthentication {
     server.listen((HttpRequest request) async {
       final String token = request.uri.queryParameters["token2"];
 
-      User user = parseUserAccounts (request.uri);
+      OAuthResponse user = parseUserAccounts (request.uri);
 
       userInfo.complete(user);
 
@@ -54,13 +54,13 @@ class OAuthentication {
     return onCode.stream;
   }
 
-  User parseUserAccounts(Uri uri) {
-    var user = User();
+  OAuthResponse parseUserAccounts(Uri uri) {
+    var user = OAuthResponse();
 
     int accountIndex = 1;
 
     while (uri.queryParameters['acct$accountIndex'] != null) {
-      user.addAccount(Account(
+      user.addAccount(TokenInfo(
           id: uri.queryParameters['acct$accountIndex'],
           token: uri.queryParameters['token$accountIndex'],
           currency: uri.queryParameters['cur$accountIndex']
@@ -72,10 +72,10 @@ class OAuthentication {
   }
 
 
-  Completer userInfo = Completer<User>();
+  Completer userInfo = Completer<OAuthResponse>();
 
 
-  Future<User> getToken() async {
+  Future<OAuthResponse> getToken() async {
     Stream<String> onCode = await _server();
     String url =
         "https://oauth.binary.com/oauth2/authorize?app_id=$APP_ID";
