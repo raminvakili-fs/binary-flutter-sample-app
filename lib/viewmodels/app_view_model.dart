@@ -15,7 +15,7 @@ class AppViewModel extends BaseViewModel {
     OAuthResponse oAuthResponse = await OAuthentication.instance.getToken();
     if (oAuthResponse != null && oAuthResponse.accounts.length > 0) {
       print('User info: ${oAuthResponse.accounts[0].token}');
-      binaryApi2.sendRequest(AuthorizeRequest(1, authorize: oAuthResponse.accounts[1].token), getResponseStream: true)
+      binaryApi2.sendRequest(AuthorizeRequest(this.hashCode + 1, authorize: oAuthResponse.accounts[1].token), getResponseStream: true)
           .listen((authorizeResponse) {
 
             _authorizeResponse.add(authorizeResponse);
