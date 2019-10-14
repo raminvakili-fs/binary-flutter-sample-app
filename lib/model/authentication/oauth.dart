@@ -45,7 +45,7 @@ class OAuthentication {
       request.response
         ..statusCode = 200
         ..headers.set("Content-Type", ContentType.HTML.mimeType)
-        ..write("<html><center>Logged in successfully! <br> <a href=\"https://www.w3schools.com\">Open App Trader</a></center></html>");
+        ..write("<html><center>Logged in successfully! <br> <a href=\"bat://binary.app\">Open App Trader</a></center></html>");
       await request.response.close();
       await server.close(force: true);
       onCode.add(token);
