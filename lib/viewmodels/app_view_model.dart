@@ -17,8 +17,6 @@ class AppViewModel extends BaseViewModel {
       _userInfo.add(user);
       binaryApi2.sendRequest(AuthorizeRequest(1, authorize: user.accounts[1].token));
     }
-
-
   }
 
   @override
