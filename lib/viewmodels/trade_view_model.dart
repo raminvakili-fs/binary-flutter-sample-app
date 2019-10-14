@@ -37,8 +37,6 @@ class TradeViewModel  extends BaseViewModel{
     priceProposalViewModel = PriceProposalViewModel();
     openContractViewModel = OpenContractViewModel();
 
-    binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
-
     symbolsViewModel.contractsForSymbolResponse.listen((response){
       contractsTypeViewModel.contractsForSymbolResponse.add(response);
     });
