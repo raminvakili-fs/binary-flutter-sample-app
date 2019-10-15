@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:binary_mobile_app/model/authentication/user.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -7,23 +8,10 @@ class DatabaseHelper {
   static DatabaseHelper _databaseHelper;
   static Database _database;
 
-  String userTable = 'User';
-  String favoritesTable = 'Favorites';
-  String apiSyncsTable = 'ApiSyncs';
+  String accountsTable = 'Accounts';
   String colId = 'id';
-  String colFirstName = 'firstName';
-  String colLastName = 'lastName';
-  String colEmail = 'email';
-  String colGender = 'gender';
-  String colPhoneNo = 'phoneNo';
-  String colDateOfBirth = 'dateOfBirth';
-  String colOrder = 'orderInList';
-  String colSyncStatus = 'syncStatus';
-
-  static const STATUS_NO_ACTION = 0;
-  static const STATUS_ADD = 1;
-  static const STATUS_DELETE = 2;
-  static const STATUS_UPDATE = 3;
+  String colToken = 'token';
+  String colCurrency = 'currency';
 
   DatabaseHelper._createInstance();
 
@@ -36,17 +24,13 @@ class DatabaseHelper {
 
   void _createDB(Database db, int version) async {
     await db.execute(
-        "CREATE TABLE $userTable ($colId	TEXT PRIMARY KEY, $colFirstName	TEXT, $colLastName	TEXT, $colEmail	TEXT, $colGender TEXT, $colPhoneNo	TEXT, $colDateOfBirth	TEXT, $colOrder INTEGER);");
-    await db.execute(
-        "CREATE TABLE $favoritesTable ($colId	TEXT PRIMARY KEY, $colOrder INTEGER);");
-    await db.execute(
-        "CREATE TABLE $apiSyncsTable ($colId	TEXT, $colSyncStatus INTEGER);");
-    print("User Table Created!");
+        "CREATE TABLE $accountsTable ($colId	TEXT PRIMARY KEY,  $colToken	TEXT, $colCurrency	TEXT);");
+    print("Accounts Table Created!");
   }
 
   Future<Database> initializeDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + "user.db";
+    String path = directory.path + "accounts.db";
     var userDatabase = openDatabase(path, version: 1, onCreate: _createDB);
     return userDatabase;
   }
@@ -60,43 +44,40 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getSavedUsers() async {
     Database db = await this.database;
-    var res = await db.query(userTable, orderBy: colOrder);
+    var res = await db.query(accountsTable);
     return res;
   }
+  
+//
+//  Future<Map<String, dynamic>> getUser(String id) async {
+//    Database db = await this.database;
+//    var res = await db.query(userTable, where: '$colId = ?', whereArgs: [id]);
+//    if (res.length > 0) {
+//      return res[0];
+//    } else {
+//      return null;
+//    }
+//  }
 
-  Future<Map<String, dynamic>> getUser(String id) async {
+//  Future<List<Map<String, dynamic>>> getFavoritesUsers() async {
+//    Database db = await this.database;
+//    var res = await db.rawQuery(
+//        'SELECT $userTable.$colId, $userTable.$colFirstName,$userTable.$colLastName,$userTable.$colEmail,$userTable.$colGender,$userTable.$colPhoneNo,$userTable.$colDateOfBirth, $favoritesTable.$colOrder FROM $userTable INNER JOIN $favoritesTable ON $userTable.$colId=$favoritesTable.$colId ORDER BY $favoritesTable.$colOrder;');
+//    return res;
+//  }
+
+
+
+  Future<int> insertAccount(TokenInfo tokenInfo) async {
     Database db = await this.database;
-    var res = await db.query(userTable, where: '$colId = ?', whereArgs: [id]);
-    if (res.length > 0) {
-      return res[0];
-    } else {
-      return null;
-    }
-  }
-
-  Future<List<Map<String, dynamic>>> getFavoritesUsers() async {
-    Database db = await this.database;
-    var res = await db.rawQuery(
-        'SELECT $userTable.$colId, $userTable.$colFirstName,$userTable.$colLastName,$userTable.$colEmail,$userTable.$colGender,$userTable.$colPhoneNo,$userTable.$colDateOfBirth, $favoritesTable.$colOrder FROM $userTable INNER JOIN $favoritesTable ON $userTable.$colId=$favoritesTable.$colId ORDER BY $favoritesTable.$colOrder;');
-    return res;
-  }
-
-  /*
-
-  Future<int> insertUser(User user) async {
-    Database db = await this.database;
-    bool isUserSaved = await isSavedUser(user);
-    bool willBeDeleted = await _isSyncAlreadyAdded(user, STATUS_DELETE);
     var res = 0;
-    if (!isUserSaved && !willBeDeleted) {
-      var maxOrder = await getLastOrder(userTable);
-      user.orderInList = maxOrder;
-      res = await db.insert(userTable, user.toMapForDB());
-      print("User added to DB");
-    }
+    res = await db.insert(accountsTable, tokenInfo.toMap());
+    print("User added to DB");
     return res;
   }
 
+
+/*
   Future<int> getLastOrder(String table) async {
     int maxOrder = 0;
     Database db = await this.database;
