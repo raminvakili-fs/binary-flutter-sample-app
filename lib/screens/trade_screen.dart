@@ -1,5 +1,4 @@
 
-import 'package:binary_mobile_app/model/authentication/user.dart';
 import 'package:binary_mobile_app/model/serializable/responses/authorize_response.dart';
 import 'package:binary_mobile_app/screens/statement_screen.dart';
 import 'package:binary_mobile_app/viewmodels/app_view_model.dart';

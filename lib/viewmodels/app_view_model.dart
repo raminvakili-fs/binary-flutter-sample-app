@@ -23,12 +23,21 @@ class AppViewModel extends BaseViewModel {
     }
 
     if (oAuthResponse != null && oAuthResponse.accounts.length > 0) {
+      _authenticate(oAuthResponse.accounts[0]);
       print('User info: ${oAuthResponse.accounts[0].token}');
-      binaryApi2.sendRequest(AuthorizeRequest(this.hashCode + 1, authorize: oAuthResponse.accounts[0].token), getResponseStream: true)
-          .listen((authorizeResponse) {
-            _authorizeResponse.add(authorizeResponse);
-      });
+
     }
+  }
+  
+  switchAccount(TokenInfo tokenInfo){
+    _authenticate(tokenInfo);
+  }
+
+  _authenticate(TokenInfo tokenInfo){
+    binaryApi2.sendRequest(AuthorizeRequest(this.hashCode + 1, authorize: tokenInfo.token), getResponseStream: true)
+        .listen((authorizeResponse) {
+      _authorizeResponse.add(authorizeResponse);
+    });
   }
 
   @override
