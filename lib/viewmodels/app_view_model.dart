@@ -11,25 +11,38 @@ class AppViewModel extends BaseViewModel {
   final _authorizeResponse = BehaviorSubject<AuthorizeResponse>();
   BehaviorSubject<AuthorizeResponse> get authorizeResponse => _authorizeResponse;
 
+  final _oauthResponse = BehaviorSubject<OAuthResponse>();
   final _databaseHelper = DatabaseHelper();
+
+  AppViewModel(){
+    _getAccountsToken();
+  }
 
 
   authenticateWithOauth() async{
     OAuthResponse oAuthResponse = await OAuthentication.instance.getToken();
+    _oauthResponse.add(oAuthResponse);
 
     await _databaseHelper.clearTable();
+
     for (var acc in oAuthResponse.accounts){
       _databaseHelper.insertAccount(acc);
     }
 
     if (oAuthResponse != null && oAuthResponse.accounts.length > 0) {
       _authenticate(oAuthResponse.accounts[0]);
-      print('User info: ${oAuthResponse.accounts[0].token}');
-
     }
+
   }
 
-  Future<List<TokenInfo>> getAccountsToken () => _databaseHelper.getAccounts();
+  _getAccountsToken () async {
+    var tokenInfos = await _databaseHelper.getAccounts();
+    var oauthResponse = OAuthResponse();
+    for (var ti in tokenInfos) {
+      oauthResponse.addAccount(ti);
+    }
+    _oauthResponse.add(oauthResponse);
+  }
 
 
   switchAccount(TokenInfo tokenInfo){
@@ -47,6 +60,7 @@ class AppViewModel extends BaseViewModel {
   void dispose() {
     super.dispose();
     _authorizeResponse.close();
+    _oauthResponse.close();
   }
 
 }
