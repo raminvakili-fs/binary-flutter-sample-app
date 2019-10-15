@@ -74,7 +74,28 @@ class TradeScreen extends StatelessWidget {
                 appViewModel.authenticateWithOauth();
 
               }
+            ),
+
+            StreamBuilder(
+              stream: appViewModel.oauthResponse,
+              builder: (_, AsyncSnapshot<OAuthResponse> oauthResponseSnapshot){
+                if(oauthResponseSnapshot.hasData){
+
+                  return PopupMenuButton<TokenInfo>(
+                    onSelected: (TokenInfo result) {
+                      appViewModel.switchAccount(result);
+                    },
+                    itemBuilder: (BuildContext context){
+                      return oauthResponseSnapshot.data.accounts.map((tokenInfo) =>
+                          PopupMenuItem<TokenInfo>(value: tokenInfo, child: Text('${tokenInfo.id}'),)).toList();
+                    }
+                  );
+
+                }
+                return Container();
+              },
             )
+
           ],
         ),
         body: TradeView(),

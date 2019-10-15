@@ -1,4 +1,6 @@
+import 'package:binary_mobile_app/api_info.dart';
 import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
+import 'package:binary_mobile_app/model/serializable/requests/authorize_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/forget_all_request.dart';
 import 'package:binary_mobile_app/model/serializable/requests/proposal_open_contract_request.dart';
@@ -24,6 +26,8 @@ class TradeViewModel  extends BaseViewModel{
     contractsTypeViewModel = ContractsTypeViewModel();
     priceProposalViewModel = PriceProposalViewModel();
     openContractViewModel = OpenContractViewModel();
+
+    binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
 
     symbolsViewModel.contractsForSymbolResponse.listen((response){
       contractsTypeViewModel.contractsForSymbolResponse.add(response);

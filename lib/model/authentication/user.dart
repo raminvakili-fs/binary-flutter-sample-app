@@ -18,5 +18,12 @@ class TokenInfo {
 
   TokenInfo({@required this.id, @required this.token, @required this.currency});
 
+  Map<String, dynamic> toMap (){
+    return {
+      'id': id,
+      'token' : token,
+      'currency': currency
+    };
+  }
 
 }
