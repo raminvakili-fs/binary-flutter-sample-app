@@ -47,7 +47,7 @@ class DatabaseHelper {
     var res = await db.query(accountsTable);
     return res;
   }
-  
+
 //
 //  Future<Map<String, dynamic>> getUser(String id) async {
 //    Database db = await this.database;
@@ -72,7 +72,7 @@ class DatabaseHelper {
     Database db = await this.database;
     var res = 0;
     res = await db.insert(accountsTable, tokenInfo.toMap());
-    print("User added to DB");
+    print("account added to DB");
     return res;
   }
 
