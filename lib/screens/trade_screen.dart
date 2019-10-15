@@ -83,7 +83,7 @@ class TradeScreen extends StatelessWidget {
 
                   return PopupMenuButton<TokenInfo>(
                     onSelected: (TokenInfo result) {
-
+                      appViewModel.switchAccount(result);
                     },
                     itemBuilder: (BuildContext context){
                       return oauthResponseSnapshot.data.accounts.map((tokenInfo) =>
