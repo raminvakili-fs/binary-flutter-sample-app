@@ -17,17 +17,16 @@ class AppViewModel extends BaseViewModel {
   authenticateWithOauth() async{
     OAuthResponse oAuthResponse = await OAuthentication.instance.getToken();
 
+    await _databaseHelper.clearTable();
     for (var acc in oAuthResponse.accounts){
       _databaseHelper.insertAccount(acc);
     }
 
     if (oAuthResponse != null && oAuthResponse.accounts.length > 0) {
       print('User info: ${oAuthResponse.accounts[0].token}');
-      binaryApi2.sendRequest(AuthorizeRequest(this.hashCode + 1, authorize: oAuthResponse.accounts[1].token), getResponseStream: true)
+      binaryApi2.sendRequest(AuthorizeRequest(this.hashCode + 1, authorize: oAuthResponse.accounts[0].token), getResponseStream: true)
           .listen((authorizeResponse) {
-
             _authorizeResponse.add(authorizeResponse);
-
       });
     }
   }

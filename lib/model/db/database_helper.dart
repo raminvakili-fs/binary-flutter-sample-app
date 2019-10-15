@@ -76,6 +76,10 @@ class DatabaseHelper {
     return res;
   }
 
+  clearTable() {
+
+  }
+
 
 /*
   Future<int> getLastOrder(String table) async {
