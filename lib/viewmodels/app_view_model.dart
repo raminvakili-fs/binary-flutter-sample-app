@@ -12,6 +12,8 @@ class AppViewModel extends BaseViewModel {
   BehaviorSubject<AuthorizeResponse> get authorizeResponse => _authorizeResponse;
 
   final _oauthResponse = BehaviorSubject<OAuthResponse>();
+  BehaviorSubject<OAuthResponse> get oauthResponse => _oauthResponse;
+
   final _databaseHelper = DatabaseHelper();
 
   AppViewModel(){

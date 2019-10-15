@@ -1,4 +1,5 @@
 
+import 'package:binary_mobile_app/model/authentication/user.dart';
 import 'package:binary_mobile_app/model/serializable/responses/authorize_response.dart';
 import 'package:binary_mobile_app/screens/statement_screen.dart';
 import 'package:binary_mobile_app/viewmodels/app_view_model.dart';
@@ -73,7 +74,28 @@ class TradeScreen extends StatelessWidget {
                 appViewModel.authenticateWithOauth();
 
               }
+            ),
+
+            StreamBuilder(
+              stream: appViewModel.oauthResponse,
+              builder: (_, AsyncSnapshot<OAuthResponse> oauthResponseSnapshot){
+                if(oauthResponseSnapshot.hasData){
+
+                  return PopupMenuButton<TokenInfo>(
+                    onSelected: (TokenInfo result) {
+
+                    },
+                    itemBuilder: (BuildContext context){
+                      return oauthResponseSnapshot.data.accounts.map((tokenInfo) =>
+                          PopupMenuItem<TokenInfo>(value: tokenInfo, child: Text('${tokenInfo.id}'),)).toList();
+                    }
+                  );
+
+                }
+                return Container();
+              },
             )
+
           ],
         ),
         body: TradeView(),
