@@ -42,10 +42,18 @@ class DatabaseHelper {
     return _database;
   }
 
-  Future<List<Map<String, dynamic>>> getSavedUsers() async {
+  Future<List<TokenInfo>> getAccounts() async {
     Database db = await this.database;
     var res = await db.query(accountsTable);
-    return res;
+    List<TokenInfo> accounts = [];
+    for (var acc in res) {
+      accounts.add(TokenInfo(
+        id: acc['id'],
+        token: acc['token'],
+        currency: acc['currency'],
+      ));
+    }
+    return accounts;
   }
 
 //

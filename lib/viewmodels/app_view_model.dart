@@ -28,7 +28,10 @@ class AppViewModel extends BaseViewModel {
 
     }
   }
-  
+
+  Future<List<TokenInfo>> getAccountsToken () => _databaseHelper.getAccounts();
+
+
   switchAccount(TokenInfo tokenInfo){
     _authenticate(tokenInfo);
   }
