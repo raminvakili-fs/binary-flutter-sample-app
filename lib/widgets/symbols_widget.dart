@@ -20,7 +20,8 @@ class SymbolsWidget extends StatefulWidget {
 
 class _SymbolsWidgetState extends State<SymbolsWidget> {
 
-  final tickStreamValues = Queue<double>();
+  final tickStreamChartValues = Queue<double>();
+  double tickStreamLastValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +90,21 @@ class _SymbolsWidgetState extends State<SymbolsWidget> {
                             builder: (context,
                                 AsyncSnapshot<TickStreamResponse> snapshot) {
                               if (snapshot.hasData) {
+
+                                Color bgColor;
+
+                                if (snapshot.data.tick.ask >= tickStreamLastValue){
+                                  bgColor = Colors.lightGreen;
+                                } else {
+                                  bgColor = Colors.redAccent;
+                                }
+
+                                tickStreamLastValue = snapshot.data.tick.ask;
+
                                 return Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(4),
-                                    color: Colors.lightGreen,
+                                    color: bgColor,
                                   ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(2.0),
@@ -120,17 +132,17 @@ class _SymbolsWidgetState extends State<SymbolsWidget> {
                           AsyncSnapshot<TickStreamResponse> snapshot) {
                         if (snapshot.hasData) {
 
-                          tickStreamValues.add(snapshot.data.tick.ask);
+                          tickStreamChartValues.add(snapshot.data.tick.ask);
 
-                          if (tickStreamValues.length > 15) {
-                            tickStreamValues.removeFirst();
+                          if (tickStreamChartValues.length > 15) {
+                            tickStreamChartValues.removeFirst();
                           }
 
                           return Container(
                             width: 30,
                             height: 30,
                             child: Sparkline(
-                              data: tickStreamValues.toList(),
+                              data: tickStreamChartValues.toList(),
                               pointsMode: PointsMode.last,
                               pointSize: 2.0,
                               pointColor: Colors.amber,
