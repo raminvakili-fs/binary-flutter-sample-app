@@ -7,7 +7,7 @@
 
 A Flutter application which communicates to the Binary.com API.
 
-![](app_trader_01.gif)   ![](app_trader_02.gif) 
+![](app_trader_03.gif)   ![](app_trader_04.gif) 
 
 
 ## Usage
