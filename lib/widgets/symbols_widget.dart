@@ -1,12 +1,26 @@
+import 'dart:collection';
+
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:binary_mobile_app/widgets/shared/binary_progress_indicator.dart';
 import 'package:binary_mobile_app/widgets/symbols_list_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:provider/provider.dart';
 
-class SymbolsWidget extends StatelessWidget {
+class SymbolsWidget extends StatefulWidget {
+
+
+  @override
+  _SymbolsWidgetState createState() => _SymbolsWidgetState();
+
+
+}
+
+class _SymbolsWidgetState extends State<SymbolsWidget> {
+
+  final tickStreamValues = Queue<double>();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +108,40 @@ class SymbolsWidget extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
+
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: StreamBuilder(
+                      stream: tradeScreenViewModel.symbolsViewModel.tickStream,
+                      builder: (context,
+                          AsyncSnapshot<TickStreamResponse> snapshot) {
+                        if (snapshot.hasData) {
+
+                          tickStreamValues.add(snapshot.data.tick.ask);
+
+                          if (tickStreamValues.length > 15) {
+                            tickStreamValues.removeFirst();
+                          }
+
+                          return Container(
+                            width: 30,
+                            height: 30,
+                            child: Sparkline(
+                              data: tickStreamValues.toList(),
+                              pointsMode: PointsMode.last,
+                              pointSize: 2.0,
+                              pointColor: Colors.amber,
+                            ),
+                          );
+                        }
+                        return Text("...");
+                      }),
+                ),
               )
+
             ],
           ),
         ),
