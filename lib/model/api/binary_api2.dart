@@ -13,6 +13,7 @@ import 'package:binary_mobile_app/model/serializable/responses/proposal_open_con
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
 import 'package:binary_mobile_app/model/serializable/responses/statement_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
+import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 
 class BinaryApi2 {
