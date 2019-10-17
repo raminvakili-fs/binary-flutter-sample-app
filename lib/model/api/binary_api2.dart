@@ -13,13 +13,12 @@ import 'package:binary_mobile_app/model/serializable/responses/proposal_open_con
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
 import 'package:binary_mobile_app/model/serializable/responses/statement_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
+import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 
 class BinaryApi2 {
   IOWebSocketChannel _channel;
   static BinaryApi2 _instance;
-
-  int reqID = 1;
 
   //Is for keeping track of the requests that has been sent to map the their response once it received from the server
   //Needs optimization in case of removing requests that are not stream base. and need only one time call.
@@ -114,7 +113,6 @@ class BinaryApi2 {
       }
     }
   }
-
 
   ResponseStream _containsReqId(List<ResponseStream> responseStreams, int reqID) {
     for (var rs in responseStreams){

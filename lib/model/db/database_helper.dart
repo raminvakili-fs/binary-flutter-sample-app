@@ -56,26 +56,6 @@ class DatabaseHelper {
     return accounts;
   }
 
-//
-//  Future<Map<String, dynamic>> getUser(String id) async {
-//    Database db = await this.database;
-//    var res = await db.query(userTable, where: '$colId = ?', whereArgs: [id]);
-//    if (res.length > 0) {
-//      return res[0];
-//    } else {
-//      return null;
-//    }
-//  }
-
-//  Future<List<Map<String, dynamic>>> getFavoritesUsers() async {
-//    Database db = await this.database;
-//    var res = await db.rawQuery(
-//        'SELECT $userTable.$colId, $userTable.$colFirstName,$userTable.$colLastName,$userTable.$colEmail,$userTable.$colGender,$userTable.$colPhoneNo,$userTable.$colDateOfBirth, $favoritesTable.$colOrder FROM $userTable INNER JOIN $favoritesTable ON $userTable.$colId=$favoritesTable.$colId ORDER BY $favoritesTable.$colOrder;');
-//    return res;
-//  }
-
-
-
   Future<int> insertAccount(TokenInfo tokenInfo) async {
     Database db = await this.database;
     var res = 0;

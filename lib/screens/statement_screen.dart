@@ -1,6 +1,6 @@
 import 'package:binary_mobile_app/model/serializable/responses/balance_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/statement_response.dart';
-import 'package:binary_mobile_app/util.dart';
+import 'package:binary_mobile_app/util/misc_utils.dart';
 import 'package:binary_mobile_app/viewmodels/statement_screen_view_model.dart';
 import 'package:binary_mobile_app/widgets/shared/binary_progress_indicator.dart';
 import 'package:flutter/material.dart';
