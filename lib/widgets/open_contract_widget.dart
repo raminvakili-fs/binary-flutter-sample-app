@@ -1,6 +1,6 @@
 
 import 'package:binary_mobile_app/model/serializable/responses/proposal_open_contract_response.dart';
-import 'package:binary_mobile_app/util.dart';
+import 'package:binary_mobile_app/util/misc_utils.dart';
 import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
