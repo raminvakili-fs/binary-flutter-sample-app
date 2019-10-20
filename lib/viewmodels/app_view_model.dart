@@ -1,4 +1,4 @@
-import 'package:binary_mobile_app/model/authentication/user.dart';
+import 'package:binary_mobile_app/model/authentication/token_info.dart';
 import 'package:binary_mobile_app/model/db/database_helper.dart';
 import 'package:binary_mobile_app/model/serializable/requests/authorize_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/authorize_response.dart';
