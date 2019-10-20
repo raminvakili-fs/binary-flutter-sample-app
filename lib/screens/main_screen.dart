@@ -1,6 +1,6 @@
 import 'package:binary_mobile_app/model/serializable/requests/active_symbols_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
-import 'package:binary_mobile_app/viewmodels/main_screen_view_model.dart';
+import 'package:binary_mobile_app/blocs/main_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
-import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
+import 'package:binary_mobile_app/blocs/trade_bloc.dart';
 import 'package:binary_mobile_app/widgets/shared/binary_progress_indicator.dart';
 import 'package:binary_mobile_app/widgets/symbols_list_dialog.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class _SymbolsWidgetState extends State<SymbolsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var tradeScreenViewModel = Provider.of<TradeViewModel>(context);
+    var tradeScreenViewModel = Provider.of<TradeBloc>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -89,7 +89,7 @@ class _SymbolsWidgetState extends State<SymbolsWidget> {
                             stream: tradeScreenViewModel.symbolsViewModel.tickStream,
                             builder: (context,
                                 AsyncSnapshot<TickStreamResponse> snapshot) {
-                              if (snapshot.hasData) {
+                              if (snapshot.hasData && snapshot.data.error == null) {
 
                                 Color bgColor;
 
@@ -99,7 +99,7 @@ class _SymbolsWidgetState extends State<SymbolsWidget> {
                                   bgColor = Colors.redAccent;
                                 }
 
-                                tickStreamLastValue = snapshot.data.tick.ask;
+                                tickStreamLastValue = snapshot.data.tick?.ask;
 
                                 return Container(
                                   decoration: BoxDecoration(
@@ -130,9 +130,9 @@ class _SymbolsWidgetState extends State<SymbolsWidget> {
                       stream: tradeScreenViewModel.symbolsViewModel.tickStream,
                       builder: (context,
                           AsyncSnapshot<TickStreamResponse> snapshot) {
-                        if (snapshot.hasData) {
+                        if (snapshot.hasData && snapshot.data.error == null) {
 
-                          tickStreamChartValues.add(snapshot.data.tick.ask);
+                          tickStreamChartValues.add(snapshot.data.tick?.ask);
 
                           if (tickStreamChartValues.length > 15) {
                             tickStreamChartValues.removeFirst();

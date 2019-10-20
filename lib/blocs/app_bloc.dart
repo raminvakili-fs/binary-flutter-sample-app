@@ -2,11 +2,11 @@ import 'package:binary_mobile_app/model/authentication/token_info.dart';
 import 'package:binary_mobile_app/model/db/database_helper.dart';
 import 'package:binary_mobile_app/model/serializable/requests/authorize_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/authorize_response.dart';
-import 'package:binary_mobile_app/viewmodels/base_view_model.dart';
+import 'package:binary_mobile_app/blocs/base_bloc.dart';
 import 'package:binary_mobile_app/model/authentication/oauth.dart';
 import 'package:rxdart/rxdart.dart';
 
-class AppViewModel extends BaseViewModel {
+class AppBloc extends BaseBloc {
 
   final _authorizeResponse = BehaviorSubject<AuthorizeResponse>();
   BehaviorSubject<AuthorizeResponse> get authorizeResponse => _authorizeResponse;
@@ -16,7 +16,7 @@ class AppViewModel extends BaseViewModel {
 
   final _databaseHelper = DatabaseHelper();
 
-  AppViewModel(){
+  AppBloc(){
     _getAccountsToken();
   }
 

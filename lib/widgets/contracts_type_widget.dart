@@ -1,5 +1,5 @@
 import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
-import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
+import 'package:binary_mobile_app/blocs/trade_bloc.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_dialog.dart';
 import 'package:binary_mobile_app/widgets/shared/binary_progress_indicator.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class ContractsTypeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var tradeViewModel = Provider.of<TradeViewModel>(context);
+    var tradeViewModel = Provider.of<TradeBloc>(context);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

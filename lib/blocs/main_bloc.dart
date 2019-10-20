@@ -10,7 +10,7 @@ import 'package:binary_mobile_app/model/serializable/responses/tick_stream_respo
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
-class MainScreenViewModel extends ChangeNotifier {
+class MainBloc extends ChangeNotifier {
 
   BinaryApi2 binaryApi2;
 
@@ -65,7 +65,7 @@ class MainScreenViewModel extends ChangeNotifier {
     _isLoading = loading;
   }
 
-  MainScreenViewModel(){
+  MainBloc(){
     binaryApi2 = BinaryApi2.getInstance;
     print("MainScreenViewModel instantiated");
   }

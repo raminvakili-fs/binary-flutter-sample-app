@@ -4,10 +4,10 @@ import 'package:binary_mobile_app/model/serializable/requests/tick_stream_reques
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
-import 'package:binary_mobile_app/viewmodels/base_view_model.dart';
+import 'package:binary_mobile_app/blocs/base_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-class SymbolsViewModel extends BaseViewModel {
+class SymbolsBloc extends BaseBloc {
 
   BehaviorSubject<TickStreamResponse> _tickStream = BehaviorSubject<TickStreamResponse>();
   BehaviorSubject<TickStreamResponse> get tickStream => _tickStream;
@@ -16,7 +16,7 @@ class SymbolsViewModel extends BaseViewModel {
   BehaviorSubject<ActiveSymbols> get selectedSymbol => _selectedSymbol;
 
 
-  SymbolsViewModel(){
+  SymbolsBloc(){
     selectedSymbol.listen((ActiveSymbols activeSymbol){
       _tickStream.add(null);
       binaryApi2.sendRequest(TickStreamRequest(this.hashCode + 7, activeSymbol.symbol, 1))
