@@ -1,5 +1,5 @@
 import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
-import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
+import 'package:binary_mobile_app/blocs/trade_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +21,7 @@ class _MatchDiffFormState extends State<MatchDiffForm> {
 
   @override
   Widget build(BuildContext context) {
-    var tradeViewModel = Provider.of<TradeViewModel>(context);
+    var tradeViewModel = Provider.of<TradeBloc>(context);
 
     return Form(
       key: _formKey,

@@ -6,11 +6,11 @@ import 'package:binary_mobile_app/model/serializable/responses/statement_respons
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
-class StatementScreenViewModel extends ChangeNotifier{
+class StatementBloc extends ChangeNotifier{
 
   BinaryApi2 _binaryApi2;
 
-  StatementScreenViewModel(){
+  StatementBloc(){
     _binaryApi2 = BinaryApi2.getInstance;
 
     _binaryApi2.sendRequest(StatementRequest(reqId: this.hashCode, limit: 25)).listen((response){

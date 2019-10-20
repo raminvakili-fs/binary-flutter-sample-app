@@ -2,7 +2,7 @@ import 'package:binary_mobile_app/model/api/binary_api2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
-abstract class BaseViewModel extends ChangeNotifier {
+abstract class BaseBloc extends ChangeNotifier {
 
   BinaryApi2 binaryApi2 = BinaryApi2.getInstance;
 

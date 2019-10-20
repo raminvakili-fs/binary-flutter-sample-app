@@ -3,7 +3,7 @@ import 'package:binary_mobile_app/model/serializable/categories/contract_categor
 import 'package:binary_mobile_app/model/serializable/categories/contract_type_form_classes.dart';
 import 'package:binary_mobile_app/model/serializable/requests/buy_contract_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/price_proposal_response.dart';
-import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
+import 'package:binary_mobile_app/blocs/trade_bloc.dart';
 import 'package:binary_mobile_app/widgets/forms/contracts_forms/digits_form.dart';
 import 'package:binary_mobile_app/widgets/shared/buy_button.dart';
 import 'package:binary_mobile_app/widgets/shared/rotating_Icon.dart';
@@ -26,7 +26,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
 
   @override
   Widget build(BuildContext context) {
-    var tradeViewModel = Provider.of<TradeViewModel>(context);
+    var tradeViewModel = Provider.of<TradeBloc>(context);
 
     Widget childForm;
 
@@ -284,7 +284,7 @@ class _BuyContractFormState extends State<BuyContractForm> {
     );
   }
 
-  _getProposal(TradeViewModel viewModel, ContractTypeItem contractTypeItem) async {
+  _getProposal(TradeBloc viewModel, ContractTypeItem contractTypeItem) async {
     if (_formKey.currentState != null && _formKey.currentState.validate()) {
       _formKey.currentState.save();
     }

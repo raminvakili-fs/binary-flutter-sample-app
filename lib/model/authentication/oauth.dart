@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:binary_mobile_app/model/authentication/user.dart';
+import 'package:binary_mobile_app/model/authentication/token_info.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 

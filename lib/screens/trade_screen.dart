@@ -1,9 +1,9 @@
 
-import 'package:binary_mobile_app/model/authentication/user.dart';
+import 'package:binary_mobile_app/model/authentication/token_info.dart';
 import 'package:binary_mobile_app/model/serializable/responses/authorize_response.dart';
 import 'package:binary_mobile_app/screens/statement_screen.dart';
-import 'package:binary_mobile_app/viewmodels/app_view_model.dart';
-import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
+import 'package:binary_mobile_app/blocs/app_bloc.dart';
+import 'package:binary_mobile_app/blocs/trade_bloc.dart';
 import 'package:binary_mobile_app/widgets/contracts_type_widget.dart';
 import 'package:binary_mobile_app/widgets/open_contract_widget.dart';
 import 'package:binary_mobile_app/widgets/price_proposal_widget.dart';
@@ -19,11 +19,11 @@ class TradeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final appViewModel = Provider.of<AppViewModel>(context);
+    final appViewModel = Provider.of<AppBloc>(context);
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (_) => TradeViewModel()),
+        ChangeNotifierProvider(builder: (_) => TradeBloc()),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -147,6 +147,6 @@ class _TradeViewState extends State<TradeView> {
   void dispose() {
     super.dispose();
     print('trade screen disposed');
-    Provider.of<TradeViewModel>(_context)?.dispose();
+    Provider.of<TradeBloc>(_context)?.dispose();
   }
 }

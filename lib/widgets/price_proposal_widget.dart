@@ -1,5 +1,5 @@
 import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
-import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
+import 'package:binary_mobile_app/blocs/trade_bloc.dart';
 import 'package:binary_mobile_app/widgets/forms/buy_contract_form.dart';
 import 'package:binary_mobile_app/widgets/shared/binary_progress_indicator.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class PriceProposalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<TradeViewModel>(
+    return Consumer<TradeBloc>(
       builder: (ctx, model, child) {
         return Padding(
           padding: const EdgeInsets.all(8.0),

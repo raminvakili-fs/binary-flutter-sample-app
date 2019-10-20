@@ -13,7 +13,7 @@ import 'package:binary_mobile_app/model/serializable/responses/price_proposal_re
 import 'package:binary_mobile_app/model/serializable/responses/response_base.dart';
 import 'package:binary_mobile_app/model/serializable/responses/statement_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/tick_stream_response.dart';
-import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
+import 'package:binary_mobile_app/blocs/trade_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

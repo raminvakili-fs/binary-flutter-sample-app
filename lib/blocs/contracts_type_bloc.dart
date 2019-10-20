@@ -1,10 +1,10 @@
 import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
 import 'package:binary_mobile_app/model/serializable/requests/contracts_for_symbol_request.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
-import 'package:binary_mobile_app/viewmodels/base_view_model.dart';
+import 'package:binary_mobile_app/blocs/base_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-class ContractsTypeViewModel extends BaseViewModel {
+class ContractsTypeBloc extends BaseBloc {
 
 
   final _contractsForSymbolResponse = BehaviorSubject<ContractsForSymbolResponse>();

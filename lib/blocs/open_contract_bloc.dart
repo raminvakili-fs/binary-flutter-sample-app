@@ -1,8 +1,8 @@
 import 'package:binary_mobile_app/model/serializable/responses/proposal_open_contract_response.dart';
-import 'package:binary_mobile_app/viewmodels/base_view_model.dart';
+import 'package:binary_mobile_app/blocs/base_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-class OpenContractViewModel extends BaseViewModel {
+class OpenContractBloc extends BaseBloc {
   final _proposalOpenContractResponse = BehaviorSubject<ProposalOpenContractResponse>();
   BehaviorSubject<ProposalOpenContractResponse> get proposalOpenContractResponse => _proposalOpenContractResponse;
 

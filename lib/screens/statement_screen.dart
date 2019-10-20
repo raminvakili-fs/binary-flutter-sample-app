@@ -1,7 +1,7 @@
 import 'package:binary_mobile_app/model/serializable/responses/balance_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/statement_response.dart';
 import 'package:binary_mobile_app/util/misc_utils.dart';
-import 'package:binary_mobile_app/viewmodels/statement_screen_view_model.dart';
+import 'package:binary_mobile_app/blocs/statement_bloc.dart';
 import 'package:binary_mobile_app/widgets/shared/binary_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,10 +11,10 @@ class StatementScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: StatementScreenViewModel())
+        ChangeNotifierProvider.value(value: StatementBloc())
       ],
       child: Consumer(
-        builder: (context, StatementScreenViewModel model, child){
+        builder: (context, StatementBloc model, child){
           return Scaffold(
             appBar: AppBar(
               title: Row(

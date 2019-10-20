@@ -1,5 +1,5 @@
 import 'package:binary_mobile_app/screens/trade_screen.dart';
-import 'package:binary_mobile_app/viewmodels/app_view_model.dart';
+import 'package:binary_mobile_app/blocs/app_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (_) => AppViewModel()),
+        ChangeNotifierProvider(builder: (_) => AppBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

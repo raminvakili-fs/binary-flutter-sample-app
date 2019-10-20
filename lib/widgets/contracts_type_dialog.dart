@@ -1,13 +1,13 @@
 import 'package:binary_mobile_app/model/serializable/categories/contract_category.dart';
 import 'package:binary_mobile_app/model/serializable/responses/contracts_for_symbol_response.dart';
-import 'package:binary_mobile_app/viewmodels/trade_view_model.dart';
+import 'package:binary_mobile_app/blocs/trade_bloc.dart';
 import 'package:binary_mobile_app/widgets/shared/binary_progress_indicator.dart';
 import 'package:binary_mobile_app/widgets/shared/funky_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ContractsTypeDialog extends StatelessWidget {
-  final TradeViewModel viewModel;
+  final TradeBloc viewModel;
 
   const ContractsTypeDialog({Key key, this.viewModel}) : super(key: key);
 

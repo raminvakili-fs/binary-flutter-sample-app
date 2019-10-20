@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:binary_mobile_app/model/authentication/user.dart';
+import 'package:binary_mobile_app/model/authentication/token_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 

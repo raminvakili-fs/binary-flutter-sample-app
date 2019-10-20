@@ -7,25 +7,25 @@ import 'package:binary_mobile_app/model/serializable/requests/proposal_open_cont
 import 'package:binary_mobile_app/model/serializable/responses/active_symbols_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/buy_contract_response.dart';
 import 'package:binary_mobile_app/model/serializable/responses/proposal_open_contract_response.dart';
-import 'package:binary_mobile_app/viewmodels/symbols_view_model.dart';
-import 'package:binary_mobile_app/viewmodels/base_view_model.dart';
-import 'package:binary_mobile_app/viewmodels/contracts_type_view_model.dart';
-import 'package:binary_mobile_app/viewmodels/open_contract_view_model.dart';
-import 'package:binary_mobile_app/viewmodels/price_proposal_view_model.dart';
+import 'package:binary_mobile_app/blocs/symbols_bloc.dart';
+import 'package:binary_mobile_app/blocs/base_bloc.dart';
+import 'package:binary_mobile_app/blocs/contracts_type_bloc.dart';
+import 'package:binary_mobile_app/blocs/open_contract_bloc.dart';
+import 'package:binary_mobile_app/blocs/price_proposal_bloc.dart';
 
-class TradeViewModel  extends BaseViewModel{
+class TradeBloc  extends BaseBloc{
 
-  SymbolsViewModel symbolsViewModel;
-  ContractsTypeViewModel contractsTypeViewModel;
-  PriceProposalViewModel priceProposalViewModel;
-  OpenContractViewModel openContractViewModel;
+  SymbolsBloc symbolsViewModel;
+  ContractsTypeBloc contractsTypeViewModel;
+  PriceProposalBloc priceProposalViewModel;
+  OpenContractBloc openContractViewModel;
 
-  TradeViewModel(){
+  TradeBloc(){
 
-    symbolsViewModel = SymbolsViewModel();
-    contractsTypeViewModel = ContractsTypeViewModel();
-    priceProposalViewModel = PriceProposalViewModel();
-    openContractViewModel = OpenContractViewModel();
+    symbolsViewModel = SymbolsBloc();
+    contractsTypeViewModel = ContractsTypeBloc();
+    priceProposalViewModel = PriceProposalBloc();
+    openContractViewModel = OpenContractBloc();
 
     binaryApi2.sendRequest(AuthorizeRequest(1, authorize: API_TOKEN));
 
